@@ -1,0 +1,105 @@
+name: Compilar (Windows .exe y Linux)
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar dependencias
+        run: python -m pip install -r requirements.txt
+      - name: Pruebas (cada fichero tests/test_*.py; si uno falla se repite una vez)
+        run: |
+          fallos=0
+          for f in tests/test_*.py; do
+            if python "$f" > /tmp/prueba.log 2>&1; then echo "OK    $f"
+            elif python "$f" > /tmp/prueba.log 2>&1; then echo "OK (2.º intento)  $f"
+            else echo "FALLA $f"; tail -15 /tmp/prueba.log; fallos=$((fallos+1)); fi
+          done
+          echo "Ficheros de prueba con fallos: $fallos"
+          test "$fallos" -eq 0
+
+  compilar:
+    needs: pruebas
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - sistema: windows
+            runner: windows-latest
+            salida: AVAMET_Monitor-windows-x64.zip
+          - sistema: linux
+            runner: ubuntu-22.04      # glibc 2.35: el binario funciona en distribuciones de esa época o más nuevas
+            salida: AVAMET_Monitor-linux-x86_64.tar.gz
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar dependencias (con las del satélite Meteosat) y PyInstaller
+        run: python -m pip install -r requirements.txt -r requirements-satelite.txt pyinstaller
+      - name: Compilar
+        run: python -m PyInstaller --clean AVAMET_Monitor.spec
+      - name: Empaquetar (Windows)
+        if: matrix.sistema == 'windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path paquete | Out-Null
+          Copy-Item dist/AVAMET_Monitor.exe paquete/
+          Copy-Item .env.example paquete/
+          Copy-Item arrancar.bat paquete/
+          Compress-Archive -Path paquete/* -DestinationPath "${{ matrix.salida }}"
+      - name: Empaquetar (Linux)
+        if: matrix.sistema == 'linux'
+        run: |
+          mkdir -p paquete
+          cp dist/AVAMET_Monitor paquete/
+          cp .env.example deploy/avamet-monitor.service paquete/
+          chmod +x paquete/AVAMET_Monitor
+          tar -czf "${{ matrix.salida }}" -C paquete .
+      - name: "Comprobar que arranca (Linux: se lanza sin navegador y se pide la página)"
+        if: matrix.sistema == 'linux'
+        run: |
+          AVAMET_DATA_DIR="$RUNNER_TEMP/datos" ./paquete/AVAMET_Monitor --headless --port 8765 > "$RUNNER_TEMP/arranque.log" 2>&1 &
+          for i in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:8765/ -o /dev/null; then echo "La aplicación responde"; kill %1 || true; exit 0; fi
+            sleep 2
+          done
+          echo "No arrancó en 80 s:"; cat "$RUNNER_TEMP/arranque.log"; exit 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.salida }}
+          path: ${{ matrix.salida }}
+          if-no-files-found: error
+
+  publicar:
+    needs: compilar
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: descargas
+          merge-multiple: true
+      - name: Publicar en Releases («ultima»)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ls -l descargas
+          gh release delete ultima --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
+          gh release create ultima descargas/* --repo "$GITHUB_REPOSITORY" --title "Última versión (nº $GITHUB_RUN_NUMBER)" --target "$GITHUB_SHA" \
+            --notes "Compilado automáticamente por GitHub Actions (commit $GITHUB_SHA). Windows: .zip con AVAMET_Monitor.exe. Linux x86_64: .tar.gz con el binario. Probado en el CI: pruebas del código y, en Linux, arranque del binario."

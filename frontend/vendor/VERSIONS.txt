@@ -1,0 +1,33 @@
+Descargado el 2026-11-02 13:44:10 con scripts/descargar_vendor.py
+Leaflet 1.9.4 (BSD-2-Clause) · Chart.js 4.4.1 (MIT)
+
+leaflet/leaflet.js
+  https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js
+  147552 bytes  sha256 db49d009c841f5ca34a888c96511ae936fd9f5533e90d8b2c4d57596f4e5641a
+leaflet/leaflet.css
+  https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css
+  14806 bytes  sha256 a7837102824184820dfa198d1ebcd109ff6d0ff9a2672a074b9a1b4d147d04c6
+leaflet/images/layers.png
+  https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/layers.png
+  696 bytes  sha256 1dbbe9d028e292f36fcba8f8b3a28d5e8932754fc2215b9ac69e4cdecf5107c6
+leaflet/images/layers-2x.png
+  https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/layers-2x.png
+  1259 bytes  sha256 066daca850d8ffbef007af00b06eac0015728dee279c51f3cb6c716df7c42edf
+leaflet/images/marker-icon.png
+  https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon.png
+  1466 bytes  sha256 574c3a5cca85f4114085b6841596d62f00d7c892c7b03f28cbfa301deb1dc437
+leaflet/images/marker-icon-2x.png
+  https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon-2x.png
+  2464 bytes  sha256 00179c4c1ee830d3a108412ae0d294f55776cfeb085c60129a39aa6fc4ae2528
+leaflet/images/marker-shadow.png
+  https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-shadow.png
+  618 bytes  sha256 264f5c640339f042dd729062cfc04c17f8ea0f29882b538e3848ed8f10edb4da
+leaflet/LICENSE.txt
+  https://cdn.jsdelivr.net/npm/leaflet@1.9.4/LICENSE
+  1395 bytes  sha256 53e8dc25862014e4324741ca18fbe3611e11d42ef69f59f86ea8c5389647d4cb
+chart/chart.umd.js
+  https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js
+  205125 bytes  sha256 74401d738dd3e03ee5dfb3b6841210fe2c4ead8a960c4011ca4ba0b78a9fd8f3
+chart/LICENSE.md
+  https://cdn.jsdelivr.net/npm/chart.js@4.4.1/LICENSE.md
+  1093 bytes  sha256 5a0877ad6d818529be4f33009d0942cdf7e2ed7656156f4aba7308459a546030

@@ -1,2 +1,7 @@
-streamlit
-pandas
+fastapi>=0.110
+uvicorn[standard]>=0.27
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
+python-dotenv>=1.0
+tzdata; platform_system == "Windows"

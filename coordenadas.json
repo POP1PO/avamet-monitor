@@ -1,0 +1,4622 @@
+{
+ "c01m045e01": {
+  "lat": 40.5825,
+  "lon": -0.21611111111111111,
+  "nombre": "Cinctorres"
+ },
+ "c01m038e01": {
+  "lat": 40.50233055555555,
+  "lon": -0.1908111111111111,
+  "nombre": "Castellfort"
+ },
+ "c01m061e01": {
+  "lat": 40.64257222222222,
+  "lon": -0.19840555555555553,
+  "nombre": "Forcall"
+ },
+ "c01m068e01": {
+  "lat": 40.71878888888889,
+  "lon": -0.0035333333333333336,
+  "nombre": "Herbers"
+ },
+ "c01m075e02": {
+  "lat": 40.61761388888889,
+  "lon": -0.2798222222222222,
+  "nombre": "la Mata"
+ },
+ "c01m112e01": {
+  "lat": 40.64830833333333,
+  "lon": -0.24700555555555556,
+  "nombre": "la Todolella"
+ },
+ "c01m080e01": {
+  "lat": 40.619,
+  "lon": -0.1,
+  "nombre": "Morellacentro"
+ },
+ "c01m080e03": {
+  "lat": 40.61940833333333,
+  "lon": -0.132725,
+  "nombre": "MorellaFàbrica Giner"
+ },
+ "c01m080e04": {
+  "lat": 40.58551666666667,
+  "lon": -0.059013888888888894,
+  "nombre": "MorellaMas d'Agustino"
+ },
+ "c01m080e05": {
+  "lat": 40.554541666666665,
+  "lon": -0.122475,
+  "nombre": "MorellaMas de Planet"
+ },
+ "c01m083e01": {
+  "lat": 40.64103611111111,
+  "lon": -0.33015,
+  "nombre": "Olocau del Reyla Magdalena"
+ },
+ "c01m091e01": {
+  "lat": 40.5325,
+  "lon": -0.2625,
+  "nombre": "Portell de Morella"
+ },
+ "c01m141e01": {
+  "lat": 40.7277,
+  "lon": -0.1697,
+  "nombre": "Sorita"
+ },
+ "c01m127e01": {
+  "lat": 40.60324444444445,
+  "lon": 0.04595833333333334,
+  "nombre": "Vallibona"
+ },
+ "c01m129e03": {
+  "lat": 40.46373888888889,
+  "lon": -0.3112,
+  "nombre": "Vilafrancala Pobla del Bellestar"
+ },
+ "c01m129e05": {
+  "lat": 40.39890555555556,
+  "lon": -0.25788333333333335,
+  "nombre": "VilafrancaPla de Mossorro"
+ },
+ "c01m137e01": {
+  "lat": 40.676125,
+  "lon": -0.20061111111111113,
+  "nombre": "Villores"
+ },
+ "c02m003e02": {
+  "lat": 40.35051388888889,
+  "lon": -0.007255555555555556,
+  "nombre": "Albocàsserla Llacuna"
+ },
+ "c02m014e05": {
+  "lat": 40.45639444444445,
+  "lon": -0.1317888888888889,
+  "nombre": "Ares del Maestrat"
+ },
+ "c02m003e03": {
+  "lat": 40.35653333333333,
+  "lon": 0.023311111111111112,
+  "nombre": "Albocàsser"
+ },
+ "c02m014e04": {
+  "lat": 40.40091666666667,
+  "lon": -0.042402777777777775,
+  "nombre": "Ares del Maestratla Vall de Catí"
+ },
+ "c02m014e06": {
+  "lat": 40.498555555555555,
+  "lon": -0.1216,
+  "nombre": "Ares del MaestratPla de la Pinella"
+ },
+ "c02m001e02": {
+  "lat": 40.21642777777778,
+  "lon": -0.16472222222222221,
+  "nombre": "Atzeneta del Maestrat"
+ },
+ "c02m001e05": {
+  "lat": 40.254894444444446,
+  "lon": -0.133075,
+  "nombre": "Atzeneta del MaestratPla de Meanes"
+ },
+ "c02m001e06": {
+  "lat": 40.19685,
+  "lon": -0.20285,
+  "nombre": "Atzeneta del Maestratel Castell"
+ },
+ "c02m025e02": {
+  "lat": 40.27666388888889,
+  "lon": -0.20938333333333334,
+  "nombre": "Benafigos"
+ },
+ "c02m026e02": {
+  "lat": 40.37974722222222,
+  "lon": -0.14175,
+  "nombre": "Benassal"
+ },
+ "c02m026e03": {
+  "lat": 40.40282222222222,
+  "lon": -0.17114166666666666,
+  "nombre": "BenassalMas de les Llometes"
+ },
+ "c02m042e02": {
+  "lat": 40.471900000000005,
+  "lon": 0.0217,
+  "nombre": "Catí"
+ },
+ "c02m042e05": {
+  "lat": 40.48903611111111,
+  "lon": 0.07768888888888889,
+  "nombre": "CatíMas del Puig Cabrer"
+ },
+ "c02m042e03": {
+  "lat": 40.50527777777778,
+  "lon": -0.0002777777777777778,
+  "nombre": "Catíl′Avellà"
+ },
+ "c02m042e04": {
+  "lat": 40.52180277777778,
+  "lon": 0.06421666666666667,
+  "nombre": "CatíVenta de l'Aire"
+ },
+ "c02m051e03": {
+  "lat": 40.32672777777778,
+  "lon": -0.1667,
+  "nombre": "CullaObservatori Astronòmic"
+ },
+ "c02m103e02": {
+  "lat": 40.31315277777777,
+  "lon": 0.030369444444444442,
+  "nombre": "la SerratellaAjuntament"
+ },
+ "c02m103e03": {
+  "lat": 40.320952777777784,
+  "lon": 0.02387777777777778,
+  "nombre": "la SerratellaSant Joan Nepomucé"
+ },
+ "c02m119e03": {
+  "lat": 40.331786111111114,
+  "lon": -0.08040277777777778,
+  "nombre": "la Torre d′en Besorala Pedrisseta"
+ },
+ "c02m119e02": {
+  "lat": 40.32248888888889,
+  "lon": -0.07727777777777778,
+  "nombre": "la Torre d′en Besorazona deportiva"
+ },
+ "c02m111e02": {
+  "lat": 40.423325,
+  "lon": 0.07626388888888888,
+  "nombre": "Tírig"
+ },
+ "c02m111e01": {
+  "lat": 40.403888888888886,
+  "lon": 0.06445000000000001,
+  "nombre": "TírigHelipuerto"
+ },
+ "c02m134e01": {
+  "lat": 40.358558333333335,
+  "lon": -0.06575277777777778,
+  "nombre": "Vilar de Canes"
+ },
+ "c02m139e01": {
+  "lat": 40.25111111111111,
+  "lon": -0.35583333333333333,
+  "nombre": "Vistabella del MaestratSant Joan de Penyagolosa"
+ },
+ "c03m037e02": {
+  "lat": 40.66124166666666,
+  "lon": 0.04171111111111111,
+  "nombre": "Castell de Cabres"
+ },
+ "c03m027e06": {
+  "lat": 40.418191666666665,
+  "lon": 0.4250611111111111,
+  "nombre": "BenicarlóCaixa Benicarló"
+ },
+ "c03m004e03": {
+  "lat": 40.31030555555555,
+  "lon": 0.212175,
+  "nombre": "Alcalà de Xivertla Serreta"
+ },
+ "c03m027e02": {
+  "lat": 40.4153,
+  "lon": 0.3981,
+  "nombre": "BenicarlóSant Gregori"
+ },
+ "c03m070e02": {
+  "lat": 40.51336666666667,
+  "lon": 0.2308638888888889,
+  "nombre": "la JanaPou del Mas"
+ },
+ "c03m093e07": {
+  "lat": 40.66398611111111,
+  "lon": 0.17591388888888887,
+  "nombre": "el Ballestar"
+ },
+ "c03m044e01": {
+  "lat": 40.454725,
+  "lon": 0.27715833333333334,
+  "nombre": "Cervera del Maestre"
+ },
+ "c03m093e04": {
+  "lat": 40.69005833333333,
+  "lon": 0.08439722222222222,
+  "nombre": "la Pobla de BenifassàCoratxà"
+ },
+ "c03m036e01": {
+  "lat": 40.550580555555555,
+  "lon": 0.24270277777777777,
+  "nombre": "Canet lo Roig"
+ },
+ "c03m034e01": {
+  "lat": 40.46169166666667,
+  "lon": 0.35485277777777774,
+  "nombre": "Càlig"
+ },
+ "c03m093e05": {
+  "lat": 40.70548333333333,
+  "lon": 0.17128055555555555,
+  "nombre": "la Pobla de BenifassàFredes"
+ },
+ "c03m093e06": {
+  "lat": 40.67482777777778,
+  "lon": 0.13562777777777776,
+  "nombre": "la Pobla de BenifassàColl de les Eres"
+ },
+ "c03m098e02": {
+  "lat": 40.417183333333334,
+  "lon": 0.17504722222222222,
+  "nombre": "la Salzadella"
+ },
+ "c03m098e03": {
+  "lat": 40.42313333333333,
+  "lon": 0.11895277777777778,
+  "nombre": "la SalzadellaMas de l'Andalús"
+ },
+ "c03m089e07": {
+  "lat": 40.359122222222226,
+  "lon": 0.4017527777777778,
+  "nombre": "PeníscolaCaixa Benicarló"
+ },
+ "c03m089e02": {
+  "lat": 40.39194444444444,
+  "lon": 0.41305555555555556,
+  "nombre": "PeníscolaGran Hotel Peñiscola"
+ },
+ "c03m089e08": {
+  "lat": 40.307230555555556,
+  "lon": 0.3511583333333333,
+  "nombre": "PeníscolaSerra d'Irta/el Pebret"
+ },
+ "c03m096e04": {
+  "lat": 40.62407777777778,
+  "lon": 0.16319722222222222,
+  "nombre": "RossellBel"
+ },
+ "c03m096e01": {
+  "lat": 40.618677777777776,
+  "lon": 0.22145,
+  "nombre": "RossellAjuntament"
+ },
+ "c03m096e03": {
+  "lat": 40.635263888888886,
+  "lon": 0.26421944444444445,
+  "nombre": "Rossellles Cases del Riu"
+ },
+ "c03m100e05": {
+  "lat": 40.46594166666667,
+  "lon": 0.1751222222222222,
+  "nombre": "Sant MateuIES Maestrat"
+ },
+ "c03m099e02": {
+  "lat": 40.55500833333333,
+  "lon": 0.3756777777777778,
+  "nombre": "Sant JordiPanoràmica Golf"
+ },
+ "c03m100e03": {
+  "lat": 40.464758333333336,
+  "lon": 0.16646388888888888,
+  "nombre": "Sant MateuFont Aigua Nova"
+ },
+ "c03m100e04": {
+  "lat": 40.436388888888885,
+  "lon": 0.175,
+  "nombre": "Sant Mateules Llacunes"
+ },
+ "c03m100e08": {
+  "lat": 40.47987777777778,
+  "lon": 0.10213611111111112,
+  "nombre": "Sant Mateulo Macarroni"
+ },
+ "c03m096e05": {
+  "lat": 40.61846944444444,
+  "lon": 0.21838611111111111,
+  "nombre": "RossellRoca de l'en Piquer"
+ },
+ "c03m096e02": {
+  "lat": 40.61908888888889,
+  "lon": 0.22527222222222223,
+  "nombre": "Rossellla Vila"
+ },
+ "c03m099e01": {
+  "lat": 40.50991666666667,
+  "lon": 0.3309944444444444,
+  "nombre": "Sant Jordi"
+ },
+ "c03m121e01": {
+  "lat": 40.52278611111111,
+  "lon": 0.2880611111111111,
+  "nombre": "Traiguera"
+ },
+ "c03m102e01": {
+  "lat": 40.35645,
+  "lon": 0.30343055555555554,
+  "nombre": "Santa Magdalena de Polpís"
+ },
+ "c03m100e09": {
+  "lat": 40.46666666666667,
+  "lon": 0.1775,
+  "nombre": "Sant MateuPla de Dalt"
+ },
+ "c03m100e06": {
+  "lat": 40.46906944444444,
+  "lon": 0.2054277777777778,
+  "nombre": "Sant MateuMolins"
+ },
+ "c03m100e02": {
+  "lat": 40.464938888888895,
+  "lon": 0.1759611111111111,
+  "nombre": "Sant MateuOest"
+ },
+ "c03m100e07": {
+  "lat": 40.46808333333333,
+  "lon": 0.17868333333333333,
+  "nombre": "Sant Mateuportal de Xert"
+ },
+ "c03m052e02": {
+  "lat": 40.52158055555555,
+  "lon": 0.15938333333333332,
+  "nombre": "Xert"
+ },
+ "c03m138e06": {
+  "lat": 40.505044444444444,
+  "lon": 0.45200555555555555,
+  "nombre": "VinaròsCapegrós"
+ },
+ "c03m138e05": {
+  "lat": 40.470336111111116,
+  "lon": 0.47781111111111113,
+  "nombre": "VinaròsAjuntament-Pirulí"
+ },
+ "c03m052e06": {
+  "lat": 40.512572222222225,
+  "lon": 0.11953055555555556,
+  "nombre": "XertEnroig"
+ },
+ "c03m052e03": {
+  "lat": 40.53731111111111,
+  "lon": 0.16544722222222222,
+  "nombre": "Xertla Mola"
+ },
+ "c03m052e05": {
+  "lat": 40.53066111111111,
+  "lon": 0.14798055555555556,
+  "nombre": "Xertgranja El Turmell"
+ },
+ "c03m052e04": {
+  "lat": 40.52138333333333,
+  "lon": 0.18053055555555556,
+  "nombre": "XertPtda. Mas d'en Sanç"
+ },
+ "c04m049e01": {
+  "lat": 40.12041111111111,
+  "lon": -0.1735861111111111,
+  "nombre": "Costur"
+ },
+ "c04m060e01": {
+  "lat": 40.116233333333334,
+  "lon": -0.2358861111111111,
+  "nombre": "Figueroles"
+ },
+ "c04m005e02": {
+  "lat": 40.06655555555555,
+  "lon": -0.27324444444444446,
+  "nombre": "l′AlcoraAraya"
+ },
+ "c04m005e05": {
+  "lat": 40.057966666666665,
+  "lon": -0.22944166666666668,
+  "nombre": "l′AlcoraTossal de les Foies"
+ },
+ "c04m122e02": {
+  "lat": 40.202925,
+  "lon": -0.08872777777777777,
+  "nombre": "les UseresMas dels Fumeros"
+ },
+ "c04m005e03": {
+  "lat": 40.076797222222226,
+  "lon": -0.21129444444444445,
+  "nombre": "l′AlcoraMuseu de la Ceràmica"
+ },
+ "c04m122e01": {
+  "lat": 40.15725,
+  "lon": -0.162725,
+  "nombre": "les Useres"
+ },
+ "c04m072e01": {
+  "lat": 40.13934722222222,
+  "lon": -0.2793472222222222,
+  "nombre": "Llucena"
+ },
+ "c04m005e04": {
+  "lat": 40.103677777777776,
+  "lon": -0.2087027777777778,
+  "nombre": "l′Alcorala Foia"
+ },
+ "c04m005e01": {
+  "lat": 40.07160555555556,
+  "lon": -0.20766666666666667,
+  "nombre": "l′AlcoraIES Ximén d′Urrea"
+ },
+ "c04m055e02": {
+  "lat": 40.245016666666665,
+  "lon": -0.28641944444444445,
+  "nombre": "Xodos"
+ },
+ "c04m072e02": {
+  "lat": 40.175441666666664,
+  "lon": -0.2630777777777778,
+  "nombre": "LlucenaVenta Talladures"
+ },
+ "c04m055e03": {
+  "lat": 40.23780277777778,
+  "lon": -0.28302777777777777,
+  "nombre": "Xodosla Vega"
+ },
+ "c05m009e02": {
+  "lat": 39.94459722222222,
+  "lon": -0.05676388888888889,
+  "nombre": "Almassora"
+ },
+ "c04m055e08": {
+  "lat": 40.23164166666667,
+  "lon": -0.31427777777777777,
+  "nombre": "XodosMas de Caixó"
+ },
+ "c05m009e03": {
+  "lat": 39.920199999999994,
+  "lon": -0.0048805555555555555,
+  "nombre": "AlmassoraPlatja de la Torre"
+ },
+ "c05m028e06": {
+  "lat": 40.02802777777778,
+  "lon": 0.03941666666666667,
+  "nombre": "BenicàssimCuadro de Santiago"
+ },
+ "c05m028e07": {
+  "lat": 40.08525277777778,
+  "lon": 0.03175555555555556,
+  "nombre": "BenicàssimCim del Bartolo"
+ },
+ "c05m028e08": {
+  "lat": 40.02293888888889,
+  "lon": 0.02754444444444444,
+  "nombre": "BenicàssimCamí la Ratlla"
+ },
+ "c05m028e04": {
+  "lat": 40.034166666666664,
+  "lon": 0.03861111111111111,
+  "nombre": "Benicàssimlas Villas"
+ },
+ "c05m028e05": {
+  "lat": 40.05746944444444,
+  "lon": 0.08478333333333332,
+  "nombre": "BenicàssimHotel Voramar"
+ },
+ "c05m028e09": {
+  "lat": 40.03357222222222,
+  "lon": 0.04716388888888889,
+  "nombre": "BenicàssimPlatja d'Heliòpolis"
+ },
+ "c05m028e02": {
+  "lat": 40.05713333333333,
+  "lon": 0.0664,
+  "nombre": "Benicàssimpueblo"
+ },
+ "c05m029e02": {
+  "lat": 40.209205555555556,
+  "lon": 0.015669444444444444,
+  "nombre": "BenllocCaves"
+ },
+ "c05m031e06": {
+  "lat": 40.07115833333334,
+  "lon": -0.028088888888888885,
+  "nombre": "Borriolla Vall del Morico"
+ },
+ "c05m031e07": {
+  "lat": 40.04243888888889,
+  "lon": -0.07157777777777778,
+  "nombre": "Borriolcentro"
+ },
+ "c05m031e04": {
+  "lat": 40.01495,
+  "lon": -0.12045555555555555,
+  "nombre": "BorriolMas de Gaetà"
+ },
+ "c05m033e05": {
+  "lat": 40.15231111111111,
+  "lon": 0.15695,
+  "nombre": "Cabanesla Ribera"
+ },
+ "c05m033e04": {
+  "lat": 40.15610833333333,
+  "lon": 0.03811944444444444,
+  "nombre": "Cabanes"
+ },
+ "c05m033e03": {
+  "lat": 40.09366111111111,
+  "lon": 0.06080555555555556,
+  "nombre": "CabanesMas del Corretger"
+ },
+ "c05m041e09": {
+  "lat": 39.89845,
+  "lon": 0.6843861111111111,
+  "nombre": "Castelló de la PlanaIlles Columbretes"
+ },
+ "c05m040e19": {
+  "lat": 39.97006388888889,
+  "lon": 0.01485,
+  "nombre": "Castelló de la Planael GrauRCN Castelló"
+ },
+ "c05m040e18": {
+  "lat": 39.997172222222225,
+  "lon": 0.006922222222222223,
+  "nombre": "Castelló de la PlanaCamí de la Plana"
+ },
+ "c05m040e16": {
+  "lat": 39.983072222222226,
+  "lon": -0.03674722222222222,
+  "nombre": "Castelló de la PlanaEdificio Capitol"
+ },
+ "c05m040e14": {
+  "lat": 40.00178611111111,
+  "lon": -0.04846944444444445,
+  "nombre": "Castelló de la PlanaGrup Sant Agustí"
+ },
+ "c05m040e21": {
+  "lat": 39.99212222222222,
+  "lon": -0.05621666666666667,
+  "nombre": "Castelló de la PlanaIES Bovalar"
+ },
+ "c05m040e17": {
+  "lat": 39.98856666666667,
+  "lon": -0.03993055555555555,
+  "nombre": "Castelló de la PlanaIES Francesc Ribalta"
+ },
+ "c05m040e22": {
+  "lat": 39.97516944444445,
+  "lon": -0.05042777777777778,
+  "nombre": "Castelló de la PlanaCalle Río Júcar"
+ },
+ "c05m040e13": {
+  "lat": 39.985905555555554,
+  "lon": -0.029752777777777777,
+  "nombre": "Castelló de la PlanaIES Vicent Sos Baynat"
+ },
+ "c05m040e15": {
+  "lat": 39.990430555555555,
+  "lon": 0.014408333333333332,
+  "nombre": "Castelló de la PlanaSerradal"
+ },
+ "c05m040e24": {
+  "lat": 40.00076111111111,
+  "lon": 0.016591666666666664,
+  "nombre": "Castelló de la Planala Fileta"
+ },
+ "c05m040e25": {
+  "lat": 40.00796944444444,
+  "lon": -0.10689166666666668,
+  "nombre": "Castelló de la PlanaPla del Moro"
+ },
+ "c05m094e02": {
+  "lat": 40.098483333333334,
+  "lon": 0.0005166666666666667,
+  "nombre": "la Pobla Tornesa"
+ },
+ "c05m105e08": {
+  "lat": 40.26997222222222,
+  "lon": -0.01972222222222222,
+  "nombre": "la Serra d′en Galceran"
+ },
+ "c05m120e01": {
+  "lat": 40.2617,
+  "lon": 0.0692,
+  "nombre": "la Torre d′en Doménec"
+ },
+ "c05m105e09": {
+  "lat": 40.227811111111116,
+  "lon": -0.07784722222222222,
+  "nombre": "la Serra d′en Galceranels Ivarsos"
+ },
+ "c05m124e01": {
+  "lat": 40.17635277777777,
+  "lon": -0.03576388888888889,
+  "nombre": "la Vall d′Albacentro"
+ },
+ "c05m105e10": {
+  "lat": 40.30148055555555,
+  "lon": -0.04397222222222222,
+  "nombre": "la Serra d′en Galceranel Brusalet"
+ },
+ "c05m050e01": {
+  "lat": 40.311388888888885,
+  "lon": 0.12111111111111111,
+  "nombre": "les Coves de VinromàCarrer Nou"
+ },
+ "c05m050e04": {
+  "lat": 40.31173333333333,
+  "lon": 0.12217777777777777,
+  "nombre": "les Coves de VinromàCasc antic"
+ },
+ "c05m124e03": {
+  "lat": 40.181602777777776,
+  "lon": -0.03461111111111111,
+  "nombre": "la Vall d′AlbaIES la Vall d'Alba"
+ },
+ "c05m050e03": {
+  "lat": 40.378991666666664,
+  "lon": 0.12555833333333333,
+  "nombre": "les Coves de VinromàMas del Tonto"
+ },
+ "c05m085e04": {
+  "lat": 40.074933333333334,
+  "lon": 0.13318611111111112,
+  "nombre": "Oropesa del MarClub Náutico"
+ },
+ "c05m085e03": {
+  "lat": 40.058636111111106,
+  "lon": 0.09959444444444444,
+  "nombre": "Oropesa del MarTorre Bellver"
+ },
+ "c05m902e01": {
+  "lat": 40.06034722222222,
+  "lon": -0.139475,
+  "nombre": "Sant Joan de Moró"
+ },
+ "c05m117e02": {
+  "lat": 40.2196,
+  "lon": 0.19810277777777777,
+  "nombre": "Torreblanca"
+ },
+ "c05m117e01": {
+  "lat": 40.19319722222222,
+  "lon": 0.21967222222222224,
+  "nombre": "TorreblancaTorrenostraPN el Prat"
+ },
+ "c05m128e02": {
+  "lat": 40.11449722222223,
+  "lon": -0.054283333333333336,
+  "nombre": "VilafamésCentre Històric"
+ },
+ "c05m128e04": {
+  "lat": 40.12778055555555,
+  "lon": -0.047586111111111114,
+  "nombre": "Vilafamésel Pla"
+ },
+ "c05m128e03": {
+  "lat": 40.11803888888889,
+  "lon": -0.05246944444444445,
+  "nombre": "VilafamésCooperativa"
+ },
+ "c05m132e02": {
+  "lat": 40.231036111111116,
+  "lon": 0.07280277777777777,
+  "nombre": "Vilanova d′Alcolea"
+ },
+ "c06m011e06": {
+  "lat": 39.73117777777778,
+  "lon": -0.18562777777777775,
+  "nombre": "AlmenaraPlatja Casablanca"
+ },
+ "c06m011e04": {
+  "lat": 39.75316388888889,
+  "lon": -0.247425,
+  "nombre": "AlmenaraComunitat de Regants"
+ },
+ "c06m002e01": {
+  "lat": 39.901444444444444,
+  "lon": -0.3410722222222222,
+  "nombre": "Aín"
+ },
+ "c06m011e05": {
+  "lat": 39.74260833333334,
+  "lon": -0.22815555555555556,
+  "nombre": "AlmenaraMotor el Blau"
+ },
+ "c06m011e01": {
+  "lat": 39.753819444444446,
+  "lon": -0.22478333333333333,
+  "nombre": "Almenara"
+ },
+ "c06m016e01": {
+  "lat": 39.89137222222222,
+  "lon": -0.2579916666666667,
+  "nombre": "Artana"
+ },
+ "c06m021e02": {
+  "lat": 39.928349999999995,
+  "lon": -0.1972111111111111,
+  "nombre": "Betxí"
+ },
+ "c06m007e02": {
+  "lat": 39.83797222222223,
+  "lon": -0.26863888888888887,
+  "nombre": "Alfondeguilla"
+ },
+ "c06m016e02": {
+  "lat": 39.88936944444444,
+  "lon": -0.25330277777777777,
+  "nombre": "ArtanaCaseta de les Creus"
+ },
+ "c06m021e03": {
+  "lat": 39.90425277777778,
+  "lon": -0.1781972222222222,
+  "nombre": "BetxíMuntanyeta de Sant Antoni"
+ },
+ "c06m032e06": {
+  "lat": 39.915,
+  "lon": -0.03193888888888889,
+  "nombre": "BurrianaAlquerías de Santa Bárbara"
+ },
+ "c06m032e05": {
+  "lat": 39.87672222222222,
+  "lon": -0.05422222222222223,
+  "nombre": "BurrianaPlatja del Grau"
+ },
+ "c06m032e07": {
+  "lat": 39.89,
+  "lon": -0.08333055555555555,
+  "nombre": "Burrianacentro"
+ },
+ "c06m032e08": {
+  "lat": 39.85129166666667,
+  "lon": -0.09239166666666666,
+  "nombre": "Burrianala Serratella"
+ },
+ "c06m057e02": {
+  "lat": 39.88301388888889,
+  "lon": -0.3093111111111111,
+  "nombre": "Eslida"
+ },
+ "c06m074e01": {
+  "lat": 39.76864722222222,
+  "lon": -0.20656666666666668,
+  "nombre": "la Llosa"
+ },
+ "c06m006e02": {
+  "lat": 39.928774999999995,
+  "lon": -0.33647777777777776,
+  "nombre": "l′Alcúdia de VeoBenitandús"
+ },
+ "c06m126e04": {
+  "lat": 39.82441388888889,
+  "lon": -0.253025,
+  "nombre": "la Vall d′Uixóles Coves de Sant Josep"
+ },
+ "c06m126e03": {
+  "lat": 39.823238888888895,
+  "lon": -0.23296111111111112,
+  "nombre": "la Vall d′Uixó"
+ },
+ "c06m136e02": {
+  "lat": 39.871316666666665,
+  "lon": -0.2030638888888889,
+  "nombre": "la VilavellaPtda. Forns"
+ },
+ "c06m136e01": {
+  "lat": 39.85933888888889,
+  "lon": -0.18605555555555553,
+  "nombre": "la VilavellaCarrer Barranc"
+ },
+ "c06m901e02": {
+  "lat": 39.8978,
+  "lon": -0.115,
+  "nombre": "les Alqueries"
+ },
+ "c06m136e03": {
+  "lat": 39.85881388888889,
+  "lon": -0.18457777777777776,
+  "nombre": "la VilavellaAjuntament"
+ },
+ "c06m901e03": {
+  "lat": 39.885688888888886,
+  "lon": -0.13642222222222222,
+  "nombre": "les AlqueriesCap de Terme"
+ },
+ "c06m901e04": {
+  "lat": 39.896097222222224,
+  "lon": -0.11019166666666667,
+  "nombre": "les AlqueriesCasa de la Musica i Dansa"
+ },
+ "c06m077e02": {
+  "lat": 39.80719722222222,
+  "lon": -0.14558888888888888,
+  "nombre": "Moncofa"
+ },
+ "c06m082e05": {
+  "lat": 39.85232222222222,
+  "lon": -0.15763888888888888,
+  "nombre": "Nules"
+ },
+ "c06m077e03": {
+  "lat": 39.79940277777778,
+  "lon": -0.15676666666666667,
+  "nombre": "MoncofaRiu Belcaire"
+ },
+ "c06m082e04": {
+  "lat": 39.83385833333334,
+  "lon": -0.10986111111111112,
+  "nombre": "NulesPlatja de Nulesl'Estany"
+ },
+ "c06m084e03": {
+  "lat": 39.96208888888889,
+  "lon": -0.2632861111111111,
+  "nombre": "Onda"
+ },
+ "c06m084e04": {
+  "lat": 39.961311111111115,
+  "lon": -0.2844305555555556,
+  "nombre": "OndaArtesa"
+ },
+ "c06m084e05": {
+  "lat": 39.96813888888889,
+  "lon": -0.1918361111111111,
+  "nombre": "OndaRàtils"
+ },
+ "c06m084e13": {
+  "lat": 39.990322222222225,
+  "lon": -0.2617027777777778,
+  "nombre": "OndaBovalar"
+ },
+ "c06m084e14": {
+  "lat": 39.93535833333333,
+  "lon": -0.22086944444444445,
+  "nombre": "OndaRodador"
+ },
+ "c06m084e06": {
+  "lat": 39.994058333333335,
+  "lon": -0.2143638888888889,
+  "nombre": "OndaSan Chils"
+ },
+ "c06m084e09": {
+  "lat": 39.96714444444444,
+  "lon": -0.2628361111111111,
+  "nombre": "OndaColegio Virgen del Carmen"
+ },
+ "c06m084e07": {
+  "lat": 39.95286666666667,
+  "lon": -0.2536361111111111,
+  "nombre": "OndaCalvari"
+ },
+ "c06m084e17": {
+  "lat": 39.954522222222224,
+  "lon": -0.22688611111111112,
+  "nombre": "OndaMiralcamp"
+ },
+ "c06m135e02": {
+  "lat": 39.925799999999995,
+  "lon": -0.1039,
+  "nombre": "Vila-realCol·legi Santa Maria"
+ },
+ "c06m108e01": {
+  "lat": 39.949036111111106,
+  "lon": -0.33110555555555554,
+  "nombre": "SueraRes. Espadà"
+ },
+ "c06m109e01": {
+  "lat": 39.94916666666666,
+  "lon": -0.30722222222222223,
+  "nombre": "Tales"
+ },
+ "c06m084e16": {
+  "lat": 39.93771666666667,
+  "lon": -0.24229166666666668,
+  "nombre": "OndaPenyes Aragoneses"
+ },
+ "c06m084e11": {
+  "lat": 39.961925,
+  "lon": -0.27426666666666666,
+  "nombre": "OndaIES Serra d'Espadà"
+ },
+ "c06m135e04": {
+  "lat": 39.948855555555554,
+  "lon": -0.10444722222222223,
+  "nombre": "Vila-realUrb. Madrigal"
+ },
+ "c06m084e15": {
+  "lat": 39.97380277777778,
+  "lon": -0.2270138888888889,
+  "nombre": "OndaPla de la Marquesa"
+ },
+ "c06m053e01": {
+  "lat": 39.781866666666666,
+  "lon": -0.1875222222222222,
+  "nombre": "Xilxes"
+ },
+ "c07m012e02": {
+  "lat": 39.851397222222225,
+  "lon": -0.51065,
+  "nombre": "AlturaAyuntamiento"
+ },
+ "c07m008e01": {
+  "lat": 39.913872222222224,
+  "lon": -0.44245,
+  "nombre": "Algimia de Almonacid"
+ },
+ "c06m135e07": {
+  "lat": 39.968561111111114,
+  "lon": -0.14715,
+  "nombre": "Vila-realla Llum de Tol"
+ },
+ "c07m022e01": {
+  "lat": 39.910019444444444,
+  "lon": -0.706525,
+  "nombre": "Bejís"
+ },
+ "c07m012e01": {
+  "lat": 39.80383888888888,
+  "lon": -0.5684,
+  "nombre": "AlturaMasía de Uñoz"
+ },
+ "c07m010e01": {
+  "lat": 39.87295833333334,
+  "lon": -0.40715833333333334,
+  "nombre": "Almedíjar"
+ },
+ "c07m039e01": {
+  "lat": 39.86198888888889,
+  "lon": -0.4595527777777778,
+  "nombre": "Castellnovo"
+ },
+ "c07m115e06": {
+  "lat": 39.98218888888889,
+  "lon": -0.7485999999999999,
+  "nombre": "El ToroCalle Mayor"
+ },
+ "c06m135e08": {
+  "lat": 39.941605555555554,
+  "lon": -0.10101111111111112,
+  "nombre": "Vila-realPlaça Dos de Maig"
+ },
+ "c07m115e03": {
+  "lat": 39.960569444444445,
+  "lon": -0.779938888888889,
+  "nombre": "El ToroCerro Gil"
+ },
+ "c07m115e04": {
+  "lat": 39.98870277777778,
+  "lon": -0.75305,
+  "nombre": "El ToroHoya del Campillo"
+ },
+ "c06m135e05": {
+  "lat": 39.92531388888889,
+  "lon": -0.08501944444444444,
+  "nombre": "Vila-realles Solaes"
+ },
+ "c07m115e01": {
+  "lat": 39.98164444444445,
+  "lon": -0.7459777777777777,
+  "nombre": "El ToroLavadero"
+ },
+ "c07m065e01": {
+  "lat": 39.92635555555555,
+  "lon": -0.4952166666666667,
+  "nombre": "Gaibiel"
+ },
+ "c07m088e01": {
+  "lat": 39.973480555555554,
+  "lon": -0.4821944444444444,
+  "nombre": "Pavías"
+ },
+ "c07m071e01": {
+  "lat": 39.91,
+  "lon": -0.5327777777777778,
+  "nombre": "JéricaLos Novales"
+ },
+ "c07m090e02": {
+  "lat": 40.02095833333333,
+  "lon": -0.6545916666666667,
+  "nombre": "Pina de Montalgrao"
+ },
+ "c07m097e01": {
+  "lat": 39.85133611111111,
+  "lon": -0.7147388888888888,
+  "nombre": "Sacañet"
+ },
+ "c07m069e01": {
+  "lat": 39.98759722222222,
+  "lon": -0.5015472222222223,
+  "nombre": "Higueras"
+ },
+ "c07m097e02": {
+  "lat": 39.85311388888889,
+  "lon": -0.7602166666666667,
+  "nombre": "SacañetCanales"
+ },
+ "c07m114e01": {
+  "lat": 39.919983333333334,
+  "lon": -0.6873055555555556,
+  "nombre": "Torás"
+ },
+ "c07m125e01": {
+  "lat": 39.904919444444445,
+  "lon": -0.45679722222222224,
+  "nombre": "Vall de Almonacid"
+ },
+ "c07m104e01": {
+  "lat": 39.81508611111111,
+  "lon": -0.4311277777777778,
+  "nombre": "Soneja"
+ },
+ "c07m140e02": {
+  "lat": 39.91902777777778,
+  "lon": -0.5944722222222223,
+  "nombre": "ViverCooperativa"
+ },
+ "c07m140e03": {
+  "lat": 39.94965833333333,
+  "lon": -0.6076277777777778,
+  "nombre": "ViverLos Clotes de Piquer"
+ },
+ "c08m015e01": {
+  "lat": 40.055955555555556,
+  "lon": -0.349825,
+  "nombre": "Argelita"
+ },
+ "c08m017e01": {
+  "lat": 39.99903888888889,
+  "lon": -0.3762861111111111,
+  "nombre": "Ayódar"
+ },
+ "c08m041e01": {
+  "lat": 40.15759166666667,
+  "lon": -0.3858694444444445,
+  "nombre": "Castillo de VillamalefaCedramán"
+ },
+ "c08m046e01": {
+  "lat": 40.05611111111111,
+  "lon": -0.4638888888888889,
+  "nombre": "Cirat"
+ },
+ "c08m048e01": {
+  "lat": 40.18655,
+  "lon": -0.5420555555555555,
+  "nombre": "Cortes de Arenoso"
+ },
+ "c08m048e02": {
+  "lat": 40.13933333333333,
+  "lon": -0.5003777777777778,
+  "nombre": "Cortes de ArenosoSan Vicente de Piedrahita"
+ },
+ "c08m064e01": {
+  "lat": 40.021902777777775,
+  "lon": -0.4201777777777778,
+  "nombre": "Fuentes de Ayódar"
+ },
+ "c08m059e01": {
+  "lat": 40.01850833333333,
+  "lon": -0.3164222222222222,
+  "nombre": "Fanzara"
+ },
+ "c08m073e02": {
+  "lat": 40.086908333333334,
+  "lon": -0.37027222222222217,
+  "nombre": "Ludiente"
+ },
+ "c08m048e03": {
+  "lat": 40.18590833333333,
+  "lon": -0.490225,
+  "nombre": "Cortes de Arenosoel Esprigolar"
+ },
+ "c08m079e01": {
+  "lat": 40.06872777777778,
+  "lon": -0.5229111111111112,
+  "nombre": "MontanejosCampuebla Apartamentos"
+ },
+ "c08m092e01": {
+  "lat": 40.10378055555556,
+  "lon": -0.5912111111111111,
+  "nombre": "Puebla de Arenoso"
+ },
+ "c08m078e01": {
+  "lat": 40.03558333333333,
+  "lon": -0.5538361111111112,
+  "nombre": "Montán"
+ },
+ "c08m116e02": {
+  "lat": 39.991236111111114,
+  "lon": -0.43699722222222226,
+  "nombre": "Torralba del Pinar"
+ },
+ "c07m056e01": {
+  "lat": 39.8489,
+  "lon": -0.3253,
+  "nombre": "ChóvarAgua de Chóvar"
+ },
+ "c08m118e01": {
+  "lat": 40.051375,
+  "lon": -0.3953277777777778,
+  "nombre": "Torrechiva"
+ },
+ "c08m130e01": {
+  "lat": 40.185897222222216,
+  "lon": -0.45385277777777777,
+  "nombre": "Villahermosa del Ríola Cañada"
+ },
+ "c08m133e01": {
+  "lat": 40.0593,
+  "lon": -0.6462416666666666,
+  "nombre": "Villanueva de Viver"
+ },
+ "c08m142e03": {
+  "lat": 40.131886111111115,
+  "lon": -0.4185611111111111,
+  "nombre": "Zucaina"
+ },
+ "c08m131e01": {
+  "lat": 39.96424722222223,
+  "lon": -0.39455,
+  "nombre": "Villamalur"
+ },
+ "c08m142e02": {
+  "lat": 40.12215,
+  "lon": -0.46297222222222223,
+  "nombre": "ZucainaMasico Blanco"
+ },
+ "c08m142e04": {
+  "lat": 40.12833055555556,
+  "lon": -0.4221388888888889,
+  "nombre": "ZucainaLa Hoya"
+ },
+ "c09m001e01": {
+  "lat": 40.059977777777775,
+  "lon": -1.285122222222222,
+  "nombre": "AdemuzIES Ademuz"
+ },
+ "c09m088e01": {
+  "lat": 40.02063888888889,
+  "lon": -1.2603972222222222,
+  "nombre": "Casas Bajas"
+ },
+ "c09m092e02": {
+  "lat": 40.12136388888889,
+  "lon": -1.4202916666666667,
+  "nombre": "CastielfabibArroyo Cerezo"
+ },
+ "c09m092e01": {
+  "lat": 40.13113333333333,
+  "lon": -1.3041500000000001,
+  "nombre": "Castielfabib"
+ },
+ "c09m201e01": {
+  "lat": 40.04433611111111,
+  "lon": -1.1416638888888888,
+  "nombre": "Puebla de San Miguel"
+ },
+ "c09m252e01": {
+  "lat": 40.06298611111111,
+  "lon": -1.3390083333333334,
+  "nombre": "Vallanca"
+ },
+ "c10m036e01": {
+  "lat": 39.885172222222224,
+  "lon": -1.0143972222222222,
+  "nombre": "Alpuente"
+ },
+ "c10m036e02": {
+  "lat": 39.96613333333334,
+  "lon": -1.0218555555555555,
+  "nombre": "AlpuenteLa Torre"
+ },
+ "c10m041e01": {
+  "lat": 39.92472222222222,
+  "lon": -1.1336111111111111,
+  "nombre": "Aras de los Olmos"
+ },
+ "c10m076e01": {
+  "lat": 39.60866111111111,
+  "lon": -0.7752888888888889,
+  "nombre": "Bugarra"
+ },
+ "c10m079e03": {
+  "lat": 39.72483611111111,
+  "lon": -0.9778333333333333,
+  "nombre": "CallesParque de Emergencias"
+ },
+ "c10m079e02": {
+  "lat": 39.822900000000004,
+  "lon": -0.9189611111111111,
+  "nombre": "CallesAlcotas"
+ },
+ "c10m133e01": {
+  "lat": 39.60400555555556,
+  "lon": -0.8347805555555556,
+  "nombre": "Gestalgar"
+ },
+ "c10m141e02": {
+  "lat": 39.78946666666666,
+  "lon": -0.8626194444444444,
+  "nombre": "Higueruelas"
+ },
+ "c10m191e05": {
+  "lat": 39.548769444444446,
+  "lon": -0.7536194444444444,
+  "nombre": "PedralbaCueva del Terrero"
+ },
+ "c10m234e01": {
+  "lat": 39.620666666666665,
+  "lon": -0.909088888888889,
+  "nombre": "Sot de Chera"
+ },
+ "c10m258e01": {
+  "lat": 39.73511111111111,
+  "lon": -0.8327611111111111,
+  "nombre": "Villar del Arzobispo"
+ },
+ "c10m262e02": {
+  "lat": 39.886916666666664,
+  "lon": -0.955225,
+  "nombre": "La YesaAlbergue el Valle"
+ },
+ "c10m247e01": {
+  "lat": 39.763597222222224,
+  "lon": -1.0395166666666669,
+  "nombre": "Tuéjar"
+ },
+ "c10m241e01": {
+  "lat": 39.8667,
+  "lon": -1.0836,
+  "nombre": "TitaguasCosmofísica"
+ },
+ "c10m258e02": {
+  "lat": 39.68608333333333,
+  "lon": -0.7999611111111111,
+  "nombre": "Villar del ArzobispoCasica Roger"
+ },
+ "c10m112e02": {
+  "lat": 39.656055555555554,
+  "lon": -0.8919166666666667,
+  "nombre": "Chulilla"
+ },
+ "c11m070e03": {
+  "lat": 39.593094444444446,
+  "lon": -0.464075,
+  "nombre": "Bétera"
+ },
+ "c11m070e04": {
+  "lat": 39.55314166666666,
+  "lon": -0.456775,
+  "nombre": "BéteraUrb. Mas Camarena"
+ },
+ "c11m070e02": {
+  "lat": 39.582100000000004,
+  "lon": -0.4939,
+  "nombre": "Béterala Conarda"
+ },
+ "c10m106e01": {
+  "lat": 39.74777777777778,
+  "lon": -0.9991666666666666,
+  "nombre": "Chelva"
+ },
+ "c11m051e01": {
+  "lat": 39.59963333333334,
+  "lon": -0.5863305555555556,
+  "nombre": "BenaguasilEstil Masculí Eva"
+ },
+ "c11m089e03": {
+  "lat": 39.70166666666667,
+  "lon": -0.7096138888888889,
+  "nombre": "Casinos"
+ },
+ "c11m902e01": {
+  "lat": 39.76947777777778,
+  "lon": -0.5206083333333333,
+  "nombre": "Gátova"
+ },
+ "c11m116e09": {
+  "lat": 39.56043333333333,
+  "lon": -0.5116555555555555,
+  "nombre": "l′Eliana"
+ },
+ "c11m116e02": {
+  "lat": 39.56486111111111,
+  "lon": -0.5288777777777778,
+  "nombre": "l′Elianacentre"
+ },
+ "c11m116e04": {
+  "lat": 39.56527777777777,
+  "lon": -0.5358361111111111,
+  "nombre": "l′ElianaBarranc de Mandor"
+ },
+ "c11m202e01": {
+  "lat": 39.59193888888889,
+  "lon": -0.5533305555555555,
+  "nombre": "la Pobla de Vallbona"
+ },
+ "c11m116e06": {
+  "lat": 39.557599999999994,
+  "lon": -0.5344861111111111,
+  "nombre": "l′ElianaPinaeta del Cel"
+ },
+ "c11m202e03": {
+  "lat": 39.63638611111111,
+  "lon": -0.5372333333333333,
+  "nombre": "la Pobla de VallbonaRincons"
+ },
+ "c11m202e04": {
+  "lat": 39.569027777777784,
+  "lon": -0.5438222222222222,
+  "nombre": "la Pobla de VallbonaGallipont"
+ },
+ "c11m147e06": {
+  "lat": 39.631925,
+  "lon": -0.5961361111111112,
+  "nombre": "Llíria"
+ },
+ "c11m161e01": {
+  "lat": 39.67563333333333,
+  "lon": -0.5633111111111112,
+  "nombre": "Marines"
+ },
+ "c11m147e05": {
+  "lat": 39.7288,
+  "lon": -0.6958,
+  "nombre": "LlíriaBodegas del Campo"
+ },
+ "c11m148e01": {
+  "lat": 39.498400000000004,
+  "lon": -0.595388888888889,
+  "nombre": "LoriguillaPozalet"
+ },
+ "c11m051e02": {
+  "lat": 39.59261111111111,
+  "lon": -0.5824666666666667,
+  "nombre": "Benaguasileste"
+ },
+ "c11m214e03": {
+  "lat": 39.54796944444444,
+  "lon": -0.5618916666666667,
+  "nombre": "Riba-roja de TúriaIES el Quint"
+ },
+ "c11m214e04": {
+  "lat": 39.485,
+  "lon": -0.568761111111111,
+  "nombre": "Riba-roja de Túriala Reva"
+ },
+ "c11m178e03": {
+  "lat": 39.66112222222222,
+  "lon": -0.42470833333333335,
+  "nombre": "Nàquera"
+ },
+ "c11m182e02": {
+  "lat": 39.701100000000004,
+  "lon": -0.5308,
+  "nombre": "Olocau"
+ },
+ "c11m214e05": {
+  "lat": 39.549,
+  "lon": -0.574,
+  "nombre": "Riba-roja de Túria"
+ },
+ "c11m228e01": {
+  "lat": 39.686024999999994,
+  "lon": -0.42678055555555555,
+  "nombre": "Serra"
+ },
+ "c11m228e02": {
+  "lat": 39.64886944444444,
+  "lon": -0.5107222222222222,
+  "nombre": "SerraUrb. Portacoeli"
+ },
+ "c11m903e02": {
+  "lat": 39.54849166666666,
+  "lon": -0.49770000000000003,
+  "nombre": "San Antonio de BenagéberCELSAB"
+ },
+ "c11m256e03": {
+  "lat": 39.53777777777778,
+  "lon": -0.6191666666666666,
+  "nombre": "Vilamarxantla Rodana"
+ },
+ "c11m256e05": {
+  "lat": 39.56771666666667,
+  "lon": -0.6223833333333334,
+  "nombre": "VilamarxantAyuntamiento"
+ },
+ "c12m010e01": {
+  "lat": 39.702286111111114,
+  "lon": -0.33715277777777775,
+  "nombre": "Albalat dels Tarongers"
+ },
+ "c11m256e06": {
+  "lat": 39.56477777777778,
+  "lon": -0.6821694444444444,
+  "nombre": "VilamarxantMas de Teulada"
+ },
+ "c11m256e04": {
+  "lat": 39.55027777777777,
+  "lon": -0.6625,
+  "nombre": "VilamarxantLa Pedrera"
+ },
+ "c12m028e01": {
+  "lat": 39.78149444444444,
+  "lon": -0.36776666666666663,
+  "nombre": "Algar de Palància"
+ },
+ "c12m030e02": {
+  "lat": 39.75167777777778,
+  "lon": -0.360125,
+  "nombre": "Algímia d′Alfara"
+ },
+ "c11m256e02": {
+  "lat": 39.565619444444444,
+  "lon": -0.6233444444444445,
+  "nombre": "VilamarxantSan José"
+ },
+ "c12m052e02": {
+  "lat": 39.74027777777778,
+  "lon": -0.2576861111111111,
+  "nombre": "Benavites"
+ },
+ "c12m103e01": {
+  "lat": 39.73681111111111,
+  "lon": -0.26671388888888886,
+  "nombre": "Quartell"
+ },
+ "c12m220e09": {
+  "lat": 39.678416666666664,
+  "lon": -0.27796666666666664,
+  "nombre": "Sagunt"
+ },
+ "c12m220e03": {
+  "lat": 39.65210555555555,
+  "lon": -0.30788333333333334,
+  "nombre": "SaguntRacó de Gausa"
+ },
+ "c12m224e01": {
+  "lat": 39.68498333333333,
+  "lon": -0.3711222222222222,
+  "nombre": "Segart"
+ },
+ "c12m220e08": {
+  "lat": 39.668949999999995,
+  "lon": -0.2286388888888889,
+  "nombre": "SaguntPuerto de Sagunto"
+ },
+ "c13m014e01": {
+  "lat": 39.54435,
+  "lon": -0.3251972222222222,
+  "nombre": "AlbuixechAyuntamiento"
+ },
+ "c13m009e01": {
+  "lat": 39.54371111111111,
+  "lon": -0.34678055555555554,
+  "nombre": "Albalat dels Sorells"
+ },
+ "c13m014e02": {
+  "lat": 39.54095833333333,
+  "lon": -0.30535277777777775,
+  "nombre": "AlbuixechPolígon"
+ },
+ "c13m013e04": {
+  "lat": 39.50105277777778,
+  "lon": -0.35267499999999996,
+  "nombre": "Alboraia"
+ },
+ "c12m245e01": {
+  "lat": 39.743272222222224,
+  "lon": -0.35583333333333333,
+  "nombre": "Torres Torres"
+ },
+ "c13m009e02": {
+  "lat": 39.56367777777778,
+  "lon": -0.3729722222222222,
+  "nombre": "Albalat dels Sorellsla Lloma"
+ },
+ "c13m078e02": {
+  "lat": 39.510466666666666,
+  "lon": -0.42423333333333335,
+  "nombre": "BurjassotÀ Punt"
+ },
+ "c13m032e01": {
+  "lat": 39.51555555555556,
+  "lon": -0.3474777777777778,
+  "nombre": "Almàssera"
+ },
+ "c13m135e03": {
+  "lat": 39.51842222222222,
+  "lon": -0.4097638888888889,
+  "nombre": "Godella"
+ },
+ "c13m199e01": {
+  "lat": 39.57855555555556,
+  "lon": -0.32687222222222223,
+  "nombre": "la Pobla de Farnals"
+ },
+ "c13m199e02": {
+  "lat": 39.56485,
+  "lon": -0.2828611111111111,
+  "nombre": "la Pobla de Farnalsplaya"
+ },
+ "c13m163e01": {
+  "lat": 39.557941666666665,
+  "lon": -0.3256972222222222,
+  "nombre": "Massalfassar"
+ },
+ "c13m164e01": {
+  "lat": 39.57,
+  "lon": -0.3305611111111111,
+  "nombre": "MassamagrellCentre Cultural"
+ },
+ "c13m164e02": {
+  "lat": 39.566538888888886,
+  "lon": -0.3330361111111111,
+  "nombre": "MassamagrellBarri del Raval"
+ },
+ "c13m166e01": {
+  "lat": 39.527233333333335,
+  "lon": -0.3419111111111111,
+  "nombre": "MelianaCEIP El Crist"
+ },
+ "c13m171e02": {
+  "lat": 39.587500000000006,
+  "lon": -0.39916666666666667,
+  "nombre": "MontcadaCIDE (CSIC-UV-GVA)"
+ },
+ "c13m190e04": {
+  "lat": 39.49957777777778,
+  "lon": -0.4425805555555556,
+  "nombre": "PaternaEstación"
+ },
+ "c13m190e01": {
+  "lat": 39.51860555555555,
+  "lon": -0.42334444444444447,
+  "nombre": "PaternaCasas Verdes"
+ },
+ "c13m190e02": {
+  "lat": 39.513475,
+  "lon": -0.4609138888888889,
+  "nombre": "PaternaP.I. Fuente del Jarro - Asivalco"
+ },
+ "c13m205e04": {
+  "lat": 39.63355,
+  "lon": -0.3387944444444444,
+  "nombre": "PuçolUrbanización Alfinach"
+ },
+ "c13m190e05": {
+  "lat": 39.54656666666666,
+  "lon": -0.45971666666666666,
+  "nombre": "PaternaParque tecnológico AIDIMME"
+ },
+ "c13m205e03": {
+  "lat": 39.61527777777778,
+  "lon": -0.31222222222222223,
+  "nombre": "PuçolCiudad Jardín"
+ },
+ "c13m260e01": {
+  "lat": 39.53883333333333,
+  "lon": -0.36982499999999996,
+  "nombre": "Vinalesa"
+ },
+ "c13m207e02": {
+  "lat": 39.585058333333336,
+  "lon": -0.33181944444444444,
+  "nombre": "RafelbunyolIES Rafelbunyol"
+ },
+ "c15m250e39": {
+  "lat": 39.52588611111111,
+  "lon": -0.37801388888888887,
+  "nombre": "ValènciaCarpesaAlqueries del Pelut"
+ },
+ "c15m250e31": {
+  "lat": 39.358925,
+  "lon": -0.3183638888888889,
+  "nombre": "Valènciael SalerPlatja de la Garrofera"
+ },
+ "c15m250e32": {
+  "lat": 39.47035,
+  "lon": -0.4094944444444445,
+  "nombre": "ValènciaColegio Pureza de María-Cid"
+ },
+ "c15m250e30": {
+  "lat": 39.48283888888889,
+  "lon": -0.3845166666666667,
+  "nombre": "ValènciaColegio Diocesano San Juan Bosco"
+ },
+ "c15m250e15": {
+  "lat": 39.476775,
+  "lon": -0.39007222222222226,
+  "nombre": "ValènciaAltocúmulo"
+ },
+ "c15m250e08": {
+  "lat": 39.4666,
+  "lon": -0.3455,
+  "nombre": "ValènciaCamins al Grau"
+ },
+ "c15m250e33": {
+  "lat": 39.466413888888894,
+  "lon": -0.35338888888888886,
+  "nombre": "ValènciaAlbors"
+ },
+ "c15m250e37": {
+  "lat": 39.48583888888889,
+  "lon": -0.35682777777777774,
+  "nombre": "ValènciaBenimaclet"
+ },
+ "c15m250e36": {
+  "lat": 39.465872222222224,
+  "lon": -0.3317861111111111,
+  "nombre": "ValènciaColegio Pureza de María-Grao"
+ },
+ "c15m250e42": {
+  "lat": 39.45665,
+  "lon": -0.3729333333333333,
+  "nombre": "ValènciaEn Corts"
+ },
+ "c15m250e16": {
+  "lat": 39.3591,
+  "lon": -0.347,
+  "nombre": "Valèncial'Albufera/Tancat de la Pipa"
+ },
+ "c15m250e11": {
+  "lat": 39.471000000000004,
+  "lon": -0.40080000000000005,
+  "nombre": "Valèncial'Olivereta"
+ },
+ "c16m007e02": {
+  "lat": 39.39678055555556,
+  "lon": -0.40998611111111116,
+  "nombre": "Albalcentro"
+ },
+ "c15m250e34": {
+  "lat": 39.46228888888889,
+  "lon": -0.3957527777777778,
+  "nombre": "ValènciaPatraix"
+ },
+ "c16m021e04": {
+  "lat": 39.46473055555556,
+  "lon": -0.46079166666666665,
+  "nombre": "AldaiaAjuntament"
+ },
+ "c15m250e26": {
+  "lat": 39.458333333333336,
+  "lon": -0.35028333333333334,
+  "nombre": "ValènciaPenya-roja"
+ },
+ "c16m094e02": {
+  "lat": 39.40333333333333,
+  "lon": -0.40361111111111114,
+  "nombre": "CatarrojaAyuntamiento"
+ },
+ "c16m021e03": {
+  "lat": 39.460797222222226,
+  "lon": -0.4632805555555556,
+  "nombre": "AldaiaSud"
+ },
+ "c16m015e01": {
+  "lat": 39.36991388888889,
+  "lon": -0.44530555555555557,
+  "nombre": "Alcàsser"
+ },
+ "c16m165e02": {
+  "lat": 39.412175,
+  "lon": -0.4012777777777778,
+  "nombre": "MassanassaE. Sociocultural"
+ },
+ "c16m159e04": {
+  "lat": 39.522841666666665,
+  "lon": -0.5125166666666666,
+  "nombre": "Manisesla Presa"
+ },
+ "c16m094e05": {
+  "lat": 39.409438888888886,
+  "lon": -0.40306111111111115,
+  "nombre": "CatarrojaColegio Larrodé"
+ },
+ "c16m186e02": {
+  "lat": 39.42929722222222,
+  "lon": -0.41775833333333334,
+  "nombre": "Paiporta"
+ },
+ "c16m193e01": {
+  "lat": 39.43382222222222,
+  "lon": -0.42985555555555555,
+  "nombre": "PicanyaIES Enric Valor"
+ },
+ "c16m194e05": {
+  "lat": 39.36187777777778,
+  "lon": -0.5364722222222222,
+  "nombre": "PicassentMasia Ninyerola"
+ },
+ "c16m194e04": {
+  "lat": 39.314125,
+  "lon": -0.5010055555555556,
+  "nombre": "PicassentCentre Scout l'Almud"
+ },
+ "c16m165e01": {
+  "lat": 39.412099999999995,
+  "lon": -0.3966,
+  "nombre": "MassanassaIES Massanassa"
+ },
+ "c16m102e02": {
+  "lat": 39.46364722222223,
+  "lon": -0.5152305555555555,
+  "nombre": "Quart de Pobletlos Hornillos"
+ },
+ "c16m102e01": {
+  "lat": 39.482416666666666,
+  "lon": -0.44230555555555556,
+  "nombre": "Quart de PobletAjuntament"
+ },
+ "c16m102e03": {
+  "lat": 39.47788611111111,
+  "lon": -0.4316611111111111,
+  "nombre": "Quart de PobletIES la Senda"
+ },
+ "c16m110e03": {
+  "lat": 39.46318333333333,
+  "lon": -0.42834444444444447,
+  "nombre": "XirivellaAjuntament"
+ },
+ "c16m244e03": {
+  "lat": 39.42858333333333,
+  "lon": -0.47775,
+  "nombre": "TorrentAv. al Vedat"
+ },
+ "c16m244e08": {
+  "lat": 39.43089722222222,
+  "lon": -0.6007361111111111,
+  "nombre": "TorrentCalicanto"
+ },
+ "c17m080e02": {
+  "lat": 39.64706388888889,
+  "lon": -1.3995583333333332,
+  "nombre": "CamporroblesAyuntamiento"
+ },
+ "c16m110e02": {
+  "lat": 39.46614166666667,
+  "lon": -0.4336638888888889,
+  "nombre": "XirivellaCentre Cívic"
+ },
+ "c17m080e01": {
+  "lat": 39.660525,
+  "lon": -1.3832861111111112,
+  "nombre": "Camporroblesel Campillo"
+ },
+ "c17m129e01": {
+  "lat": 39.585544444444444,
+  "lon": -1.3643694444444445,
+  "nombre": "Fuenterrobles"
+ },
+ "c17m213e06": {
+  "lat": 39.296388888888885,
+  "lon": -1.1344444444444444,
+  "nombre": "RequenaCasas del Río"
+ },
+ "c17m095e02": {
+  "lat": 39.55911111111111,
+  "lon": -1.2803027777777778,
+  "nombre": "Caudete de las FuentesAyuntamiento"
+ },
+ "c16m102e04": {
+  "lat": 39.48634722222222,
+  "lon": -0.44680000000000003,
+  "nombre": "Quart de PobletIES Riu Túria"
+ },
+ "c17m213e07": {
+  "lat": 39.46910555555556,
+  "lon": -1.0129527777777778,
+  "nombre": "RequenaEl Rebollar(Coop. Nuestra Señora del Rosario)"
+ },
+ "c17m213e09": {
+  "lat": 39.41811666666666,
+  "lon": -1.2974527777777776,
+  "nombre": "RequenaLos Isidros"
+ },
+ "c17m213e10": {
+  "lat": 39.46573055555556,
+  "lon": -1.0861222222222222,
+  "nombre": "RequenaFinca San Blas"
+ },
+ "c17m249e01": {
+  "lat": 39.669444444444444,
+  "lon": -1.2594444444444444,
+  "nombre": "UtielLa TorreCoop. S.Antonio"
+ },
+ "c17m213e08": {
+  "lat": 39.47222777777778,
+  "lon": -1.253986111111111,
+  "nombre": "RequenaLos Ruices(Com. Regantes)"
+ },
+ "c17m213e03": {
+  "lat": 39.48861111111111,
+  "lon": -1.0808333333333333,
+  "nombre": "RequenaSan José"
+ },
+ "c17m249e02": {
+  "lat": 39.564338888888884,
+  "lon": -1.1978777777777778,
+  "nombre": "Utieleste"
+ },
+ "c17m213e17": {
+  "lat": 39.489158333333336,
+  "lon": -1.097,
+  "nombre": "Requenacentro"
+ },
+ "c17m213e15": {
+  "lat": 39.52243055555555,
+  "lon": -1.1558138888888887,
+  "nombre": "RequenaSan Antonio"
+ },
+ "c18m012e01": {
+  "lat": 39.391727777777774,
+  "lon": -0.7710305555555557,
+  "nombre": "Alborache"
+ },
+ "c18m077e01": {
+  "lat": 39.419399999999996,
+  "lon": -0.7906,
+  "nombre": "Buñol"
+ },
+ "c17m254e02": {
+  "lat": 39.48408333333333,
+  "lon": -1.3579416666666668,
+  "nombre": "Venta del Moro"
+ },
+ "c18m077e07": {
+  "lat": 39.44342777777778,
+  "lon": -0.8165388888888889,
+  "nombre": "BuñolAlto Gordo (este)"
+ },
+ "c18m077e04": {
+  "lat": 39.45333333333333,
+  "lon": -0.8408333333333333,
+  "nombre": "BuñolAlto Gordo (oeste)"
+ },
+ "c18m077e06": {
+  "lat": 39.416325,
+  "lon": -0.7885277777777777,
+  "nombre": "BuñolPartior"
+ },
+ "c18m115e01": {
+  "lat": 39.28901666666666,
+  "lon": -0.7998694444444444,
+  "nombre": "Dos Aguas"
+ },
+ "c18m229e02": {
+  "lat": 39.472775,
+  "lon": -0.9153888888888889,
+  "nombre": "Siete Aguas"
+ },
+ "c18m136e03": {
+  "lat": 39.423402777777774,
+  "lon": -0.6171083333333334,
+  "nombre": "GodelletaUrb. Monsec"
+ },
+ "c18m229e01": {
+  "lat": 39.489850000000004,
+  "lon": -0.90235,
+  "nombre": "Siete Aguasla Loma"
+ },
+ "c18m158e02": {
+  "lat": 39.38191666666667,
+  "lon": -0.7851916666666666,
+  "nombre": "MacastreAyuntamiento"
+ },
+ "c18m229e03": {
+  "lat": 39.482486111111115,
+  "lon": -0.9238361111111111,
+  "nombre": "Siete AguasUrb. Cerro"
+ },
+ "c18m109e01": {
+  "lat": 39.49194444444444,
+  "lon": -0.6836111111111112,
+  "nombre": "Chestecentro"
+ },
+ "c18m111e01": {
+  "lat": 39.4778,
+  "lon": -0.7211,
+  "nombre": "Chiva"
+ },
+ "c18m158e01": {
+  "lat": 39.38933888888889,
+  "lon": -0.78365,
+  "nombre": "MacastreCuatro Caminos"
+ },
+ "c18m111e03": {
+  "lat": 39.43649166666666,
+  "lon": -0.5700111111111111,
+  "nombre": "ChivaCalicanto"
+ },
+ "c19m044e02": {
+  "lat": 38.92916944444444,
+  "lon": -1.102363888888889,
+  "nombre": "AyoraSan Benito"
+ },
+ "c18m111e04": {
+  "lat": 39.44786111111111,
+  "lon": -0.6457499999999999,
+  "nombre": "ChivaLos Felipes"
+ },
+ "c18m261e01": {
+  "lat": 39.385019444444445,
+  "lon": -0.8082055555555556,
+  "nombre": "Yátova"
+ },
+ "c19m044e04": {
+  "lat": 39.06361111111111,
+  "lon": -1.0569444444444445,
+  "nombre": "AyoraCalle Montemayor"
+ },
+ "c19m044e19": {
+  "lat": 39.009880555555554,
+  "lon": -0.9596388888888888,
+  "nombre": "AyoraCasa Benito"
+ },
+ "c18m136e04": {
+  "lat": 39.42086111111111,
+  "lon": -0.7097777777777777,
+  "nombre": "GodelletaPartida El Murtal"
+ },
+ "c19m044e08": {
+  "lat": 39.05495277777778,
+  "lon": -1.0590555555555556,
+  "nombre": "AyoraCoop. Agrícola la Ayorense"
+ },
+ "c19m044e22": {
+  "lat": 38.942366666666665,
+  "lon": -1.0714305555555554,
+  "nombre": "AyoraCasa Royo"
+ },
+ "c19m044e21": {
+  "lat": 38.96594166666667,
+  "lon": -0.9548666666666666,
+  "nombre": "AyoraFinca Peralta - Casa Quemada"
+ },
+ "c19m044e15": {
+  "lat": 39.05490277777778,
+  "lon": -1.0542166666666668,
+  "nombre": "AyoraIES Fernando III"
+ },
+ "c19m044e06": {
+  "lat": 39.08753888888889,
+  "lon": -1.2130333333333332,
+  "nombre": "AyoraLa Hunde"
+ },
+ "c19m044e17": {
+  "lat": 39.00055555555556,
+  "lon": -1.0883333333333332,
+  "nombre": "AyoraAlbergue Granja-Escuela El Regajo"
+ },
+ "c19m044e16": {
+  "lat": 38.97694444444445,
+  "lon": -1.0755555555555556,
+  "nombre": "AyoraCasas de MadronaCasa Rural Los Pastores"
+ },
+ "c19m044e12": {
+  "lat": 39.06944444444445,
+  "lon": -1.065,
+  "nombre": "AyoraHuerto Ecológico Agua Nueva"
+ },
+ "c19m044e10": {
+  "lat": 38.998047222222226,
+  "lon": -1.0035361111111112,
+  "nombre": "AyoraLa Mariluna"
+ },
+ "c19m044e23": {
+  "lat": 39.032552777777774,
+  "lon": -1.1743083333333335,
+  "nombre": "AyoraLa Ortina"
+ },
+ "c19m044e14": {
+  "lat": 39.07382777777778,
+  "lon": -1.1277055555555555,
+  "nombre": "AyoraLa Vega"
+ },
+ "c19m044e07": {
+  "lat": 39.051716666666664,
+  "lon": -1.044152777777778,
+  "nombre": "AyoraPolígono / Apicultura Cerdá"
+ },
+ "c19m044e01": {
+  "lat": 39.0595,
+  "lon": -1.055,
+  "nombre": "AyoraPlaza Mayor"
+ },
+ "c19m099e14": {
+  "lat": 39.29907222222222,
+  "lon": -0.9200388888888889,
+  "nombre": "Cortes de PallásEl Oro"
+ },
+ "c19m097e02": {
+  "lat": 39.230358333333335,
+  "lon": -1.0620555555555555,
+  "nombre": "Cofrentes"
+ },
+ "c19m044e11": {
+  "lat": 39.056977777777774,
+  "lon": -1.0593222222222223,
+  "nombre": "AyoraLa Solana"
+ },
+ "c19m099e13": {
+  "lat": 39.31926111111112,
+  "lon": -1.0403972222222224,
+  "nombre": "Cortes de PallásLa Cabezuela"
+ },
+ "c19m099e02": {
+  "lat": 39.307525,
+  "lon": -0.96,
+  "nombre": "Cortes de PallásVenta de Gaeta"
+ },
+ "c20m029e04": {
+  "lat": 39.20026666666667,
+  "lon": -0.4412027777777778,
+  "nombre": "Algemesí"
+ },
+ "c19m239e01": {
+  "lat": 39.10294722222223,
+  "lon": -1.0470777777777778,
+  "nombre": "Teresa de Cofrentes"
+ },
+ "c19m044e20": {
+  "lat": 38.999408333333335,
+  "lon": -0.9230694444444444,
+  "nombre": "AyoraPeñón de Los Machos/Casa Pi"
+ },
+ "c20m016e01": {
+  "lat": 39.069325000000006,
+  "lon": -0.5601416666666668,
+  "nombre": "Alcàntera de Xúquer"
+ },
+ "c19m099e15": {
+  "lat": 39.258605555555555,
+  "lon": -0.8499111111111112,
+  "nombre": "Cortes de PallásOtonel"
+ },
+ "c19m099e12": {
+  "lat": 39.24333055555556,
+  "lon": -0.9407166666666666,
+  "nombre": "Cortes de PallásAyuntamiento"
+ },
+ "c20m017e09": {
+  "lat": 39.14991111111111,
+  "lon": -0.42555833333333337,
+  "nombre": "Alziraest / l'Alquenència"
+ },
+ "c20m017e13": {
+  "lat": 39.15748611111111,
+  "lon": -0.43546111111111113,
+  "nombre": "AlziraIES La Murta"
+ },
+ "c20m017e12": {
+  "lat": 39.11572777777778,
+  "lon": -0.3543972222222222,
+  "nombre": "Alzirala Casella"
+ },
+ "c20m017e03": {
+  "lat": 39.15194722222222,
+  "lon": -0.44302222222222226,
+  "nombre": "AlziraAjuntament"
+ },
+ "c20m017e05": {
+  "lat": 39.1339,
+  "lon": -0.3766527777777777,
+  "nombre": "Alzirala Murta"
+ },
+ "c20m031e03": {
+  "lat": 39.25781111111111,
+  "lon": -0.4716,
+  "nombre": "Alginetsud"
+ },
+ "c20m017e14": {
+  "lat": 39.16644722222222,
+  "lon": -0.4187,
+  "nombre": "Alziranord / Polígon"
+ },
+ "c20m031e01": {
+  "lat": 39.26081111111111,
+  "lon": -0.4652138888888889,
+  "nombre": "Alginet"
+ },
+ "c20m031e02": {
+  "lat": 39.268522222222224,
+  "lon": -0.4974277777777778,
+  "nombre": "AlginetUrb. Los Lagos"
+ },
+ "c20m060e04": {
+  "lat": 39.287302777777775,
+  "lon": -0.4250916666666667,
+  "nombre": "BenifaióCEIP Santa Bàrbara"
+ },
+ "c20m084e02": {
+  "lat": 39.061699999999995,
+  "lon": -0.5644,
+  "nombre": "CàrcerPla del Rei"
+ },
+ "c20m084e01": {
+  "lat": 39.066875,
+  "lon": -0.5680111111111111,
+  "nombre": "Càrcer"
+ },
+ "c20m083e04": {
+  "lat": 39.12303055555556,
+  "lon": -0.4511027777777778,
+  "nombre": "CarcaixentAjuntament"
+ },
+ "c20m083e05": {
+  "lat": 39.069700000000005,
+  "lon": -0.4088666666666667,
+  "nombre": "CarcaixentHort de Soriano"
+ },
+ "c20m085e03": {
+  "lat": 39.22582222222223,
+  "lon": -0.5196666666666667,
+  "nombre": "CarletAjuntament"
+ },
+ "c20m083e06": {
+  "lat": 39.116791666666664,
+  "lon": -0.45058055555555554,
+  "nombre": "CarcaixentQuatre Camins"
+ },
+ "c20m017e08": {
+  "lat": 39.147863888888885,
+  "lon": -0.48252222222222224,
+  "nombre": "AlziraMulata (Alzicoop)"
+ },
+ "c20m085e04": {
+  "lat": 39.23108611111111,
+  "lon": -0.5757888888888889,
+  "nombre": "CarletCaseta del Banc"
+ },
+ "c20m257e04": {
+  "lat": 39.07853888888889,
+  "lon": -0.5165388888888889,
+  "nombre": "CastellóCEIP Severí Torres"
+ },
+ "c20m085e02": {
+  "lat": 39.229400000000005,
+  "lon": -0.5076138888888889,
+  "nombre": "Carlet"
+ },
+ "c20m040e01": {
+  "lat": 39.079213888888894,
+  "lon": -0.5926277777777779,
+  "nombre": "Antella"
+ },
+ "c20m257e03": {
+  "lat": 39.0767,
+  "lon": -0.5092,
+  "nombre": "Castellópoble"
+ },
+ "c20m100e01": {
+  "lat": 39.067752777777784,
+  "lon": -0.5816,
+  "nombre": "CotesLa Séquia Nova"
+ },
+ "c20m064e01": {
+  "lat": 39.13133611111111,
+  "lon": -0.4925861111111111,
+  "nombre": "Benimuslem"
+ },
+ "c20m100e02": {
+  "lat": 39.070705555555556,
+  "lon": -0.5751611111111111,
+  "nombre": "CotesC/ Vicente Pavía Galdón"
+ },
+ "c20m130e01": {
+  "lat": 39.091011111111115,
+  "lon": -0.5453333333333333,
+  "nombre": "Gavarda"
+ },
+ "c20m100e03": {
+  "lat": 39.07042222222223,
+  "lon": -0.5746833333333333,
+  "nombre": "CotesAjuntament"
+ },
+ "c20m130e02": {
+  "lat": 39.09377222222223,
+  "lon": -0.5557888888888889,
+  "nombre": "Gavardala Travessa"
+ },
+ "c20m139e02": {
+  "lat": 39.170319444444445,
+  "lon": -0.5261388888888889,
+  "nombre": "GuadassuarComplex de Valorització de Residus"
+ },
+ "c20m139e03": {
+  "lat": 39.18912777777778,
+  "lon": -0.48204444444444444,
+  "nombre": "GuadassuarIES Didín Puig"
+ },
+ "c20m119e01": {
+  "lat": 39.04513333333333,
+  "lon": -0.4806861111111111,
+  "nombre": "l′Énova"
+ },
+ "c20m019e01": {
+  "lat": 39.193999999999996,
+  "lon": -0.5072222222222222,
+  "nombre": "l′AlcúdiaAjuntament"
+ },
+ "c20m019e02": {
+  "lat": 39.18954166666666,
+  "lon": -0.5422888888888889,
+  "nombre": "l′AlcúdiaCarriona"
+ },
+ "c20m017e06": {
+  "lat": 39.099700000000006,
+  "lon": -0.37039999999999995,
+  "nombre": "la Barraca d′Aigües Vives"
+ },
+ "c20m203e01": {
+  "lat": 39.087700000000005,
+  "lon": -0.4763,
+  "nombre": "la Pobla LlargaIES Pere d′Esplugues"
+ },
+ "c20m156e03": {
+  "lat": 39.292316666666665,
+  "lon": -0.606111111111111,
+  "nombre": "LlombaiAtalaya"
+ },
+ "c20m203e02": {
+  "lat": 39.085925,
+  "lon": -0.4756416666666667,
+  "nombre": "la Pobla LlargaAjuntament"
+ },
+ "c20m160e01": {
+  "lat": 39.05272222222222,
+  "lon": -0.4943138888888889,
+  "nombre": "Manuel"
+ },
+ "c20m172e07": {
+  "lat": 39.36043055555556,
+  "lon": -0.5437666666666666,
+  "nombre": "MontserratMasia Trinitat"
+ },
+ "c20m212e02": {
+  "lat": 39.33816111111111,
+  "lon": -0.6098833333333333,
+  "nombre": "Real"
+ },
+ "c20m162e01": {
+  "lat": 39.14064722222222,
+  "lon": -0.5210166666666667,
+  "nombre": "Massalavés"
+ },
+ "c20m209e02": {
+  "lat": 39.052,
+  "lon": -0.4543916666666667,
+  "nombre": "Rafelguaraf"
+ },
+ "c20m172e01": {
+  "lat": 39.38,
+  "lon": -0.54,
+  "nombre": "MontserratCasadalt"
+ },
+ "c20m236e01": {
+  "lat": 39.09516666666667,
+  "lon": -0.6287722222222223,
+  "nombre": "Sumacàrcer"
+ },
+ "c20m248e02": {
+  "lat": 39.3914,
+  "lon": -0.6683888888888888,
+  "nombre": "TurísCanyapar"
+ },
+ "c20m246e02": {
+  "lat": 39.1381,
+  "lon": -0.5867472222222223,
+  "nombre": "TousAyuntamiento"
+ },
+ "c20m246e01": {
+  "lat": 39.1409,
+  "lon": -0.589925,
+  "nombre": "TousCEIP Santa Bárbara"
+ },
+ "c20m236e02": {
+  "lat": 39.08284444444445,
+  "lon": -0.6393305555555555,
+  "nombre": "SumacàrcerAlt de la Ceja"
+ },
+ "c21m008e01": {
+  "lat": 39.202358333333336,
+  "lon": -0.38682500000000003,
+  "nombre": "Albalat de la Ribera"
+ },
+ "c21m105e07": {
+  "lat": 39.14200833333333,
+  "lon": -0.23894444444444446,
+  "nombre": "Cullerael Marenyet"
+ },
+ "c21m904e01": {
+  "lat": 39.185066666666664,
+  "lon": -0.38237499999999996,
+  "nombre": "Benicull de Xúquer"
+ },
+ "c21m098e02": {
+  "lat": 39.15483888888889,
+  "lon": -0.3458805555555555,
+  "nombre": "CorberaPolígon"
+ },
+ "c21m105e06": {
+  "lat": 39.18891111111111,
+  "lon": -0.22452222222222223,
+  "nombre": "CulleraFaro"
+ },
+ "c21m105e03": {
+  "lat": 39.1625,
+  "lon": -0.2447,
+  "nombre": "CulleraSan Antonio"
+ },
+ "c21m123e01": {
+  "lat": 39.127338888888886,
+  "lon": -0.2872694444444444,
+  "nombre": "Favara"
+ },
+ "c21m155e03": {
+  "lat": 39.14696111111111,
+  "lon": -0.3302333333333333,
+  "nombre": "Llaurí"
+ },
+ "c21m233e01": {
+  "lat": 39.303999999999995,
+  "lon": -0.387,
+  "nombre": "SollanaEl Romaní"
+ },
+ "c21m233e02": {
+  "lat": 39.311233333333334,
+  "lon": -0.3559833333333333,
+  "nombre": "Sollanal'Albufera/Tancat de Milia"
+ },
+ "c21m235e04": {
+  "lat": 39.25859722222222,
+  "lon": -0.264925,
+  "nombre": "Suecales Palmeres"
+ },
+ "c21m235e05": {
+  "lat": 39.20079166666667,
+  "lon": -0.3135972222222222,
+  "nombre": "Suecacentre"
+ },
+ "c21m235e08": {
+  "lat": 39.28896111111111,
+  "lon": -0.33815,
+  "nombre": "Suecal'Albufera"
+ },
+ "c21m235e02": {
+  "lat": 39.2252,
+  "lon": -0.2454,
+  "nombre": "SuecaMareny Blau"
+ },
+ "c21m235e09": {
+  "lat": 39.29445,
+  "lon": -0.3152638888888889,
+  "nombre": "Suecal'Albufera/Tancat de l'Estell"
+ },
+ "c21m235e10": {
+  "lat": 39.21388888888889,
+  "lon": -0.31666666666666665,
+  "nombre": "SuecaMateral"
+ },
+ "c21m235e06": {
+  "lat": 39.24108888888889,
+  "lon": -0.3169861111111111,
+  "nombre": "SuecaMuntanyeta dels Sants"
+ },
+ "c22m118e05": {
+  "lat": 38.925155555555556,
+  "lon": -0.8842222222222222,
+  "nombre": "EngueraNavalón"
+ },
+ "c22m118e01": {
+  "lat": 38.977333333333334,
+  "lon": -0.6954444444444444,
+  "nombre": "Enguera"
+ },
+ "c22m118e04": {
+  "lat": 38.94473055555555,
+  "lon": -0.768588888888889,
+  "nombre": "EngueraAeródromo"
+ },
+ "c22m118e08": {
+  "lat": 39.00541944444444,
+  "lon": -0.8308555555555556,
+  "nombre": "EngueraBenali"
+ },
+ "c22m118e09": {
+  "lat": 38.91768611111111,
+  "lon": -0.9501472222222221,
+  "nombre": "EngueraCañada Molina (RuralCan)"
+ },
+ "c22m118e06": {
+  "lat": 38.96918055555556,
+  "lon": -0.8687777777777778,
+  "nombre": "EngueraBenigüengo"
+ },
+ "c22m118e10": {
+  "lat": 38.97595277777778,
+  "lon": -0.6874527777777778,
+  "nombre": "EngueraCP FPA Simón Monerris"
+ },
+ "c22m118e02": {
+  "lat": 38.957433333333334,
+  "lon": -0.8256166666666667,
+  "nombre": "EngueraEl Transformador"
+ },
+ "c22m071e01": {
+  "lat": 39.085816666666666,
+  "lon": -0.8660333333333333,
+  "nombre": "BicorpLos Botijos"
+ },
+ "c22m073e02": {
+  "lat": 39.059822222222216,
+  "lon": -0.6746333333333333,
+  "nombre": "Bolbaite"
+ },
+ "c22m071e02": {
+  "lat": 39.132,
+  "lon": -0.7874916666666667,
+  "nombre": "BicorpEcomuseo"
+ },
+ "c22m167e01": {
+  "lat": 39.237430555555555,
+  "lon": -0.7728166666666667,
+  "nombre": "Millares"
+ },
+ "c22m039e01": {
+  "lat": 39.02008611111111,
+  "lon": -0.6487972222222222,
+  "nombre": "Anna"
+ },
+ "c22m206e02": {
+  "lat": 39.09374722222223,
+  "lon": -0.783625,
+  "nombre": "QuesaCampamento Río Grande"
+ },
+ "c22m206e01": {
+  "lat": 39.108805555555556,
+  "lon": -0.7522222222222222,
+  "nombre": "QuesaEcoCampingQuesa"
+ },
+ "c22m179e01": {
+  "lat": 39.078897222222224,
+  "lon": -0.6997277777777778,
+  "nombre": "NavarrésPlayamonte"
+ },
+ "c22m206e03": {
+  "lat": 39.11915555555556,
+  "lon": -0.7405777777777778,
+  "nombre": "QuesaAyuntamiento"
+ },
+ "c22m107e03": {
+  "lat": 39.04422222222222,
+  "lon": -0.6618888888888889,
+  "nombre": "Chella"
+ },
+ "c22m107e05": {
+  "lat": 39.03411944444444,
+  "lon": -0.6536861111111111,
+  "nombre": "Chellagasolinera"
+ },
+ "c22m107e02": {
+  "lat": 39.02786111111111,
+  "lon": -0.6687527777777778,
+  "nombre": "ChellaEl Rincón"
+ },
+ "c23m045e02": {
+  "lat": 39.022980555555556,
+  "lon": -0.41592500000000004,
+  "nombre": "Barxeta"
+ },
+ "c22m107e06": {
+  "lat": 39.049594444444445,
+  "lon": -0.6701944444444444,
+  "nombre": "ChellaPlantcanal"
+ },
+ "c22m107e04": {
+  "lat": 39.06183333333333,
+  "lon": -0.6452388888888888,
+  "nombre": "ChellaEl Matet"
+ },
+ "c23m081e05": {
+  "lat": 38.94788055555555,
+  "lon": -0.5649500000000001,
+  "nombre": "CanalsCabiscol"
+ },
+ "c23m132e04": {
+  "lat": 38.98964166666667,
+  "lon": -0.4686666666666667,
+  "nombre": "el GenovésCanonge Llopis"
+ },
+ "c23m081e03": {
+  "lat": 38.97092777777778,
+  "lon": -0.5792972222222222,
+  "nombre": "CanalsIES Sivera Font"
+ },
+ "c23m096e02": {
+  "lat": 38.98580277777778,
+  "lon": -0.5738944444444445,
+  "nombre": "Cerdà"
+ },
+ "c23m132e02": {
+  "lat": 38.98907777777778,
+  "lon": -0.46729166666666666,
+  "nombre": "el GenovésAjuntament"
+ },
+ "c23m020e02": {
+  "lat": 38.96765,
+  "lon": -0.5848527777777778,
+  "nombre": "l′Alcúdia de Crespins/Canalsla Muntanyeta"
+ },
+ "c23m128e06": {
+  "lat": 38.77998611111111,
+  "lon": -0.8533555555555555,
+  "nombre": "la Font de la Figuerales Pebraes"
+ },
+ "c23m128e02": {
+  "lat": 38.79694444444444,
+  "lon": -0.8830555555555556,
+  "nombre": "la Font de la FigueraParc solar"
+ },
+ "c23m151e03": {
+  "lat": 39.014494444444445,
+  "lon": -0.4692527777777778,
+  "nombre": "Llocnou d′en Fenollet"
+ },
+ "c23m170e04": {
+  "lat": 38.888419444444445,
+  "lon": -0.7518111111111111,
+  "nombre": "Moixentla Foia"
+ },
+ "c23m174e06": {
+  "lat": 38.95023611111112,
+  "lon": -0.6529722222222223,
+  "nombre": "MontesaAjuntament"
+ },
+ "c23m251e05": {
+  "lat": 38.89579444444444,
+  "lon": -0.6920416666666667,
+  "nombre": "ValladaAjuntament"
+ },
+ "c23m253e01": {
+  "lat": 38.985644444444446,
+  "lon": -0.5559916666666667,
+  "nombre": "Vallés"
+ },
+ "c23m180e01": {
+  "lat": 38.981211111111115,
+  "lon": -0.5477638888888888,
+  "nombre": "Novetlè"
+ },
+ "c23m251e03": {
+  "lat": 38.90141944444444,
+  "lon": -0.6980472222222223,
+  "nombre": "ValladaMolí de Baix"
+ },
+ "c23m174e05": {
+  "lat": 38.93216111111111,
+  "lon": -0.6228888888888889,
+  "nombre": "Montesaels Canterers"
+ },
+ "c23m251e01": {
+  "lat": 38.89458055555556,
+  "lon": -0.6893472222222222,
+  "nombre": "ValladaPlaceta dels Columpios"
+ },
+ "c23m145e12": {
+  "lat": 38.98978888888889,
+  "lon": -0.5288527777777778,
+  "nombre": "XàtivaAusiàs March"
+ },
+ "c23m145e07": {
+  "lat": 38.98836111111111,
+  "lon": -0.5253111111111112,
+  "nombre": "Xàtivacentre"
+ },
+ "c23m145e11": {
+  "lat": 38.99138888888889,
+  "lon": -0.5161111111111111,
+  "nombre": "XàtivaIES Josep de Ribera"
+ },
+ "c23m145e15": {
+  "lat": 38.986158333333336,
+  "lon": -0.5356916666666667,
+  "nombre": "XàtivaIES Dr. Lluís Simarro"
+ },
+ "c23m145e14": {
+  "lat": 39.00395,
+  "lon": -0.5076777777777778,
+  "nombre": "XàtivaCasa Cuesa"
+ },
+ "c24m004e01": {
+  "lat": 38.8213,
+  "lon": -0.5488999999999999,
+  "nombre": "Agullent"
+ },
+ "c24m042e01": {
+  "lat": 38.87861111111111,
+  "lon": -0.5872222222222223,
+  "nombre": "Aielo de Malferitcentre"
+ },
+ "c24m043e01": {
+  "lat": 38.883069444444445,
+  "lon": -0.3466888888888889,
+  "nombre": "Aielo de Rugatel Planet"
+ },
+ "c24m042e02": {
+  "lat": 38.876777777777775,
+  "lon": -0.5923666666666667,
+  "nombre": "Aielo de MalferitAjuntament"
+ },
+ "c24m043e02": {
+  "lat": 38.881797222222225,
+  "lon": -0.34401944444444443,
+  "nombre": "Aielo de Rugat"
+ },
+ "c24m006e01": {
+  "lat": 38.835597222222226,
+  "lon": -0.5243500000000001,
+  "nombre": "AlbaidaIES J. Segrelles"
+ },
+ "c24m006e02": {
+  "lat": 38.838725000000004,
+  "lon": -0.5096972222222222,
+  "nombre": "Albaidal'Alqueria - Campaners d'Albaida"
+ },
+ "c24m003e03": {
+  "lat": 38.83198333333333,
+  "lon": -0.4984138888888889,
+  "nombre": "Atzeneta d′Albaida"
+ },
+ "c24m047e02": {
+  "lat": 38.860261111111114,
+  "lon": -0.4746194444444444,
+  "nombre": "BèlgidaAjuntament"
+ },
+ "c24m003e04": {
+  "lat": 38.83587222222222,
+  "lon": -0.4957888888888889,
+  "nombre": "Atzeneta d′AlbaidaAjuntament"
+ },
+ "c24m056e01": {
+  "lat": 38.84659166666667,
+  "lon": -0.416675,
+  "nombre": "Beniatjar"
+ },
+ "c24m057e02": {
+  "lat": 38.919999999999995,
+  "lon": -0.345,
+  "nombre": "Benicolet"
+ },
+ "c24m062e02": {
+  "lat": 38.937663888888885,
+  "lon": -0.4417861111111111,
+  "nombre": "BenigànimIES les Foies"
+ },
+ "c24m072e02": {
+  "lat": 38.7529,
+  "lon": -0.5507000000000001,
+  "nombre": "BocairentCàmping Mariola"
+ },
+ "c24m072e06": {
+  "lat": 38.76819166666667,
+  "lon": -0.6046333333333334,
+  "nombre": "Bocairentels Corrals"
+ },
+ "c24m072e05": {
+  "lat": 38.73153055555556,
+  "lon": -0.6112861111111111,
+  "nombre": "BocairentRambla de Mariola"
+ },
+ "c24m072e03": {
+  "lat": 38.76166666666666,
+  "lon": -0.6175,
+  "nombre": "Bocairentla Canaleta"
+ },
+ "c24m072e07": {
+  "lat": 38.7648,
+  "lon": -0.6104416666666667,
+  "nombre": "BocairentToll del Setrill"
+ },
+ "c24m086e01": {
+  "lat": 38.840833333333336,
+  "lon": -0.47150555555555557,
+  "nombre": "Carrícola"
+ },
+ "c24m072e04": {
+  "lat": 38.762483333333336,
+  "lon": -0.6183388888888889,
+  "nombre": "Bocairentels Vilars"
+ },
+ "c24m183e01": {
+  "lat": 38.91171111111111,
+  "lon": -0.5465555555555556,
+  "nombre": "l′OlleriaAjuntament"
+ },
+ "c24m124e02": {
+  "lat": 38.78516666666666,
+  "lon": -0.7851555555555555,
+  "nombre": "Fontanarspoble"
+ },
+ "c24m200e03": {
+  "lat": 38.90278333333333,
+  "lon": -0.42036111111111113,
+  "nombre": "la Pobla del DucCooperativa"
+ },
+ "c24m138e02": {
+  "lat": 38.92641111111111,
+  "lon": -0.4896666666666667,
+  "nombre": "GuadasséquiesAjuntament"
+ },
+ "c24m189e01": {
+  "lat": 38.85528055555556,
+  "lon": -0.5013416666666667,
+  "nombre": "el Palomar"
+ },
+ "c24m090e01": {
+  "lat": 38.8758,
+  "lon": -0.3831,
+  "nombre": "Castelló de Rugat"
+ },
+ "c24m124e01": {
+  "lat": 38.77981111111111,
+  "lon": -0.8013694444444445,
+  "nombre": "FontanarsGasolinera"
+ },
+ "c24m124e03": {
+  "lat": 38.784213888888885,
+  "lon": -0.7867083333333333,
+  "nombre": "Fontanarsoest"
+ },
+ "c24m150e03": {
+  "lat": 38.942813888888885,
+  "lon": -0.3562111111111111,
+  "nombre": "LlutxentAjuntament"
+ },
+ "c24m210e01": {
+  "lat": 38.866725,
+  "lon": -0.39758333333333334,
+  "nombre": "el Ràfol de Salem"
+ },
+ "c24m150e02": {
+  "lat": 38.94029722222222,
+  "lon": -0.3606055555555555,
+  "nombre": "LlutxentCoop. del Camp"
+ },
+ "c24m184e18": {
+  "lat": 38.83777777777778,
+  "lon": -0.6141666666666666,
+  "nombre": "OntinyentAlt de Toledo"
+ },
+ "c24m175e01": {
+  "lat": 38.89111944444444,
+  "lon": -0.33888888888888885,
+  "nombre": "Montitxelvo"
+ },
+ "c24m184e01": {
+  "lat": 38.826100000000004,
+  "lon": -0.5969,
+  "nombre": "OntinyentGermanies"
+ },
+ "c24m184e23": {
+  "lat": 38.82756388888889,
+  "lon": -0.629313888888889,
+  "nombre": "Ontinyentel Pilar"
+ },
+ "c24m184e19": {
+  "lat": 38.80440833333333,
+  "lon": -0.6143527777777777,
+  "nombre": "OntinyentAlba"
+ },
+ "c24m184e07": {
+  "lat": 38.82222222222222,
+  "lon": -0.5961111111111111,
+  "nombre": "OntinyentIES Jaume I"
+ },
+ "c24m173e01": {
+  "lat": 38.88881111111111,
+  "lon": -0.4965,
+  "nombre": "MontavernerAjuntament"
+ },
+ "c24m184e31": {
+  "lat": 38.826302777777784,
+  "lon": -0.6140361111111111,
+  "nombre": "OntinyentIES Pou Clar"
+ },
+ "c24m184e24": {
+  "lat": 38.83693888888889,
+  "lon": -0.5925,
+  "nombre": "Ontinyentels Gínjols"
+ },
+ "c24m184e25": {
+  "lat": 38.788333333333334,
+  "lon": -0.6647222222222222,
+  "nombre": "OntinyentOmbria dels Frares"
+ },
+ "c24m184e27": {
+  "lat": 38.81721944444445,
+  "lon": -0.6216722222222223,
+  "nombre": "Ontinyentles Aigües"
+ },
+ "c24m184e02": {
+  "lat": 38.81720000000001,
+  "lon": -0.6073999999999999,
+  "nombre": "OntinyentLlombo"
+ },
+ "c24m184e30": {
+  "lat": 38.82116944444445,
+  "lon": -0.60425,
+  "nombre": "OntinyentSant Josep"
+ },
+ "c24m184e29": {
+  "lat": 38.802138888888884,
+  "lon": -0.6231305555555556,
+  "nombre": "OntinyentTorre de Torús"
+ },
+ "c24m185e01": {
+  "lat": 38.853300000000004,
+  "lon": -0.445,
+  "nombre": "Otos"
+ },
+ "c24m184e28": {
+  "lat": 38.79883888888889,
+  "lon": -0.6645555555555556,
+  "nombre": "OntinyentManuel Iranzo"
+ },
+ "c24m196e01": {
+  "lat": 38.98300277777778,
+  "lon": -0.3383861111111111,
+  "nombre": "Pinet"
+ },
+ "c24m184e03": {
+  "lat": 38.84,
+  "lon": -0.6092,
+  "nombre": "OntinyentSta. Anna nord"
+ },
+ "c24m184e32": {
+  "lat": 38.82105833333333,
+  "lon": -0.6138166666666667,
+  "nombre": "OntinyentPere IV"
+ },
+ "c24m104e04": {
+  "lat": 38.94660555555555,
+  "lon": -0.3865,
+  "nombre": "QuatretondaCap de Bou"
+ },
+ "c24m104e05": {
+  "lat": 38.96056111111111,
+  "lon": -0.3967666666666667,
+  "nombre": "QuatretondaEl Collet de l'Anglés"
+ },
+ "c24m104e03": {
+  "lat": 38.944469444444444,
+  "lon": -0.3985305555555556,
+  "nombre": "Quatretondasud-est"
+ },
+ "c24m219e01": {
+  "lat": 38.88,
+  "lon": -0.36277777777777775,
+  "nombre": "Rugat"
+ },
+ "c24m221e01": {
+  "lat": 38.85377777777778,
+  "lon": -0.3809166666666666,
+  "nombre": "Salem"
+ },
+ "c25m033e01": {
+  "lat": 38.91546388888889,
+  "lon": -0.28573333333333334,
+  "nombre": "Almiserà"
+ },
+ "c25m023e01": {
+  "lat": 38.92943888888889,
+  "lon": -0.2507361111111111,
+  "nombre": "Alfauir"
+ },
+ "c24m240e01": {
+  "lat": 38.89383333333333,
+  "lon": -0.3198944444444444,
+  "nombre": "Terrateig"
+ },
+ "c25m046e02": {
+  "lat": 39.013688888888886,
+  "lon": -0.3017388888888889,
+  "nombre": "Barx"
+ },
+ "c25m046e03": {
+  "lat": 39.024166666666666,
+  "lon": -0.30833333333333335,
+  "nombre": "Barxla Visteta"
+ },
+ "c25m059e01": {
+  "lat": 39.05483888888889,
+  "lon": -0.3031583333333333,
+  "nombre": "Benifairó de la Valldigna"
+ },
+ "c25m061e01": {
+  "lat": 38.92796666666666,
+  "lon": -0.18879166666666666,
+  "nombre": "Beniflà"
+ },
+ "c25m046e01": {
+  "lat": 39.005,
+  "lon": -0.29009999999999997,
+  "nombre": "Barxla Drova"
+ },
+ "c25m046e04": {
+  "lat": 39.02191666666666,
+  "lon": -0.31835555555555556,
+  "nombre": "Barxla Falaguera"
+ },
+ "c25m059e03": {
+  "lat": 39.06688055555556,
+  "lon": -0.29412777777777777,
+  "nombre": "Benifairó de la ValldignaCambro/Pator"
+ },
+ "c25m066e01": {
+  "lat": 38.96105277777778,
+  "lon": -0.1939,
+  "nombre": "Benirredrà"
+ },
+ "c25m211e02": {
+  "lat": 38.945722222222216,
+  "lon": -0.21017222222222223,
+  "nombre": "el Real de GandiaCEIP CAES N.S.Amparo"
+ },
+ "c25m131e14": {
+  "lat": 38.96594166666667,
+  "lon": -0.17926944444444443,
+  "nombre": "GandiaAjuntament"
+ },
+ "c25m131e15": {
+  "lat": 38.98278611111111,
+  "lon": -0.16601666666666665,
+  "nombre": "GandiaCamí de la mar"
+ },
+ "c25m131e18": {
+  "lat": 38.971250000000005,
+  "lon": -0.2472527777777778,
+  "nombre": "GandiaErmita de Marxuquera"
+ },
+ "c25m131e12": {
+  "lat": 38.968833333333336,
+  "lon": -0.18105555555555555,
+  "nombre": "GandiaEscola Pia"
+ },
+ "c25m131e16": {
+  "lat": 38.988641666666666,
+  "lon": -0.1585111111111111,
+  "nombre": "GandiaGrau sud"
+ },
+ "c25m131e17": {
+  "lat": 38.98997777777778,
+  "lon": -0.17682499999999998,
+  "nombre": "GandiaL'Alqueria del Duc"
+ },
+ "c25m131e13": {
+  "lat": 39.00194444444445,
+  "lon": -0.2747222222222222,
+  "nombre": "GandiaParpalló-Borrell"
+ },
+ "c25m091e01": {
+  "lat": 38.91486666666667,
+  "lon": -0.26340833333333336,
+  "nombre": "Castellonet de la Conquesta"
+ },
+ "c25m168e02": {
+  "lat": 38.95751666666667,
+  "lon": -0.12735833333333332,
+  "nombre": "MiramarPlatja"
+ },
+ "c25m153e01": {
+  "lat": 38.912416666666665,
+  "lon": -0.2857972222222222,
+  "nombre": "Llocnou de Sant Jeroni"
+ },
+ "c25m181e06": {
+  "lat": 38.918305555555555,
+  "lon": -0.12065833333333334,
+  "nombre": "OlivaCEIP Santa Anna"
+ },
+ "c25m181e07": {
+  "lat": 38.932075,
+  "lon": -0.094675,
+  "nombre": "OlivaClub Nàutic"
+ },
+ "c25m181e02": {
+  "lat": 38.91452222222222,
+  "lon": -0.11757777777777778,
+  "nombre": "Olivasud"
+ },
+ "c25m187e02": {
+  "lat": 38.92434722222222,
+  "lon": -0.2206138888888889,
+  "nombre": "Palma de GandiaAjuntament"
+ },
+ "c25m188e01": {
+  "lat": 38.94264444444444,
+  "lon": -0.153175,
+  "nombre": "Palmera"
+ },
+ "c25m198e01": {
+  "lat": 38.91501944444444,
+  "lon": -0.20075833333333334,
+  "nombre": "PotriesCasa Fosca"
+ },
+ "c25m198e02": {
+  "lat": 38.914405555555554,
+  "lon": -0.19627499999999998,
+  "nombre": "Potries"
+ },
+ "c25m208e01": {
+  "lat": 38.93295277777778,
+  "lon": -0.17023333333333332,
+  "nombre": "Rafelcofer"
+ },
+ "c25m231e02": {
+  "lat": 39.0438,
+  "lon": -0.3126,
+  "nombre": "Simat de la Valldigna"
+ },
+ "c25m231e03": {
+  "lat": 39.015375,
+  "lon": -0.3651833333333333,
+  "nombre": "Simat de la ValldignaPla de Corrals"
+ },
+ "c25m238e08": {
+  "lat": 39.06973611111111,
+  "lon": -0.27728055555555553,
+  "nombre": "Tavernes de la ValldignaIES La Valldigna"
+ },
+ "c25m238e02": {
+  "lat": 39.07644722222223,
+  "lon": -0.2580388888888889,
+  "nombre": "Tavernes de la ValldignaSequers"
+ },
+ "c25m255e05": {
+  "lat": 38.85986944444445,
+  "lon": -0.22216944444444445,
+  "nombre": "Vilallongael Pla de la Llacuna"
+ },
+ "c25m238e06": {
+  "lat": 39.07064444444445,
+  "lon": -0.28715833333333335,
+  "nombre": "Tavernes de la ValldignaUll del Bou/Cambro"
+ },
+ "c25m255e07": {
+  "lat": 38.862944444444445,
+  "lon": -0.19780555555555554,
+  "nombre": "Vilallongala Llacuna / est"
+ },
+ "c25m187e01": {
+  "lat": 38.956047222222224,
+  "lon": -0.24729722222222222,
+  "nombre": "Palma de GandiaMarxuquera"
+ },
+ "c25m255e04": {
+  "lat": 38.88749722222222,
+  "lon": -0.20801666666666668,
+  "nombre": "Vilallonganord"
+ },
+ "c25m255e06": {
+  "lat": 38.88847222222222,
+  "lon": -0.2113611111111111,
+  "nombre": "VilallongaSerpis"
+ },
+ "c26m003e03": {
+  "lat": 38.781,
+  "lon": -0.5209,
+  "nombre": "AgresBonell"
+ },
+ "c26m003e05": {
+  "lat": 38.75805555555556,
+  "lon": -0.5055555555555555,
+  "nombre": "AgresFoia Ampla de Mariola"
+ },
+ "c26m008e02": {
+  "lat": 38.6781,
+  "lon": -0.3258,
+  "nombre": "AlcolejaBeniafé"
+ },
+ "c26m003e04": {
+  "lat": 38.77806944444444,
+  "lon": -0.5170083333333334,
+  "nombre": "AgresTorreta Alta"
+ },
+ "c26m007e01": {
+  "lat": 38.79495277777777,
+  "lon": -0.4020472222222222,
+  "nombre": "Alcosser"
+ },
+ "c26m003e10": {
+  "lat": 38.785,
+  "lon": -0.5158333333333334,
+  "nombre": "Agresles Eres"
+ },
+ "c26m003e07": {
+  "lat": 38.79511111111111,
+  "lon": -0.528638888888889,
+  "nombre": "AgresEl Tossal"
+ },
+ "c26m010e02": {
+  "lat": 38.76895833333333,
+  "lon": -0.5570666666666667,
+  "nombre": "AlfafaraBolumini"
+ },
+ "c26m003e06": {
+  "lat": 38.79876111111111,
+  "lon": -0.5367916666666667,
+  "nombre": "Agresla Valleta"
+ },
+ "c26m010e05": {
+  "lat": 38.77269166666667,
+  "lon": -0.5781416666666667,
+  "nombre": "AlfafaraAlpadull (Ganadería)"
+ },
+ "c26m010e03": {
+  "lat": 38.7934,
+  "lon": -0.5478055555555555,
+  "nombre": "AlfafaraErmita Verge de la Llum"
+ },
+ "c26m010e04": {
+  "lat": 38.772927777777774,
+  "lon": -0.5554944444444445,
+  "nombre": "AlfafaraAjuntament"
+ },
+ "c26m016e01": {
+  "lat": 38.760511111111114,
+  "lon": -0.35356944444444444,
+  "nombre": "Almudaina"
+ },
+ "c26m020e03": {
+  "lat": 38.73675,
+  "lon": -0.3483611111111111,
+  "nombre": "BalonesPlanet de Pau"
+ },
+ "c26m020e02": {
+  "lat": 38.73638888888889,
+  "lon": -0.34194444444444444,
+  "nombre": "Balones"
+ },
+ "c26m028e03": {
+  "lat": 38.8211,
+  "lon": -0.3781,
+  "nombre": "BeniarrésMuseu del Clima"
+ },
+ "c26m022e01": {
+  "lat": 38.68662777777777,
+  "lon": -0.3274138888888889,
+  "nombre": "BenasauAres del Bosc"
+ },
+ "c26m036e01": {
+  "lat": 38.7533,
+  "lon": -0.37939999999999996,
+  "nombre": "Benillup"
+ },
+ "c26m038e01": {
+  "lat": 38.77569444444444,
+  "lon": -0.39135833333333336,
+  "nombre": "Benimarfull"
+ },
+ "c26m035e03": {
+  "lat": 38.70028055555556,
+  "lon": -0.3844,
+  "nombre": "Benillobael Passeig"
+ },
+ "c26m035e02": {
+  "lat": 38.701438888888894,
+  "lon": -0.3874527777777778,
+  "nombre": "BenillobaSecció IES Pare Arques"
+ },
+ "c26m039e03": {
+  "lat": 38.749972222222226,
+  "lon": -0.29362499999999997,
+  "nombre": "Benimassot"
+ },
+ "c26m056e09": {
+  "lat": 38.7359,
+  "lon": -0.4365833333333333,
+  "nombre": "CocentainaAjunt./IES Pare Arques"
+ },
+ "c26m056e15": {
+  "lat": 38.704008333333334,
+  "lon": -0.4438972222222222,
+  "nombre": "CocentainaPoble Nou de Sant RafelCaseta Segura"
+ },
+ "c26m056e14": {
+  "lat": 38.74443333333333,
+  "lon": -0.40786944444444445,
+  "nombre": "CocentainaPartida la Jaquera (9 Oliveres)"
+ },
+ "c26m056e12": {
+  "lat": 38.75174166666667,
+  "lon": -0.4517638888888889,
+  "nombre": "CocentainaSant Cristòfol"
+ },
+ "c26m084e01": {
+  "lat": 38.8436,
+  "lon": -0.3111,
+  "nombre": "l′Orxa"
+ },
+ "c26m067e01": {
+  "lat": 38.7349,
+  "lon": -0.2682,
+  "nombre": "Fageca"
+ },
+ "c26m073e01": {
+  "lat": 38.71841944444444,
+  "lon": -0.3564444444444444,
+  "nombre": "GorgaForn Montse"
+ },
+ "c26m072e02": {
+  "lat": 38.8116,
+  "lon": -0.4103,
+  "nombre": "Gaianes"
+ },
+ "c26m092e07": {
+  "lat": 38.791125,
+  "lon": -0.46574722222222226,
+  "nombre": "Muro d′AlcoiFont del Baladre"
+ },
+ "c26m092e06": {
+  "lat": 38.785038888888884,
+  "lon": -0.4303777777777778,
+  "nombre": "Muro d′AlcoiIES Serra Mariola"
+ },
+ "c26m017e03": {
+  "lat": 38.7721,
+  "lon": -0.4253,
+  "nombre": "l′Alqueria d′AsnarAjuntament"
+ },
+ "c26m106e03": {
+  "lat": 38.7847,
+  "lon": -0.34509999999999996,
+  "nombre": "Planes"
+ },
+ "c26m106e06": {
+  "lat": 38.7719,
+  "lon": -0.33849999999999997,
+  "nombre": "PlanesBenialfaquí"
+ },
+ "c26m084e02": {
+  "lat": 38.82879166666667,
+  "lon": -0.32182499999999997,
+  "nombre": "l′OrxaPozo Umbría 2 - Pinar"
+ },
+ "c26m060e01": {
+  "lat": 38.723775,
+  "lon": -0.31668888888888885,
+  "nombre": "Quatretondeta"
+ },
+ "c27m009e22": {
+  "lat": 38.705536111111115,
+  "lon": -0.5205916666666667,
+  "nombre": "AlcoiBaradello (ACIF)"
+ },
+ "c27m009e08": {
+  "lat": 38.69681666666666,
+  "lon": -0.4724888888888889,
+  "nombre": "AlcoiCírculo Industrial"
+ },
+ "c27m009e18": {
+  "lat": 38.68807777777778,
+  "lon": -0.47615277777777776,
+  "nombre": "AlcoiIES Pare Vitòria"
+ },
+ "c27m009e16": {
+  "lat": 38.66502777777777,
+  "lon": -0.5408333333333333,
+  "nombre": "AlcoiLa Font Roja"
+ },
+ "c27m009e11": {
+  "lat": 38.71385,
+  "lon": -0.4630944444444445,
+  "nombre": "AlcoiIES Cotes Baixes"
+ },
+ "c27m009e04": {
+  "lat": 38.6975,
+  "lon": -0.4444,
+  "nombre": "Alcoila Penella d'Ànima"
+ },
+ "c27m009e05": {
+  "lat": 38.70691388888889,
+  "lon": -0.4747527777777778,
+  "nombre": "AlcoiPas del Benissaidó"
+ },
+ "c27m009e24": {
+  "lat": 38.70858333333334,
+  "lon": -0.5281111111111112,
+  "nombre": "AlcoiUrb. Sargento"
+ },
+ "c27m009e23": {
+  "lat": 38.693080555555554,
+  "lon": -0.4775611111111111,
+  "nombre": "AlcoiZona Alta"
+ },
+ "c27m021e04": {
+  "lat": 38.699080555555554,
+  "lon": -0.6396694444444444,
+  "nombre": "Banyeres de MariolaAlberg Ull de Canals"
+ },
+ "c27m021e03": {
+  "lat": 38.719166666666666,
+  "lon": -0.6569444444444444,
+  "nombre": "Banyeres de Mariolael Barranquet"
+ },
+ "c27m021e05": {
+  "lat": 38.72694444444445,
+  "lon": -0.6938888888888889,
+  "nombre": "Banyeres de MariolaRte. Venta del Borrego"
+ },
+ "c27m021e01": {
+  "lat": 38.72383611111111,
+  "lon": -0.6667555555555555,
+  "nombre": "Banyeres de MariolaIES Professor Manuel Broseta"
+ },
+ "c27m021e08": {
+  "lat": 38.71530833333333,
+  "lon": -0.6586611111111111,
+  "nombre": "Banyeres de MariolaErmita el Conjurador"
+ },
+ "c27m053e13": {
+  "lat": 38.58826944444445,
+  "lon": -0.6751999999999999,
+  "nombre": "CastallaCEIP La Llauria"
+ },
+ "c27m053e09": {
+  "lat": 38.59043888888889,
+  "lon": -0.6693916666666666,
+  "nombre": "CastallaCEIP Rico Sapena"
+ },
+ "c27m053e12": {
+  "lat": 38.60465,
+  "lon": -0.6759638888888888,
+  "nombre": "Castallal'Erm"
+ },
+ "c27m009e03": {
+  "lat": 38.692775,
+  "lon": -0.494425,
+  "nombre": "AlcoiACIF"
+ },
+ "c27m053e10": {
+  "lat": 38.54899722222222,
+  "lon": -0.675761111111111,
+  "nombre": "CastallaRacó de l'Espartosa"
+ },
+ "c27m079e11": {
+  "lat": 38.61913055555556,
+  "lon": -0.5902166666666667,
+  "nombre": "IbiIES la Foia"
+ },
+ "c27m032e01": {
+  "lat": 38.66361111111111,
+  "lon": -0.3988888888888889,
+  "nombre": "BenifallimFreginal"
+ },
+ "c27m079e09": {
+  "lat": 38.6365,
+  "lon": -0.5384,
+  "nombre": "IbiTorretes/Font Roja"
+ },
+ "c27m096e08": {
+  "lat": 38.60936388888889,
+  "lon": -0.6792611111111111,
+  "nombre": "Onilels Canyarets"
+ },
+ "c27m096e09": {
+  "lat": 38.627975,
+  "lon": -0.6331972222222223,
+  "nombre": "OnilPla de Quart"
+ },
+ "c27m096e07": {
+  "lat": 38.63059722222222,
+  "lon": -0.6779416666666667,
+  "nombre": "OnilTrail Natura"
+ },
+ "c27m103e02": {
+  "lat": 38.68287222222222,
+  "lon": -0.37850833333333334,
+  "nombre": "PenàguilaFetgendur"
+ },
+ "c27m103e03": {
+  "lat": 38.677499999999995,
+  "lon": -0.3630555555555555,
+  "nombre": "PenàguilaPozo Font Major"
+ },
+ "c27m129e07": {
+  "lat": 38.535,
+  "lon": -0.5733333333333334,
+  "nombre": "TibiPou Vell"
+ },
+ "c28m043e07": {
+  "lat": 38.64041666666667,
+  "lon": -0.7938611111111111,
+  "nombre": "Biarel Toll"
+ },
+ "c28m023e02": {
+  "lat": 38.7,
+  "lon": -0.7672000000000001,
+  "nombre": "Beneixamapoble"
+ },
+ "c28m043e06": {
+  "lat": 38.63113055555556,
+  "lon": -0.7671222222222223,
+  "nombre": "BiarSant Roc"
+ },
+ "c28m052e01": {
+  "lat": 38.65416666666667,
+  "lon": -0.8055555555555556,
+  "nombre": "la CanyadaCandela"
+ },
+ "c28m052e02": {
+  "lat": 38.677,
+  "lon": -0.815075,
+  "nombre": "la CanyadaMas del Masero / Cupido"
+ },
+ "c28m140e13": {
+  "lat": 38.526466666666664,
+  "lon": -0.9903,
+  "nombre": "VillenaColonia de Sierra Salinas"
+ },
+ "c28m140e17": {
+  "lat": 38.74420833333333,
+  "lon": -0.851625,
+  "nombre": "VillenaLa Zafra"
+ },
+ "c28m116e03": {
+  "lat": 38.519933333333334,
+  "lon": -0.9133638888888889,
+  "nombre": "Salinas"
+ },
+ "c28m140e32": {
+  "lat": 38.617305555555554,
+  "lon": -0.85885,
+  "nombre": "VillenaBulilla"
+ },
+ "c28m140e33": {
+  "lat": 38.54772777777777,
+  "lon": -0.8702527777777778,
+  "nombre": "VillenaCabrera/Casa Anvers"
+ },
+ "c28m140e37": {
+  "lat": 38.62959444444444,
+  "lon": -0.8599,
+  "nombre": "VillenaCalle Nueva"
+ },
+ "c28m140e15": {
+  "lat": 38.62551388888889,
+  "lon": -0.9321388888888889,
+  "nombre": "VillenaLas Virtudes"
+ },
+ "c28m140e35": {
+  "lat": 38.66512222222222,
+  "lon": -0.9040305555555556,
+  "nombre": "VillenaCasas de Menor"
+ },
+ "c28m140e16": {
+  "lat": 38.63483055555555,
+  "lon": -0.864625,
+  "nombre": "Villenaciudad"
+ },
+ "c28m140e10": {
+  "lat": 38.625,
+  "lon": -0.8655555555555555,
+  "nombre": "VillenaCamino San Juan"
+ },
+ "c28m140e11": {
+  "lat": 38.61405,
+  "lon": -0.880788888888889,
+  "nombre": "VillenaFinca Hnos. Guerrero"
+ },
+ "c28m140e31": {
+  "lat": 38.57556944444445,
+  "lon": -0.9269,
+  "nombre": "VillenaLa Boquera"
+ },
+ "c28m140e29": {
+  "lat": 38.572027777777784,
+  "lon": -0.8909166666666667,
+  "nombre": "VillenaHondo de Carboneras"
+ },
+ "c28m140e24": {
+  "lat": 38.66367222222222,
+  "lon": -0.9454472222222222,
+  "nombre": "VillenaHondo de la Lagunilla"
+ },
+ "c28m140e27": {
+  "lat": 38.63480555555555,
+  "lon": -0.9536944444444444,
+  "nombre": "VillenaLas Quebradas"
+ },
+ "c28m140e23": {
+  "lat": 38.755113888888886,
+  "lon": -0.9063611111111112,
+  "nombre": "VillenaFinca La Gloria"
+ },
+ "c28m140e14": {
+  "lat": 38.63386666666667,
+  "lon": -0.9220777777777778,
+  "nombre": "VillenaLa Laguna"
+ },
+ "c28m140e19": {
+  "lat": 38.69476944444444,
+  "lon": -0.9182888888888888,
+  "nombre": "VillenaLa Parrala"
+ },
+ "c28m140e22": {
+  "lat": 38.6447,
+  "lon": -0.8724000000000001,
+  "nombre": "VillenaNorte. IES Las Fuentes"
+ },
+ "c28m140e25": {
+  "lat": 38.63914166666667,
+  "lon": -0.8519583333333333,
+  "nombre": "VillenaSierra de La Villa"
+ },
+ "c28m140e21": {
+  "lat": 38.5043,
+  "lon": -1.0081,
+  "nombre": "VillenaSierra de Salinas"
+ },
+ "c28m140e36": {
+  "lat": 38.70289722222223,
+  "lon": -0.8630138888888889,
+  "nombre": "VillenaSierra del Morrón"
+ },
+ "c28m140e34": {
+  "lat": 38.56805555555556,
+  "lon": -0.9647222222222221,
+  "nombre": "VillenaTintoreras"
+ },
+ "c29m078e01": {
+  "lat": 38.272777777777776,
+  "lon": -0.9275,
+  "nombre": "el Fondó dels Frares"
+ },
+ "c29m105e07": {
+  "lat": 38.36541666666667,
+  "lon": -1.0441944444444446,
+  "nombre": "el Pinósel Rodriguillo"
+ },
+ "c29m105e08": {
+  "lat": 38.45203888888889,
+  "lon": -1.06475,
+  "nombre": "el PinósPozo Raspay4-Pla de Castella"
+ },
+ "c29m019e02": {
+  "lat": 38.333000000000006,
+  "lon": -0.794,
+  "nombre": "AspePolideportivo"
+ },
+ "c29m019e01": {
+  "lat": 38.343983333333334,
+  "lon": -0.7640583333333333,
+  "nombre": "Aspe"
+ },
+ "c29m066e03": {
+  "lat": 38.474583333333335,
+  "lon": -0.8002222222222223,
+  "nombre": "EldaRotonda MyC"
+ },
+ "c29m089e04": {
+  "lat": 38.43942222222222,
+  "lon": -0.8437138888888889,
+  "nombre": "Monòver"
+ },
+ "c29m013e02": {
+  "lat": 38.33560555555556,
+  "lon": -1.010588888888889,
+  "nombre": "l′Alguenya"
+ },
+ "c29m104e04": {
+  "lat": 38.48165277777778,
+  "lon": -0.7822527777777778,
+  "nombre": "Petrer"
+ },
+ "c29m093e04": {
+  "lat": 38.38333333333333,
+  "lon": -0.7658333333333334,
+  "nombre": "Noveldacentre"
+ },
+ "c29m104e05": {
+  "lat": 38.49923611111111,
+  "lon": -0.7682000000000001,
+  "nombre": "PetrerSierra del Caballo"
+ },
+ "c30m006e01": {
+  "lat": 38.749605555555554,
+  "lon": -0.041027777777777774,
+  "nombre": "Alcalalí"
+ },
+ "c30m029e01": {
+  "lat": 38.75389722222222,
+  "lon": -0.10727777777777778,
+  "nombre": "BenigemblaFont Nova"
+ },
+ "c30m029e02": {
+  "lat": 38.75605,
+  "lon": -0.110325,
+  "nombre": "BenigemblaAjuntament"
+ },
+ "c30m041e07": {
+  "lat": 38.716302777777784,
+  "lon": 0.05324444444444445,
+  "nombre": "BenissaAjuntament"
+ },
+ "c30m041e11": {
+  "lat": 38.65916388888889,
+  "lon": 0.08514999999999999,
+  "nombre": "BenissaC.N. Les Bassetes"
+ },
+ "c30m041e09": {
+  "lat": 38.669999999999995,
+  "lon": 0.026944444444444444,
+  "nombre": "BenissaFerrandet / Barranc del Pou Roig"
+ },
+ "c30m041e10": {
+  "lat": 38.69543888888889,
+  "lon": 0.054797222222222226,
+  "nombre": "Benissael Quisi"
+ },
+ "c30m041e08": {
+  "lat": 38.71675555555556,
+  "lon": 0.05409722222222223,
+  "nombre": "BenissaIES Josep Iborra"
+ },
+ "c30m047e04": {
+  "lat": 38.63079166666667,
+  "lon": 0.023916666666666666,
+  "nombre": "CalpMorro de Toix"
+ },
+ "c30m047e03": {
+  "lat": 38.642827777777775,
+  "lon": 0.04095833333333333,
+  "nombre": "Calp"
+ },
+ "c30m054e02": {
+  "lat": 38.72400277777778,
+  "lon": -0.19614722222222222,
+  "nombre": "Castell de Castells"
+ },
+ "c30m054e01": {
+  "lat": 38.72471388888889,
+  "lon": -0.19301388888888887,
+  "nombre": "Castell de CastellsAjuntament"
+ },
+ "c30m063e15": {
+  "lat": 38.82904444444445,
+  "lon": 0.06286666666666667,
+  "nombre": "Déniala Xara"
+ },
+ "c30m063e19": {
+  "lat": 38.83870833333334,
+  "lon": 0.11597500000000001,
+  "nombre": "DéniaClub Náutico"
+ },
+ "c30m054e03": {
+  "lat": 38.720419444444445,
+  "lon": -0.16367222222222222,
+  "nombre": "Castell de CastellsPlans d'Aialt"
+ },
+ "c30m063e04": {
+  "lat": 38.83486388888889,
+  "lon": 0.1053638888888889,
+  "nombre": "DéniaJoan Chabàs"
+ },
+ "c30m063e16": {
+  "lat": 38.82768888888889,
+  "lon": 0.14939444444444444,
+  "nombre": "Déniales Rotes"
+ },
+ "c30m063e18": {
+  "lat": 38.81872222222223,
+  "lon": 0.1236388888888889,
+  "nombre": "DéniaMontgó/Corral de Calafat"
+ },
+ "c30m042e01": {
+  "lat": 38.7277,
+  "lon": 0.1351,
+  "nombre": "el Poble Nou de Benitatxell"
+ },
+ "c30m042e03": {
+  "lat": 38.722875,
+  "lon": 0.16126388888888887,
+  "nombre": "el Poble Nou de Benitatxellel Puig de la Llorença"
+ },
+ "c30m110e01": {
+  "lat": 38.82038888888889,
+  "lon": -0.05241944444444445,
+  "nombre": "el Ràfol d′Almúnia"
+ },
+ "c30m901e03": {
+  "lat": 38.84847222222223,
+  "lon": 0.01902777777777778,
+  "nombre": "els PobletsMiraflorPortelles"
+ },
+ "c30m071e03": {
+  "lat": 38.77055555555555,
+  "lon": 0.08277777777777778,
+  "nombre": "Gata de GorgosCEIP Santíssim Crist"
+ },
+ "c30m138e02": {
+  "lat": 38.848219444444446,
+  "lon": 0.009577777777777777,
+  "nombre": "el Verger"
+ },
+ "c30m001e02": {
+  "lat": 38.847636111111115,
+  "lon": -0.14885277777777778,
+  "nombre": "l′Atzúbia"
+ },
+ "c30m001e01": {
+  "lat": 38.8756,
+  "lon": -0.1715972222222222,
+  "nombre": "l′AtzúbiaForna"
+ },
+ "c30m135e01": {
+  "lat": 38.8058,
+  "lon": -0.16,
+  "nombre": "la Vall d′Ebo"
+ },
+ "c30m137e03": {
+  "lat": 38.7733,
+  "lon": -0.1275,
+  "nombre": "la Vall de LaguarBenimaurell"
+ },
+ "c30m136e04": {
+  "lat": 38.82126666666667,
+  "lon": -0.2210888888888889,
+  "nombre": "la Vall de GallineraBenialí"
+ },
+ "c30m135e02": {
+  "lat": 38.82083333333334,
+  "lon": -0.145,
+  "nombre": "la Vall d′EboRefugi La Figuereta"
+ },
+ "c30m134e01": {
+  "lat": 38.7767,
+  "lon": -0.2692,
+  "nombre": "la Vall d′AlcalàBeniaia"
+ },
+ "c30m136e03": {
+  "lat": 38.818900000000006,
+  "lon": -0.2761,
+  "nombre": "la Vall de GallineraBenissili"
+ },
+ "c30m091e01": {
+  "lat": 38.762675,
+  "lon": -0.06985277777777778,
+  "nombre": "Murlales Sénies"
+ },
+ "c30m097e01": {
+  "lat": 38.781369444444444,
+  "lon": -0.06209166666666667,
+  "nombre": "Orba"
+ },
+ "c30m095e03": {
+  "lat": 38.82576388888889,
+  "lon": 0.021530555555555556,
+  "nombre": "Ondara"
+ },
+ "c30m097e03": {
+  "lat": 38.782222222222224,
+  "lon": -0.0786111111111111,
+  "nombre": "Orbala Plana"
+ },
+ "c30m100e07": {
+  "lat": 38.74533888888889,
+  "lon": -0.06390833333333333,
+  "nombre": "ParcentAjuntament"
+ },
+ "c30m100e08": {
+  "lat": 38.73395555555555,
+  "lon": -0.0721138888888889,
+  "nombre": "Parcentel Replà"
+ },
+ "c30m100e01": {
+  "lat": 38.7448,
+  "lon": -0.0681,
+  "nombre": "Parcentels Plans"
+ },
+ "c30m100e03": {
+  "lat": 38.74805555555556,
+  "lon": -0.06444444444444444,
+  "nombre": "ParcentFont del Llavador"
+ },
+ "c30m101e03": {
+  "lat": 38.808080555555556,
+  "lon": 0.06466111111111111,
+  "nombre": "Pedreguerla Sella"
+ },
+ "c30m101e05": {
+  "lat": 38.792652777777775,
+  "lon": 0.03404444444444445,
+  "nombre": "Pedreguer"
+ },
+ "c30m102e03": {
+  "lat": 38.83090000000001,
+  "lon": -0.1034,
+  "nombre": "PegoAmbra"
+ },
+ "c30m101e01": {
+  "lat": 38.79055555555556,
+  "lon": 0.03916666666666667,
+  "nombre": "PedreguerPatronat"
+ },
+ "c30m102e12": {
+  "lat": 38.82096388888889,
+  "lon": -0.11823333333333333,
+  "nombre": "PegoCorral de Rata"
+ },
+ "c30m102e07": {
+  "lat": 38.8429,
+  "lon": -0.11560000000000001,
+  "nombre": "Pegocentre"
+ },
+ "c30m102e13": {
+  "lat": 38.853611111111114,
+  "lon": -0.08638888888888889,
+  "nombre": "Pegola Plana"
+ },
+ "c30m102e14": {
+  "lat": 38.83466388888889,
+  "lon": -0.11811666666666668,
+  "nombre": "Pegoles Verdales"
+ },
+ "c30m102e15": {
+  "lat": 38.84308333333333,
+  "lon": -0.11856666666666667,
+  "nombre": "PegoSant Jaume"
+ },
+ "c30m102e11": {
+  "lat": 38.84191666666667,
+  "lon": -0.12061666666666666,
+  "nombre": "PegoMusical"
+ },
+ "c30m115e01": {
+  "lat": 38.80777777777777,
+  "lon": -0.07027777777777777,
+  "nombre": "Sagrala Costera de la Bolata"
+ },
+ "c30m128e09": {
+  "lat": 38.68618333333333,
+  "lon": 0.13843333333333332,
+  "nombre": "TeuladaMorairaClub Náutico"
+ },
+ "c30m128e07": {
+  "lat": 38.700833333333335,
+  "lon": 0.08833333333333333,
+  "nombre": "TeuladaSant Jaume"
+ },
+ "c30m082e33": {
+  "lat": 38.77630833333333,
+  "lon": 0.11025277777777778,
+  "nombre": "XàbiaAsevi"
+ },
+ "c30m128e05": {
+  "lat": 38.719300000000004,
+  "lon": 0.10170000000000001,
+  "nombre": "TeuladaXurra"
+ },
+ "c30m082e28": {
+  "lat": 38.74657777777778,
+  "lon": 0.1895222222222222,
+  "nombre": "XàbiaAlt de la Granadella"
+ },
+ "c30m082e37": {
+  "lat": 38.803102777777774,
+  "lon": 0.19680277777777777,
+  "nombre": "XàbiaCap de Sant Antoni"
+ },
+ "c30m082e35": {
+  "lat": 38.786788888888886,
+  "lon": 0.16763333333333333,
+  "nombre": "XàbiaCEIP Trenc d'Alba"
+ },
+ "c30m082e14": {
+  "lat": 38.79029444444444,
+  "lon": 0.1627472222222222,
+  "nombre": "XàbiaCentre Històric"
+ },
+ "c30m082e24": {
+  "lat": 38.74693888888889,
+  "lon": 0.15002777777777776,
+  "nombre": "XàbiaClub de Golf"
+ },
+ "c30m082e02": {
+  "lat": 38.7836,
+  "lon": 0.1661,
+  "nombre": "XàbiaFreginal"
+ },
+ "c30m082e30": {
+  "lat": 38.77322222222222,
+  "lon": 0.17778333333333332,
+  "nombre": "XàbiaHeliport - Bevenguts"
+ },
+ "c30m082e27": {
+  "lat": 38.77070555555555,
+  "lon": 0.13581666666666667,
+  "nombre": "XàbiaFontanella"
+ },
+ "c30m082e06": {
+  "lat": 38.7297,
+  "lon": 0.1956,
+  "nombre": "Xàbiala Granadella"
+ },
+ "c30m082e26": {
+  "lat": 38.80470555555555,
+  "lon": 0.15891944444444445,
+  "nombre": "Xàbiala Plana"
+ },
+ "c30m082e29": {
+  "lat": 38.790572222222224,
+  "lon": 0.11723888888888889,
+  "nombre": "Xàbiales Valls"
+ },
+ "c30m082e32": {
+  "lat": 38.75463888888889,
+  "lon": 0.1519111111111111,
+  "nombre": "XàbiaLluca/Coster d'En Sala"
+ },
+ "c30m082e10": {
+  "lat": 38.7947,
+  "lon": 0.15159999999999998,
+  "nombre": "XàbiaMontgó/Castellans"
+ },
+ "c30m082e13": {
+  "lat": 38.7616,
+  "lon": 0.1484111111111111,
+  "nombre": "XàbiaLluca/Rafalet"
+ },
+ "c30m082e11": {
+  "lat": 38.800555555555555,
+  "lon": 0.1088888888888889,
+  "nombre": "XàbiaMontgó/Toscamar"
+ },
+ "c30m082e36": {
+  "lat": 38.80429722222222,
+  "lon": 0.11078333333333334,
+  "nombre": "XàbiaParc Natural del Montgó"
+ },
+ "c30m082e15": {
+  "lat": 38.77775277777778,
+  "lon": 0.11071666666666667,
+  "nombre": "XàbiaPartida Julians"
+ },
+ "c30m082e16": {
+  "lat": 38.774074999999996,
+  "lon": 0.18892777777777778,
+  "nombre": "Xàbiaplatja de l′Arenal"
+ },
+ "c30m082e01": {
+  "lat": 38.79365833333333,
+  "lon": 0.18016666666666667,
+  "nombre": "Xàbiaport"
+ },
+ "c30m082e23": {
+  "lat": 38.73916666666667,
+  "lon": 0.22055555555555556,
+  "nombre": "XàbiaUrb. Balcón al Mar"
+ },
+ "c30m081e03": {
+  "lat": 38.74248888888889,
+  "lon": -0.008302777777777779,
+  "nombre": "Xaló"
+ },
+ "c31m018e08": {
+  "lat": 38.62200277777778,
+  "lon": -0.03970833333333333,
+  "nombre": "AlteaAltea la Vellala Foia Baixa"
+ },
+ "c31m018e07": {
+  "lat": 38.62382222222222,
+  "lon": -0.07405555555555556,
+  "nombre": "AlteaComunitat de Regants"
+ },
+ "c31m018e09": {
+  "lat": 38.594722222222224,
+  "lon": -0.06694444444444445,
+  "nombre": "AlteaPartida els Arcs"
+ },
+ "c31m018e06": {
+  "lat": 38.58838888888889,
+  "lon": -0.057216666666666666,
+  "nombre": "AlteaClub Náutico de Altea"
+ },
+ "c31m031e06": {
+  "lat": 38.539088888888884,
+  "lon": -0.13370555555555555,
+  "nombre": "Benidormcentre"
+ },
+ "c30m082e04": {
+  "lat": 38.78661666666667,
+  "lon": 0.1488972222222222,
+  "nombre": "XàbiaTossals/Carrasquetes"
+ },
+ "c31m031e09": {
+  "lat": 38.554630555555555,
+  "lon": -0.12284444444444445,
+  "nombre": "BenidormIES l'Almadrava"
+ },
+ "c31m033e02": {
+  "lat": 38.67583333333333,
+  "lon": -0.22861111111111113,
+  "nombre": "BenifatoVenta de Benifato"
+ },
+ "c31m037e05": {
+  "lat": 38.64176666666667,
+  "lon": -0.1833361111111111,
+  "nombre": "BenimantellPas del Comptador"
+ },
+ "c31m048e18": {
+  "lat": 38.65861111111111,
+  "lon": -0.0966111111111111,
+  "nombre": "Callosa d′en SarriàAlgar"
+ },
+ "c31m048e08": {
+  "lat": 38.6461,
+  "lon": -0.1205,
+  "nombre": "Callosa d′en Sarriàel Colomer"
+ },
+ "c31m045e04": {
+  "lat": 38.675916666666666,
+  "lon": -0.11166944444444445,
+  "nombre": "Bolulla"
+ },
+ "c31m048e11": {
+  "lat": 38.659866666666666,
+  "lon": -0.10743611111111112,
+  "nombre": "Callosa d′en SarriàMargeve"
+ },
+ "c31m048e13": {
+  "lat": 38.645405555555556,
+  "lon": -0.12826944444444444,
+  "nombre": "Callosa d′en Sarriàl'Ofra"
+ },
+ "c31m057e12": {
+  "lat": 38.64888888888889,
+  "lon": -0.265,
+  "nombre": "ConfridesCim d′Aitana"
+ },
+ "c31m048e12": {
+  "lat": 38.66489722222222,
+  "lon": -0.09040833333333333,
+  "nombre": "Callosa d′en SarriàSacos"
+ },
+ "c31m057e11": {
+  "lat": 38.67683611111111,
+  "lon": -0.25809166666666666,
+  "nombre": "ConfridesFont de Fuster"
+ },
+ "c31m069e04": {
+  "lat": 38.53777777777778,
+  "lon": -0.17305555555555555,
+  "nombre": "Finestratla Cala"
+ },
+ "c31m057e14": {
+  "lat": 38.661899999999996,
+  "lon": -0.283875,
+  "nombre": "Confridesla Font de l'Arbre"
+ },
+ "c31m075e04": {
+  "lat": 38.67553611111111,
+  "lon": -0.2003777777777778,
+  "nombre": "el Castell de Guadalest"
+ },
+ "c31m069e03": {
+  "lat": 38.56724444444445,
+  "lon": -0.21100000000000002,
+  "nombre": "FinestratAyuntamiento"
+ },
+ "c31m069e05": {
+  "lat": 38.57,
+  "lon": -0.21333333333333335,
+  "nombre": "Finestratel Salt"
+ },
+ "c31m057e01": {
+  "lat": 38.68447222222222,
+  "lon": -0.27097777777777776,
+  "nombre": "ConfridesPensión El Pirineo"
+ },
+ "c31m069e06": {
+  "lat": 38.57501111111112,
+  "lon": -0.21935000000000002,
+  "nombre": "Finestratel Toll"
+ },
+ "c31m011e05": {
+  "lat": 38.5563,
+  "lon": -0.06159166666666667,
+  "nombre": "l′Alfàs del PiSerra Gelada"
+ },
+ "c31m094e03": {
+  "lat": 38.60611111111111,
+  "lon": -0.10277777777777779,
+  "nombre": "la NuciaCEM El Captivador"
+ },
+ "c31m139e06": {
+  "lat": 38.512502777777776,
+  "lon": -0.22622222222222224,
+  "nombre": "la Vila JoiosaIES la Malladeta"
+ },
+ "c31m139e07": {
+  "lat": 38.50824444444444,
+  "lon": -0.2150027777777778,
+  "nombre": "la Vila Joiosapuerto"
+ },
+ "c31m139e04": {
+  "lat": 38.50694444444444,
+  "lon": -0.2852777777777778,
+  "nombre": "la Vila JoiosaSalomó del Carabassot"
+ },
+ "c31m098e03": {
+  "lat": 38.563491666666664,
+  "lon": -0.2612388888888889,
+  "nombre": "Orxeta"
+ },
+ "c31m112e05": {
+  "lat": 38.58694444444445,
+  "lon": -0.3108333333333333,
+  "nombre": "RelleuAjuntament"
+ },
+ "c31m107e02": {
+  "lat": 38.62208888888889,
+  "lon": -0.1298111111111111,
+  "nombre": "Polop"
+ },
+ "c31m112e06": {
+  "lat": 38.606944444444444,
+  "lon": -0.3336111111111111,
+  "nombre": "RelleuPalanquetes"
+ },
+ "c31m112e08": {
+  "lat": 38.56472222222222,
+  "lon": -0.29333333333333333,
+  "nombre": "RelleuPou Pequerina"
+ },
+ "c31m124e07": {
+  "lat": 38.6083,
+  "lon": -0.2728,
+  "nombre": "Sella"
+ },
+ "c31m112e10": {
+  "lat": 38.57916666666667,
+  "lon": -0.33388888888888885,
+  "nombre": "RelleuFigueret"
+ },
+ "c31m124e09": {
+  "lat": 38.6075,
+  "lon": -0.23916666666666667,
+  "nombre": "Sellael Xarquer"
+ },
+ "c31m124e11": {
+  "lat": 38.635952777777774,
+  "lon": -0.2672888888888889,
+  "nombre": "SellaTagarina/El Volador"
+ },
+ "c31m127e03": {
+  "lat": 38.69373333333333,
+  "lon": -0.10211666666666668,
+  "nombre": "Tàrbena"
+ },
+ "c31m127e04": {
+  "lat": 38.71544166666667,
+  "lon": -0.071625,
+  "nombre": "TàrbenaPicassàries"
+ },
+ "c32m004e01": {
+  "lat": 38.51305555555555,
+  "lon": -0.3705555555555555,
+  "nombre": "AigüesPozo Cabezo/Racó Ample"
+ },
+ "c32m002e04": {
+  "lat": 38.43,
+  "lon": -0.6830499999999999,
+  "nombre": "AgostPartida La Escandella - Moclem"
+ },
+ "c32m014e27": {
+  "lat": 38.166075,
+  "lon": -0.47855833333333336,
+  "nombre": "Alacantl′Illa de Tabarca"
+ },
+ "c32m014e28": {
+  "lat": 38.372141666666664,
+  "lon": -0.59335,
+  "nombre": "Alacantel RebolledoCETRA"
+ },
+ "c32m014e36": {
+  "lat": 38.355555555555554,
+  "lon": -0.4166666666666667,
+  "nombre": "AlacantCap de l'Horta"
+ },
+ "c32m014e26": {
+  "lat": 38.35055555555556,
+  "lon": -0.495,
+  "nombre": "AlacantIES Miguel Hdez. (Sant Blai)"
+ },
+ "c32m002e03": {
+  "lat": 38.45764444444445,
+  "lon": -0.6251694444444444,
+  "nombre": "Agostel Ventós"
+ },
+ "c32m014e16": {
+  "lat": 38.35,
+  "lon": -0.47200000000000003,
+  "nombre": "AlacantLa Marina"
+ },
+ "c32m014e34": {
+  "lat": 38.34138888888889,
+  "lon": -0.48694444444444446,
+  "nombre": "AlacantSede- Lab. Climatología"
+ },
+ "c32m046e04": {
+  "lat": 38.514944444444446,
+  "lon": -0.41572222222222227,
+  "nombre": "BusotCanelobre"
+ },
+ "c32m050e06": {
+  "lat": 38.43138888888889,
+  "lon": -0.3838888888888889,
+  "nombre": "el CampelloClub Náutico"
+ },
+ "c32m046e02": {
+  "lat": 38.46748888888889,
+  "lon": -0.44055,
+  "nombre": "BusotHoya de los Patos"
+ },
+ "c32m050e05": {
+  "lat": 38.432141666666666,
+  "lon": -0.40608333333333335,
+  "nombre": "El CampelloEl Vincle"
+ },
+ "c32m050e07": {
+  "lat": 38.46,
+  "lon": -0.34444444444444444,
+  "nombre": "el Campelloles Reixes - Barranc d'Aigües"
+ },
+ "c32m122e07": {
+  "lat": 38.403508333333335,
+  "lon": -0.5249055555555556,
+  "nombre": "Sant Vicent del RaspeigCEIP Victoria Kent"
+ },
+ "c32m122e04": {
+  "lat": 38.40649166666667,
+  "lon": -0.498525,
+  "nombre": "Sant Vicent del Raspeigel Rabosar"
+ },
+ "c32m122e05": {
+  "lat": 38.4011,
+  "lon": -0.5018805555555556,
+  "nombre": "Sant Vicent del RaspeigLas Ocas"
+ },
+ "c32m090e01": {
+  "lat": 38.440777777777775,
+  "lon": -0.4741722222222222,
+  "nombre": "MutxamelAeródromo"
+ },
+ "c32m090e04": {
+  "lat": 38.417627777777774,
+  "lon": -0.4418888888888889,
+  "nombre": "Mutxamel"
+ },
+ "c32m122e08": {
+  "lat": 38.38638888888889,
+  "lon": -0.5155555555555555,
+  "nombre": "Sant Vicent del Raspeig- GIRSM"
+ },
+ "c32m122e02": {
+  "lat": 38.382222222222225,
+  "lon": -0.5111111111111111,
+  "nombre": "Sant Vicent del Raspeig- Lab. Climatología"
+ },
+ "c32m083e17": {
+  "lat": 38.583222222222226,
+  "lon": -0.498,
+  "nombre": "XixonaCarrasqueta - Camí Bugaia"
+ },
+ "c32m083e07": {
+  "lat": 38.6397,
+  "lon": -0.4658,
+  "nombre": "Xixonala Sarga"
+ },
+ "c32m083e18": {
+  "lat": 38.557249999999996,
+  "lon": -0.43072222222222223,
+  "nombre": "Xixonala Grana - Cantal de Tormo"
+ },
+ "c32m083e10": {
+  "lat": 38.520402777777775,
+  "lon": -0.5401583333333333,
+  "nombre": "XixonaEls Ameradors"
+ },
+ "c32m083e23": {
+  "lat": 38.53789722222222,
+  "lon": -0.538025,
+  "nombre": "XixonaAlt del Migjorn"
+ },
+ "c32m083e14": {
+  "lat": 38.53183611111111,
+  "lon": -0.5096527777777777,
+  "nombre": "XixonaBarri Segorb-Vistabella"
+ },
+ "c32m083e08": {
+  "lat": 38.54184722222222,
+  "lon": -0.5097833333333334,
+  "nombre": "XixonaCastell"
+ },
+ "c32m083e24": {
+  "lat": 38.54013888888889,
+  "lon": -0.5026111111111111,
+  "nombre": "XixonaBarri del Través"
+ },
+ "c32m083e16": {
+  "lat": 38.47900833333333,
+  "lon": -0.5031972222222222,
+  "nombre": "XixonaMontnegre de Baix"
+ },
+ "c32m083e19": {
+  "lat": 38.60950833333334,
+  "lon": -0.47224444444444447,
+  "nombre": "XixonaPou de Neu el Surdo"
+ },
+ "c32m083e22": {
+  "lat": 38.585,
+  "lon": -0.548611111111111,
+  "nombre": "XixonaRacó de Vivens/Pou Madronyal"
+ },
+ "c32m083e20": {
+  "lat": 38.65,
+  "lon": -0.468,
+  "nombre": "XixonaRambla de La Sarga"
+ },
+ "c32m083e15": {
+  "lat": 38.52010833333333,
+  "lon": -0.5038583333333333,
+  "nombre": "XixonaSegorb Barranc Blanc"
+ },
+ "c33m059e04": {
+  "lat": 38.20042777777778,
+  "lon": -0.8019083333333333,
+  "nombre": "Crevillentel Realengo"
+ },
+ "c33m059e07": {
+  "lat": 38.247055555555555,
+  "lon": -0.8099916666666667,
+  "nombre": "Crevillentcentre"
+ },
+ "c33m059e06": {
+  "lat": 38.177324999999996,
+  "lon": -0.7974805555555555,
+  "nombre": "CrevillentSan Felipe Neri"
+ },
+ "c32m083e13": {
+  "lat": 38.54216666666667,
+  "lon": -0.5079027777777778,
+  "nombre": "XixonaZona Alta"
+ },
+ "c33m059e05": {
+  "lat": 38.27806944444444,
+  "lon": -0.8582083333333334,
+  "nombre": "CrevillentCim de la Vella"
+ },
+ "c33m065e17": {
+  "lat": 38.29054166666666,
+  "lon": -0.5857027777777778,
+  "nombre": "ElxTorrellanoCEIP Antonio Machado"
+ },
+ "c33m065e18": {
+  "lat": 38.244458333333334,
+  "lon": -0.5825055555555555,
+  "nombre": "ElxVallverdaErmita Vella"
+ },
+ "c33m065e26": {
+  "lat": 38.24768888888889,
+  "lon": -0.5304111111111112,
+  "nombre": "ElxClot de Galvany"
+ },
+ "c33m065e24": {
+  "lat": 38.17299722222222,
+  "lon": -0.7114166666666666,
+  "nombre": "ElxPN El Fondo"
+ },
+ "c33m065e23": {
+  "lat": 38.27858888888889,
+  "lon": -0.6878583333333333,
+  "nombre": "ElxUMH - Lab. Física Aplicada"
+ },
+ "c33m121e05": {
+  "lat": 38.19175833333333,
+  "lon": -0.5532583333333334,
+  "nombre": "Santa Pola"
+ },
+ "c34m005e01": {
+  "lat": 38.17861111111111,
+  "lon": -0.8680555555555556,
+  "nombre": "Albatera"
+ },
+ "c34m015e03": {
+  "lat": 38.109700000000004,
+  "lon": -0.7895,
+  "nombre": "Almoradícentro"
+ },
+ "c33m121e10": {
+  "lat": 38.191316666666665,
+  "lon": -0.5953722222222223,
+  "nombre": "Santa PolaSalinas Bras del Port"
+ },
+ "c34m015e04": {
+  "lat": 38.11361111111111,
+  "lon": -0.7977777777777778,
+  "nombre": "AlmoradíLos Gomares"
+ },
+ "c34m058e02": {
+  "lat": 38.14111111111111,
+  "lon": -0.8877777777777778,
+  "nombre": "Coxcentro"
+ },
+ "c34m076e07": {
+  "lat": 38.09023055555556,
+  "lon": -0.655563888888889,
+  "nombre": "Guardamar del Segura"
+ },
+ "c34m099e30": {
+  "lat": 37.89923611111111,
+  "lon": -0.7495805555555555,
+  "nombre": "OrihuelaC.N. Dehesa de Campoamor"
+ },
+ "c34m058e03": {
+  "lat": 38.14313888888889,
+  "lon": -0.8884361111111111,
+  "nombre": "CoxVegaFibra"
+ },
+ "c34m099e06": {
+  "lat": 38.080000000000005,
+  "lon": -0.9461,
+  "nombre": "Orihuelacentro"
+ },
+ "c34m902e05": {
+  "lat": 37.86986388888889,
+  "lon": -0.7587888888888888,
+  "nombre": "Pilar de la HoradadaTorre de la Horadada"
+ },
+ "c34m099e27": {
+  "lat": 37.99471944444444,
+  "lon": -0.9413361111111112,
+  "nombre": "OrihuelaLo Capitán/los Canónigos"
+ },
+ "c34m099e28": {
+  "lat": 38.1875,
+  "lon": -0.9711111111111111,
+  "nombre": "OrihuelaLa Murada"
+ },
+ "c34m902e02": {
+  "lat": 37.91000277777778,
+  "lon": -0.8429777777777778,
+  "nombre": "Pilar de la HoradadaPinar de Campoverde"
+ },
+ "c34m902e03": {
+  "lat": 37.86481388888889,
+  "lon": -0.7877361111111111,
+  "nombre": "Pilar de la HoradadaAyuntamiento"
+ },
+ "c34m118e01": {
+  "lat": 38.13583333333333,
+  "lon": -0.6863888888888889,
+  "nombre": "San FulgencioUrb. La Marina"
+ },
+ "c34m902e06": {
+  "lat": 37.85783333333333,
+  "lon": -0.7915,
+  "nombre": "Pilar de la HoradadaPolicía Local"
+ },
+ "c34m133e09": {
+  "lat": 37.97603333333333,
+  "lon": -0.6806555555555556,
+  "nombre": "Torrevieja"
+ },
+ "c34m133e22": {
+  "lat": 38.04274722222222,
+  "lon": -0.6713583333333333,
+  "nombre": "TorreviejaLaguna de La Mata"
+ },
+ "c34m113e04": {
+  "lat": 38.061388888888885,
+  "lon": -0.7080555555555555,
+  "nombre": "RojalesCiudad Quesada"
+ },
+ "c34m111e02": {
+  "lat": 38.137025,
+  "lon": -0.9279722222222222,
+  "nombre": "RedovánSan Carlos"
+ },
+ "c99m044e27": {
+  "lat": 40.708486111111114,
+  "lon": -1.2672333333333332,
+  "nombre": "Bueña"
+ },
+ "c99m044e23": {
+  "lat": 40.51116388888889,
+  "lon": -1.5887472222222223,
+  "nombre": "Bronchales"
+ },
+ "c99m044e01": {
+  "lat": 40.36011388888889,
+  "lon": -0.6978833333333333,
+  "nombre": "Alcalá de la SelvaVirgen de la Vega"
+ },
+ "c99m006e02": {
+  "lat": 38.31326388888888,
+  "lon": -6.316375,
+  "nombre": "Calzadilla de los BarrosQuitacapa"
+ },
+ "c99m044e28": {
+  "lat": 41.025933333333334,
+  "lon": -0.5876666666666667,
+  "nombre": "Ariño"
+ },
+ "c99m002e20": {
+  "lat": 38.76087777777778,
+  "lon": -1.5657416666666668,
+  "nombre": "Chinchilla de Monte-AragónFinca Montesinos"
+ },
+ "c99m044e31": {
+  "lat": 40.86508333333334,
+  "lon": -1.3051055555555555,
+  "nombre": "Fuentes ClarasVOR"
+ },
+ "c99m044e30": {
+  "lat": 40.36130555555556,
+  "lon": -0.4409166666666667,
+  "nombre": "MosqueruelaErmita de San Antonio"
+ },
+ "c99m044e29": {
+  "lat": 40.36073888888889,
+  "lon": -0.4487111111111111,
+  "nombre": "Mosqueruela"
+ },
+ "c99m044e26": {
+  "lat": 40.19040555555555,
+  "lon": -0.6507694444444445,
+  "nombre": "Rubielos de Mora"
+ },
+ "c99m044e22": {
+  "lat": 40.41531111111111,
+  "lon": -0.7564333333333333,
+  "nombre": "Monteagudo del CastilloEl Portero"
+ },
+ "c99m016e25": {
+  "lat": 39.432361111111106,
+  "lon": -2.085138888888889,
+  "nombre": "Villanueva de la JaraRibera de San Benito"
+ },
+ "c99m044e19": {
+  "lat": 40.27641388888889,
+  "lon": -1.2711777777777777,
+  "nombre": "Rubiales"
+ },
+ "c99m044e21": {
+  "lat": 40.594433333333335,
+  "lon": -1.2954583333333332,
+  "nombre": "Torremocha del Jiloca"
+ },
+ "c99m044e33": {
+  "lat": 40.57876388888889,
+  "lon": -0.5371944444444444,
+  "nombre": "Cañada de Benatanduz"
+ },
+ "c99m044e32": {
+  "lat": 40.26005,
+  "lon": -0.4618361111111111,
+  "nombre": "Puertomingalvo"
+ }
+}

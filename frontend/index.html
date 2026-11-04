@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVAMET Monitor</title>
+<link rel="manifest" href="/manifest.json">
+<!-- Librerías en frontend/vendor/ (funciona sin internet). Si faltan, se usa el CDN como último recurso.
+     Para descargarlas:  python scripts/descargar_vendor.py   (ver frontend/vendor/LEEME.md) -->
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css?v=__BUILD__" onerror="this.onerror=null;this.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'" />
+<script src="/vendor/chart/chart.umd.js?v=__BUILD__"></script>
+<script>window.Chart || document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"><\/script>');</script>
+<style>
+  :root { --bg: #0d1117; --panel: #161b22; --panel-2: #1c2128; --border: #30363d; --text: #e6edf3; --muted: #8b949e; --seguro: #2ea043; --vigilancia: #d29922; --peligro: #da3633; --iniciando: #1f6feb; --predictivo: #a371f7; --naranja: #d9650d; --sindatos: #4b5563; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  
+  #alert-toast { position: fixed; top: 60px; right: 16px; width: 360px; max-width: calc(100vw - 32px); background: var(--panel); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 2000; overflow: hidden; transition: transform 0.25s ease, opacity 0.25s ease; }
+  @media (max-width: 700px) { #alert-toast { top: 96px; } }   /* en móvil la cabecera ocupa más: que el aviso no tape el semáforo */
+  #alert-toast.hidden { transform: translateX(420px); opacity: 0; pointer-events: none; }
+  #alert-toast.peligro { border-color: var(--peligro); }
+  #alert-toast.vigilancia { border-color: var(--naranja); }
+  #alert-toast.sindatos { border-color: var(--sindatos); }
+  .toast-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-weight: 700; font-size: 0.95rem; }
+  #alert-toast.peligro .toast-header { background: var(--peligro); color: white; }
+  #alert-toast.vigilancia .toast-header { background: var(--naranja); color: white; }
+  #alert-toast.sindatos .toast-header { background: var(--sindatos); color: white; }
+  .toast-icon { font-size: 1.2rem; } .toast-title { flex: 1; }
+  .toast-x { background: transparent; border: none; color: inherit; font-size: 1.2rem; cursor: pointer; }
+  .toast-body { padding: 12px 14px; font-size: 0.88rem; max-height: 160px; overflow-y: auto; }
+  .toast-actions { display: flex; gap: 8px; padding: 10px 14px 12px; border-top: 1px solid var(--border); }
+  .toast-actions button { flex: 1; padding: 8px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); cursor: pointer; }
+  .toast-snooze-menu { padding: 10px 14px; border-top: 1px solid var(--border); background: #0d1117; display: none; }
+  .toast-snooze-menu.visible { display: block; }
+  .toast-snooze-menu .snooze-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 8px; }
+
+  header { padding: 14px 24px; border-bottom: 1px solid var(--border); }
+  .header-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .header-row h1 { margin: 0; font-size: 1.3rem; }
+  #status-badge { white-space: nowrap; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; cursor: pointer; user-select: none; }
+  #status-badge::after { content: " ▾"; font-size: 0.8em; opacity: 0.85; }
+  #status-badge:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+  /* Panel de alertas del badge: ventana de consulta aunque el aviso (toast) esté pospuesto o silenciado */
+  #alert-panel { position: fixed; width: 340px; max-width: calc(100vw - 32px); max-height: 60vh; overflow-y: auto; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 2500; font-size: 0.88rem; }
+  #alert-panel[hidden] { display: none; }
+  .ap-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 14px; font-weight: 700; border-bottom: 1px solid var(--border); }
+  .ap-head small { font-weight: 400; color: var(--muted); }
+  .ap-item { padding: 8px 14px; border-bottom: 1px dashed var(--border); border-left: 4px solid var(--border); }
+  .ap-item:last-child { border-bottom: none; }
+  .ap-item.CRITICO, .ap-item.PELIGRO { border-left-color: var(--peligro); }
+  .ap-item.AVISO { border-left-color: var(--vigilancia); }
+  .ap-item.PREDICCION { border-left-color: var(--predictivo); }
+  .ap-empty { padding: 14px; color: var(--muted); }
+  .badge-SEGURO { background: var(--seguro); color: white; } .badge-VIGILANCIA { background: var(--naranja); color: white; }
+  .badge-PELIGRO { background: var(--peligro); color: white; } .badge-INICIANDO { background: var(--iniciando); color: white; }
+  .badge-ERROR { background: var(--peligro); color: white; }
+  .badge-SIN_DATOS { background: var(--sindatos); color: white; animation: parpadeo 1.2s ease-in-out infinite; }
+  @keyframes parpadeo { 50% { opacity: 0.45; } }
+  .aviso-sin-datos { border: 2px solid var(--sindatos); border-radius: 8px; padding: 14px; font-weight: 700; color: var(--text); background: rgba(75,85,99,0.25); }
+  .aviso-sin-datos small { display: block; margin-top: 6px; font-weight: 400; color: var(--muted); }
+  .aviso-respaldo { border: 1px solid var(--vigilancia); border-radius: 8px; padding: 10px 12px; margin: 0 0 12px 0; font-size: 0.9rem; color: var(--text); }
+  
+  .nina-status { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--muted); background: var(--panel); padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); }
+  .nina-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--peligro); }
+  .nina-dot.connected { background: var(--seguro); box-shadow: 0 0 8px var(--seguro); }
+
+  .location-bar { display: flex; gap: 8px; align-items: center; }
+  .loc-input-wrap { position: relative; flex: 1; max-width: 460px; }
+  #loc-search { width: 100%; padding: 10px 14px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.95rem; outline: none; }
+  #loc-gps { padding: 10px 14px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1.1rem; cursor: pointer; }
+  #loc-dropdown { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; max-height: 320px; overflow-y: auto; z-index: 1000; display: none; }
+  #loc-dropdown.visible { display: block; }
+  .loc-item { padding: 10px 14px; cursor: pointer; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
+  .loc-item:hover { background: var(--panel-2); }
+
+  main { padding: 20px 24px; max-width: 950px; margin: 0 auto; }
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; overflow-x: auto; }
+  .tab { padding: 10px 18px; background: transparent; border: none; border-bottom: 2px solid transparent; color: var(--muted); cursor: pointer; font-size: 0.95rem; font-weight: 600; white-space: nowrap; }
+  .tab.active { color: var(--text); border-bottom-color: var(--iniciando); }
+  .tab-panel.hidden { display: none; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .tile { background: #0d1117; border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; position: relative; }
+  .tile-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .tile-value { font-size: 1.7rem; font-weight: 700; margin-top: 8px; }
+  
+  .radio-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .radio-head { display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .radio-name { font-weight: 600; }
+  .radio-data { color: var(--muted); font-size: 0.9rem; display: flex; gap: 14px; flex-wrap: wrap; }
+  .radio-data span.peligro { color: var(--peligro); font-weight: 700; }
+  footer { padding: 14px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; display: flex; justify-content: space-between; max-width: 950px; margin: 0 auto; }
+  #conn.ok { color: var(--seguro); } #conn.fail { color: var(--peligro); }
+  .empty { color: var(--muted); font-style: italic; }
+
+  #mapa-container { height: 600px; width: 100%; border-radius: 10px; border: 1px solid var(--border); position: relative; overflow: hidden; z-index: 1; }
+  .leaflet-container { background: #0d1117 !important; }
+  .ir-control { background: rgba(22,27,34,0.92); color: var(--text); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; max-width: 270px; }
+  .ir-control label { cursor: pointer; display: flex; gap: 6px; align-items: center; }
+  .ir-control input[type=range] { width: 100%; margin: 6px 0 2px; }
+  .ir-control [hidden] { display: none; }
+  #ir-anim { display: flex; gap: 6px; align-items: center; margin: 4px 0; }
+  #ir-anim button { background: var(--border); color: var(--text); border: 0; border-radius: 6px; padding: 2px 9px; cursor: pointer; }
+  #ir-anim input[type=range] { flex: 1; margin: 0; min-width: 0; }
+  #ir-anim span { min-width: 3.2em; text-align: right; font-variant-numeric: tabular-nums; }
+  #ir-estado { color: var(--muted); font-size: 0.78rem; line-height: 1.3; }
+  .nube-animada { font-size: 24px; text-shadow: 0 0 5px rgba(0,0,0,0.8); transition: transform 0.1s linear; }
+  .custom-icon-aero { background-color: #fff; border: 2px solid #000; border-radius: 2px; display: flex; justify-content: center; align-items: center; font-size: 10px; }
+  
+  @keyframes pulsoRojo {
+    0% { box-shadow: 0 0 0 0 rgba(218, 54, 51, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(218, 54, 51, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(218, 54, 51, 0); }
+  }
+  .marcador-lluvia { border-radius: 50%; animation: pulsoRojo 1.5s infinite; }
+
+  .tooltip { position: relative; display: inline-flex; align-items: center; justify-content: center; cursor: help; color: var(--iniciando); font-size: 0.9rem; }
+  .tooltip .tooltiptext { visibility: hidden; width: 220px; background-color: #2a313a; color: #fff; text-align: center; border-radius: 6px; padding: 8px; position: absolute; z-index: 10; bottom: 150%; left: 50%; margin-left: -110px; opacity: 0; transition: opacity 0.3s; font-size: 0.8rem; font-weight: normal; text-transform: none; letter-spacing: normal; box-shadow: 0 4px 12px rgba(0,0,0,0.6); border: 1px solid var(--border); pointer-events: none; }
+  .tooltip .tooltiptext::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: #2a313a transparent transparent transparent; }
+  .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+
+  .ayuda-section { margin-bottom: 20px; line-height: 1.6; }
+  .ayuda-section h3 { color: var(--iniciando); margin-bottom: 8px; font-size: 1.1rem; }
+  .ayuda-section p { margin: 0 0 10px 0; color: #c9d1d9; font-size: 0.95rem; }
+  .ayuda-section ul { margin: 0 0 10px 20px; padding: 0; color: #c9d1d9; font-size: 0.95rem; }
+  .badge-ayuda { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; color: white; margin-right: 6px;}
+  .ayuda { max-width: 960px; }
+  .ayuda-intro { color: #c9d1d9; font-size: 0.95rem; line-height: 1.6; margin: 0 0 14px 0; }
+  .ayuda-indice { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px 0; }
+  .ayuda-indice a { padding: 5px 10px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 16px; color: var(--text); font-size: 0.82rem; text-decoration: none; }
+  .ayuda-indice a:hover { border-color: var(--iniciando); }
+  .ayuda-tabla { width: 100%; border-collapse: collapse; margin: 0 0 12px 0; font-size: 0.92rem; color: #c9d1d9; }
+  .ayuda-tabla td, .ayuda-tabla th { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; text-align: left; line-height: 1.5; }
+  .ayuda-tabla th { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; }
+  .ayuda-tabla td:first-child { white-space: nowrap; width: 1%; }
+  .ayuda-tabla small { color: var(--muted); }
+  .ayuda-aviso { background: var(--panel-2); border: 1px solid var(--border); border-left: 4px solid var(--vigilancia); border-radius: 6px; padding: 10px 12px; }
+  .ayuda .badge-SIN_DATOS { animation: none; }
+  .ayuda-section { scroll-margin-top: 12px; }
+  /* Botones de cabecera (Configuración / Ayuda) y ventanas modales */
+  .icon-btn { width: 36px; height: 34px; padding: 0; display: inline-flex; align-items: center; justify-content: center; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1.05rem; line-height: 1; cursor: pointer; }
+  .icon-btn:hover, .icon-btn.activo { border-color: var(--iniciando); }
+  .icon-btn:focus-visible { outline: 2px solid var(--iniciando); outline-offset: 2px; }
+  .icon-btn[hidden] { display: none; }
+  .modal { position: fixed; inset: 0; z-index: 2000; background: rgba(1, 4, 9, 0.72); display: flex; align-items: flex-start; justify-content: center; padding: 4vh 16px; overflow-y: auto; }
+  .modal[hidden] { display: none; }
+  .modal-caja { position: relative; width: 100%; max-width: 1000px; background: var(--bg, #0d1117); border: 1px solid var(--border); border-radius: 12px; padding: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
+  .modal-caja > .card { border: none; }
+  .modal-x { position: sticky; top: 0; float: right; z-index: 2; margin: 0 0 -34px 0; width: 32px; height: 32px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 50%; color: var(--text); cursor: pointer; font-size: 0.95rem; }
+  .modal-x:hover { border-color: var(--peligro); color: var(--peligro); }
+  body.modal-abierto { overflow: hidden; }
+  @media (max-width: 700px) { .header-row { flex-wrap: wrap; } .modal { padding: 8px; } }
+  /* Pantallas estrechas: las 5 pestañas pasan a una segunda línea en vez de desplazarse en horizontal */
+  @media (max-width: 800px) { .tabs { flex-wrap: wrap; overflow-x: visible; } .tab { padding: 8px 12px; font-size: 0.88rem; } }
+  /* Pestaña Configuración (solo modo escritorio) */
+  .cfg { max-width: 960px; }
+  .cfg-estado { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; margin: 0 0 20px 0; }
+  .cfg-estado div { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 0.88rem; color: #c9d1d9; }
+  .cfg-estado .si { border-left: 4px solid var(--seguro); } .cfg-estado .no { border-left: 4px solid var(--peligro); }
+  .cfg-paso { display: flex; gap: 14px; margin: 0 0 22px 0; }
+  .cfg-num { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--iniciando); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .cfg-cuerpo { flex: 1; min-width: 0; line-height: 1.6; color: #c9d1d9; font-size: 0.95rem; }
+  .cfg-cuerpo h3 { margin: 4px 0 6px 0; font-size: 1.05rem; color: var(--text); }
+  .cfg-cuerpo p { margin: 0 0 8px 0; } .cfg-cuerpo ol, .cfg-cuerpo ul { margin: 0 0 8px 20px; padding: 0; }
+  .cfg-bloque { position: relative; margin: 6px 0 10px 0; }
+  .cfg-bloque pre { margin: 0; padding: 12px 84px 12px 12px; background: #0d1117; border: 1px solid var(--border); border-radius: 8px; overflow-x: auto; font-size: 0.85rem; color: #e6edf3; white-space: pre-wrap; word-break: break-all; }
+  .cfg-copiar { position: absolute; top: 8px; right: 8px; padding: 4px 10px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.8rem; cursor: pointer; }
+  .cfg-copiar:hover { border-color: var(--iniciando); } .cfg-copiar.ok { border-color: var(--seguro); color: var(--seguro); }
+  .cfg-form { margin: 0 0 24px 0; padding: 16px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; color: #c9d1d9; }
+  .cfg-form h3 { margin: 0 0 10px 0; font-size: 1.05rem; color: var(--text); }
+  .cfg-form label { display: block; margin: 14px 0 6px 0; font-weight: 600; color: var(--text); }
+  .cfg-form label code { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
+  .cfg-form input[type=text], .cfg-form input[type=password] { width: 100%; padding: 10px 12px; background: #0d1117; border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 0.95rem; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; outline: none; }
+  .cfg-form input:focus { border-color: var(--iniciando); }
+  .cfg-form input.invalido { border-color: var(--peligro); }
+  .cfg-form details { margin: 8px 0 0 0; font-size: 0.9rem; } .cfg-form summary { cursor: pointer; color: var(--iniciando); }
+  .cfg-form details ol, .cfg-form details ul { margin: 8px 0 6px 20px; padding: 0; }
+  .cfg-nota { margin: 8px 0 0 0; font-size: 0.85rem; color: var(--muted); }
+  .cfg-form label.cfg-mostrar { display: flex; align-items: center; gap: 8px; margin: 14px 0 6px 0; font-weight: 400; font-size: 0.88rem; color: var(--muted); }
+  .cfg-guardar { display: block; width: 100%; margin: 14px 0 0 0; padding: 14px; background: var(--iniciando); border: none; border-radius: 10px; color: #fff; font-size: 1.05rem; font-weight: 700; cursor: pointer; }
+  .cfg-guardar:hover { filter: brightness(1.1); } .cfg-guardar:disabled { opacity: 0.6; cursor: wait; }
+  .cfg-detectada { margin: 0 0 6px 0; padding: 9px 12px; border-radius: 8px; border-left: 4px solid var(--seguro); background: #0d1117; font-size: 0.9rem; }
+  .cfg-detectada.aviso { border-left-color: var(--vigilancia); }
+  .cfg-resultado { margin: 12px 0 0 0; padding: 10px 12px; border-radius: 8px; font-size: 0.92rem; background: #0d1117; border-left: 4px solid var(--seguro); }
+  .cfg-resultado.error { border-left-color: var(--peligro); } .cfg-resultado.aviso { border-left-color: var(--vigilancia); }
+  .cfg-resultado[hidden], .cfg-detectada[hidden] { display: none; }
+  /* Estado de la red (diagnóstico) */
+  .cfg-red { margin: 0 0 16px 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: #0d1117; }
+  .cfg-red h3 { margin: 0 0 8px 0; font-size: 1.05rem; color: var(--text); }
+  .red-fila { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px 0; }
+  .red-chip { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel-2); font-size: 0.9rem; white-space: nowrap; }
+  .red-chip.ok { border-color: var(--seguro); } .red-chip.mal { border-color: var(--peligro); } .red-chip.aviso { border-color: var(--vigilancia); }
+  .red-motivos { margin: 0 0 8px 0; font-size: 0.88rem; color: #c9d1d9; } .red-motivos div { padding: 2px 0; overflow-wrap: anywhere; }
+  .red-acciones { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .red-chip.estacion { border-style: dashed; }
+  .toast-alt { padding: 10px 14px 0; } .toast-alt[hidden] { display: none; }
+  .toast-alt button, .ap-alt { width: 100%; padding: 8px; background: var(--panel-2); border: 1px solid var(--iniciando); border-radius: 6px; color: var(--text); cursor: pointer; font-size: 0.88rem; }
+  .toast-alt button:hover, .ap-alt:hover { background: var(--iniciando); color: #fff; }
+  .ap-alt-fila { padding: 8px 14px 10px; }
+  .alt-intro { margin: 0 0 10px 0; line-height: 1.55; color: #c9d1d9; }
+  .alt-aviso { margin: 12px 0 0 0; padding: 9px 12px; border-left: 4px solid var(--vigilancia); background: #0d1117; border-radius: 6px; font-size: 0.86rem; line-height: 1.5; }
+  .alt-fila { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 9px 12px; margin: 0 0 8px 0; border: 1px solid var(--border); border-radius: 8px; background: #0d1117; }
+  .alt-fila .alt-datos { flex: 1; min-width: 160px; } .alt-fila small { display: block; color: var(--muted, #8b949e); }
+  .red-hora { font-size: 0.8rem; color: var(--muted, #8b949e); margin-left: auto; }
+  .cfg-boton { padding: 7px 14px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); cursor: pointer; font-size: 0.9rem; }
+  .cfg-boton:hover { border-color: var(--iniciando); } .cfg-boton.ok { border-color: var(--seguro); color: var(--seguro); }
+  .cfg-cuerpo code { overflow-wrap: anywhere; }
+  @media (max-width: 640px) { .cfg-paso { gap: 10px; } .cfg-num { flex-basis: 28px; height: 28px; font-size: 0.85rem; } }
+  .cfg-ruta { display: inline-block; max-width: 100%; word-break: break-all; }
+  @media (max-width: 640px) { .ayuda-tabla td:first-child { white-space: normal; } .ayuda-tabla, .ayuda-tabla tbody, .ayuda-tabla tr, .ayuda-tabla td { display: block; width: auto; } .ayuda-tabla tr { margin-bottom: 8px; } }
+  
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+
+  /* Estilos para el resumen de aeropuertos */
+  .aero-resumen-item { background: #0d1117; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+  .aero-resumen-header { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; color: var(--iniciando); }
+  .aero-resumen-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; font-size: 0.85rem; }
+  .aero-resumen-grid span { display: block; color: var(--muted); }
+  .aero-resumen-grid b { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div id="alert-panel" hidden role="region" aria-label="Alertas activas"></div>
+
+<div id="alert-toast" class="hidden">
+  <div class="toast-header">
+    <span class="toast-icon">⚠️</span><span class="toast-title" id="toast-title">AVISO</span><button class="toast-x" id="toast-x">✕</button>
+  </div>
+  <div class="toast-body" id="toast-body"></div>
+  <div class="toast-alt" id="toast-alt" hidden><button type="button" id="toast-alt-btn">🔎 Buscar otra estación cercana</button></div>
+  <div class="toast-actions"><button id="toast-snooze-btn">⏰ Posponer…</button><button id="toast-mute-btn">🔕 Silenciar</button></div>
+  <div class="toast-snooze-menu" id="toast-snooze-menu">
+    <div class="snooze-grid"><button data-min="5">5 min</button><button data-min="15">15 min</button><button data-min="30">30 min</button><button data-min="60">1 hora</button></div>
+  </div>
+</div>
+
+<header>
+  <div class="header-row">
+    <h1>🌦️ AVAMET Monitor</h1>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <button type="button" class="icon-btn" id="btn-config" hidden title="Configuración" aria-label="Configuración">⚙️</button>
+      <button type="button" class="icon-btn" id="btn-ayuda" title="Ayuda" aria-label="Ayuda">ℹ️</button>
+      <div class="nina-status" title="Estado de conexión con N.I.N.A. (Alpaca)">
+        <div class="nina-dot" id="nina-dot"></div> N.I.N.A.
+      </div>
+      <div id="status-badge" class="badge-INICIANDO" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-controls="alert-panel" title="Ver alertas activas">INICIANDO</div>
+      <button id="btn-shutdown" title="Apagar aplicación" style="background: transparent; border: 1px solid var(--peligro); color: var(--peligro); border-radius: 20px; padding: 6px 12px; cursor: pointer; font-weight: bold;">⏻</button>
+    </div>
+  </div>
+  <div class="location-bar">
+    <div class="loc-input-wrap">
+      <input id="loc-search" placeholder="🔍 Buscar localidad…" autocomplete="off">
+      <div id="loc-dropdown"></div>
+    </div>
+    <button id="loc-gps" title="Usar GPS">📍</button>
+  </div>
+</header>
+
+<main>
+  <div class="tabs">
+    <button class="tab active" data-tab="principal">📍 Estación principal</button>
+    <button class="tab" data-tab="historial">📈 Historial</button>
+    <button class="tab" data-tab="mapa">🗺️ Mapa</button>
+    <button class="tab" data-tab="cercanas">🛰️ Cercanas <span id="tab-count" style="background:var(--panel-2);padding:2px 6px;border-radius:10px;font-size:0.8rem;">0</span></button>
+    <button class="tab" data-tab="aeropuertos">✈️ Aeropuertos <span id="tab-count-aero" style="background:var(--panel-2);padding:2px 6px;border-radius:10px;font-size:0.8rem;">0</span></button>
+  </div>
+
+  <div id="tab-principal" class="tab-panel">
+    <div class="card">
+      <h2 id="central-titulo" style="margin:0 0 14px 0; font-size:1rem; color:var(--muted); text-transform:uppercase;">📍 Estación principal</h2>
+      <div class="aviso-respaldo" id="aviso-respaldo" role="status" hidden></div>
+      <div class="tiles" id="central-tiles"><div class="empty">Esperando datos…</div></div>
+      
+      <div id="movimiento-nubes" style="margin-top: 15px; padding: 12px; background: var(--panel-2); border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem;">
+        <span style="color: var(--muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; display: flex; align-items: center;">
+          🧭 Movimiento de nubes 
+          <span class="tooltip" style="margin-left: 6px;">ℹ️<span class="tooltiptext">Estimación basada en el viento en altura (aeropuertos).</span></span>
+        </span>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 6px;">
+          <span id="mov-flecha" style="font-size: 2rem; display: inline-block; transition: transform 0.5s ease;">⬆️</span>
+          <div>
+            <div id="movimiento-valor" style="font-weight: 700; font-size: 1.1rem;">—</div>
+            <div id="movimiento-detalle" style="font-size: 0.85rem; color: var(--muted); margin-top: 2px;">Calculando...</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- PANEL DE TENDENCIAS -->
+      <div id="tendencias-panel" style="margin-top: 15px; padding: 12px; background: var(--panel-2); border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem;">
+         <span style="color: var(--muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;">📉 Tendencias (Últimos 30 min)</span>
+         <div id="tendencias-valores" style="display: flex; gap: 15px; margin-top: 8px; font-weight: 600;">
+            <span>Presión: —</span>
+            <span>Temperatura: —</span>
+            <span>Humedad: —</span>
+         </div>
+      </div>
+
+      <!-- PANEL DE RADAR PREDICTIVO -->
+      <div id="radar-panel" style="display: none; margin-top: 15px; padding: 12px; background: rgba(218, 54, 51, 0.1); border-radius: 8px; border: 1px solid var(--peligro); font-size: 0.95rem; max-height: 300px; overflow-y: auto;">
+        <span style="color: var(--peligro); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;">
+          📡 Radar Meteorológico
+        </span>
+        <div id="radar-contenido" style="margin-top: 8px; font-weight: 600; color: var(--text);"></div>
+      </div>
+
+      <!-- NUEVO PANEL: RESUMEN DE AEROPUERTOS (120 km) -->
+      <div id="resumen-aeropuertos-panel" style="margin-top: 15px; padding: 12px; background: var(--panel-2); border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem;">
+        <span style="color: var(--muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;">
+          ✈️ Resumen de Aeropuertos (120 km) para Astrofotografía
+        </span>
+        <div id="resumen-aeropuertos" style="margin-top: 10px;">
+          <div class="empty">Esperando datos de aeropuertos...</div>
+        </div>
+      </div>
+
+      <!-- PANEL: SATÉLITE METEOSAT (opcional, orientativo) -->
+      <div id="meteosat-panel" style="display:none; margin-top: 15px; padding: 12px; background: var(--panel-2); border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem;">
+        <span style="color: var(--muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;">
+          🛰️ Nubes vistas por satélite (Meteosat, orientativo)
+        </span>
+        <div id="meteosat-contenido" style="margin-top: 10px;"></div>
+      </div>
+
+      <!-- PANEL: SEEING (7Timer, pronóstico externo) -->
+      <div id="seeing-panel" style="margin-top: 15px; padding: 12px; background: var(--panel-2); border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem;">
+        <span style="color: var(--muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;">
+          🔭 Seeing y transparencia esta noche (7Timer)
+        </span>
+        <div id="seeing-contenido" style="margin-top: 10px;"><div class="empty">Consultando 7Timer...</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NUEVA PESTAÑA HISTORIAL -->
+  <div id="tab-historial" class="tab-panel hidden">
+    <div class="card">
+      <h2 style="margin:0 0 14px 0; font-size:1rem; color:var(--muted); text-transform:uppercase;">📈 Historial (24 Horas)</h2>
+      <div style="position: relative; height: 400px; width: 100%;">
+        <canvas id="graficaHistorial"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-mapa" class="tab-panel hidden">
+    <div id="mapa-container"></div>
+  </div>
+
+  <div id="tab-cercanas" class="tab-panel hidden">
+    <div class="card">
+      <h2 id="radio-titulo" style="margin:0 0 14px 0; font-size:1rem; color:var(--muted); text-transform:uppercase;">🛰️ Estaciones en radio</h2>
+      <div id="radio-lista"><div class="empty">Esperando datos…</div></div>
+    </div>
+  </div>
+
+  <div id="tab-aeropuertos" class="tab-panel hidden">
+    <div class="card">
+      <h2 id="aero-titulo" style="margin:0 0 14px 0; font-size:1rem; color:var(--muted); text-transform:uppercase;">✈️ METAR de Aeropuertos Cercanos</h2>
+      <div id="aero-lista"><div class="empty">Esperando datos…</div></div>
+    </div>
+  </div>
+
+</main>
+
+<div id="modal-config" class="modal" hidden role="dialog" aria-modal="true" aria-label="Configuración">
+  <div class="modal-caja">
+    <button type="button" class="modal-x" data-cerrar="modal-config" aria-label="Cerrar" title="Cerrar (Esc)">✕</button>
+    <div class="card cfg">
+      <h2 style="margin:0 0 6px 0; font-size:1.2rem; color:var(--text);">⚙️ Configuración del programa (.exe de Windows)</h2>
+      <p class="ayuda-intro">Rellena el formulario <b>una sola vez</b> en tu PC: los ajustes se guardan solos y se aplican al momento, sin tocar archivos de texto. Este botón ⚙️ solo se muestra cuando abres la aplicación en el propio equipo donde se ejecuta (modo escritorio).</p>
+
+      <div class="cfg-estado" id="cfg-estado"></div>
+
+      <div class="cfg-red" id="cfg-red">
+        <h3>🌐 Estado de la red y de la estación</h3>
+        <div class="red-fila" id="red-fila" role="status" aria-live="polite"></div>
+        <div class="red-motivos" id="red-motivos"></div>
+        <div class="red-acciones">
+          <button type="button" class="cfg-boton" id="red-comprobar">🔄 Comprobar ahora</button>
+          <button type="button" class="cfg-boton" id="red-descargar">⬇️ Descargar Log de Diagnóstico</button>
+          <span class="red-hora" id="red-hora"></span>
+        </div>
+        <div id="red-resultado" class="cfg-resultado" role="status" aria-live="polite" hidden></div>
+        <p class="cfg-nota"><b>Internet</b>, <b>AVAMET</b> y <b>Aeropuertos</b> miden tu <i>red</i>; <b>Estación</b> mide si el <i>sensor</i> elegido envía datos recientes (≤ 10 min): puede estar todo ✅ en la red y la estación ⚠️ si el sensor se ha quedado congelado. El log guarda solo los fallos de la <b>última hora</b> (AVAMET, METAR, Telegram…) con su causa; si algo falla, descárgalo y compártelo. También está en la carpeta de datos como <code>diagnostico.log</code>.</p>
+      </div>
+
+      <form id="cfg-form" class="cfg-form" autocomplete="off" novalidate>
+        <h3>Telegram: avisos y administrador</h3>
+        <div class="cfg-detectada" id="cfg-detectada" hidden></div>
+
+        <label for="cfg-token">🤖 Token del bot <code>AVAMET_TELEGRAM_TOKEN</code></label>
+        <input id="cfg-token" name="token" type="password" spellcheck="false" autocapitalize="off" placeholder="123456789:AAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+        <details><summary>¿Cómo consigo el token?</summary>
+          <ol>
+            <li>Abre Telegram y busca <b>@BotFather</b> (el bot oficial para crear bots).</li>
+            <li>Envíale <code>/newbot</code>.</li>
+            <li>Te pide un <b>nombre</b> (el que verás en el chat) y un <b>nombre de usuario</b> que debe terminar en <code>bot</code>.</li>
+            <li>BotFather te responde con el <b>token</b>: cópialo entero y pégalo aquí.</li>
+          </ol>
+          <p class="cfg-nota">🔒 Quien tenga el token controla tu bot. No lo compartas; si se filtra, revócalo en BotFather.</p>
+        </details>
+
+        <label for="cfg-admin">👤 Tu Admin ID <code>AVAMET_ADMIN_CHAT_ID</code></label>
+        <input id="cfg-admin" name="admin_id" type="text" inputmode="numeric" spellcheck="false" placeholder="123456789">
+        <details><summary>¿Cómo sé mi ID?</summary>
+          <ul>
+            <li><b>Con tu propio bot:</b> guarda primero el token (arriba), busca tu bot en Telegram y envíale <code>/id</code>: responde «Tu chat ID es: …». Después vuelve aquí, pega el número y guarda de nuevo.</li>
+            <li><b>Con @userinfobot:</b> es un bot de terceros; escríbele y te devuelve tu <i>Id</i>.</li>
+          </ul>
+          <p class="cfg-nota">Solo este usuario podrá cambiar la ubicación con <code>/pueblo</code>; los demás recibirán «No tienes permisos».</p>
+        </details>
+
+        <label for="cfg-clave">🔑 Contraseña para suscribirse <code>AVAMET_TELEGRAM_CLAVE</code></label>
+        <input id="cfg-clave" name="clave" type="password" spellcheck="false" autocapitalize="off" placeholder="Mínimo 8 caracteres">
+        <p class="cfg-nota">La inventas tú y se la das a tus amigos: cada uno busca tu bot, envía <code>/start</code> y la escribe. Permitido: letras, números y <code>. _ - @ ! % ^ &amp; * + = / ~ ? , ; :</code> (sin espacios, comillas, <code>#</code> ni <code>$</code>).</p>
+
+        <h3 style="margin-top:26px;">Satélite Meteosat (opcional)</h3>
+        <p class="cfg-nota">Añade al Resumen una estimación orientativa de nubes vistas por satélite. <b>Es opcional</b>: sin estas claves el panel no aparece y el resto del programa funciona igual. No entra en el semáforo de seguridad.</p>
+        <div class="cfg-detectada aviso" id="cfg-eumetsat-estado" hidden></div>
+        <label for="cfg-eum-key">🛰️ Clave de EUMETSAT (Consumer Key) <code>EUMETSAT_CONSUMER_KEY</code></label>
+        <input id="cfg-eum-key" name="eumetsat_key" type="password" spellcheck="false" autocapitalize="off" placeholder="Consumer Key">
+        <label for="cfg-eum-secret">🔐 Secreto de EUMETSAT (Consumer Secret) <code>EUMETSAT_CONSUMER_SECRET</code></label>
+        <input id="cfg-eum-secret" name="eumetsat_secret" type="password" spellcheck="false" autocapitalize="off" placeholder="Consumer Secret">
+        <details><summary>¿Cómo consigo la clave y el secreto?</summary>
+          <ol>
+            <li>Crea una cuenta gratuita en <b>https://eoportal.eumetsat.int/</b> y confirma tu correo.</li>
+            <li>Inicia sesión y abre <b>https://api.eumetsat.int/api-key/</b>: allí aparecen tu <b>Consumer Key</b> y tu <b>Consumer Secret</b>.</li>
+            <li>Cópialos y pégalos aquí. Cada usuario debe crear los suyos.</li>
+            <li>Instala además los paquetes: <code>python -m pip install -r requirements-satelite.txt</code> (no vienen dentro del .exe).</li>
+          </ol>
+          <p class="cfg-nota">🔒 Se guardan en el <code>.env</code> de tu carpeta de datos, como el token de Telegram. No los compartas ni los pegues en chats; si se filtran, genera un par nuevo en esa misma página. Estos pasos proceden de guías de terceros: si EUMETSAT cambió su web, sigue sus instrucciones.</p>
+        </details>
+
+        <label class="cfg-mostrar"><input type="checkbox" id="cfg-mostrar"> Mostrar el token, la contraseña y las claves mientras escribo</label>
+        <button type="submit" id="cfg-guardar" class="cfg-guardar">💾 Guardar Configuración</button>
+        <div id="cfg-resultado" class="cfg-resultado" role="status" aria-live="polite" hidden></div>
+        <p class="cfg-nota">Los campos vacíos <b>no se cambian</b>. Se guardan en un archivo <code>.env</code> dentro de la carpeta de datos y se aplican <b>al momento</b>, sin reiniciar la aplicación.</p>
+        <details><summary>Avanzado: dónde se guarda</summary>
+          <p>Carpeta de datos (en el .exe: <code>%APPDATA%\AVAMETMonitor</code>):</p>
+          <p><code class="cfg-ruta" id="cfg-ruta">…</code> <button type="button" class="cfg-boton" id="cfg-copiar-ruta">📋 Copiar ruta</button></p>
+          <p>Si prefieres editar el <code>.env</code> a mano, usa <b>Windows + R</b>, pega la ruta y abre el archivo; los cambios hechos a mano sí requieren cerrar y abrir la aplicación.</p>
+        </details>
+      </form>
+
+      <div class="cfg-paso"><div class="cfg-num">1</div><div class="cfg-cuerpo">
+        <h3>Token de la API (<code>api_token.txt</code>)</h3>
+        <p>Protege dos acciones: el botón <b>⏻</b> (apagar la aplicación) y el cambio de ubicación. <b>No tienes que crearlo</b>: la primera vez que se arranca, el programa genera un token aleatorio y lo guarda en el fichero <code>api_token.txt</code> de la misma carpeta de datos.</p>
+        <ol>
+          <li>Cuando el navegador te pida el token (al pulsar ⏻ o al cambiar de ubicación), abre <code>api_token.txt</code> con el Bloc de notas.</li>
+          <li>Copia el contenido completo y pégalo en la ventanita. El navegador lo recuerda.</li>
+        </ol>
+        <p><button type="button" class="cfg-boton" id="cfg-copiar-token">📋 Copiar ruta de api_token.txt</button></p>
+        <p>Si prefieres elegirlo tú (mínimo 16 caracteres), añade al <code>.env</code> la línea <code>AVAMET_API_TOKEN=tu_token_largo</code>.</p>
+      </div></div>
+
+      <div class="cfg-paso"><div class="cfg-num">2</div><div class="cfg-cuerpo">
+        <h3>Conectar N.I.N.A. (en este mismo PC)</h3>
+        <p>En N.I.N.A., dispositivo <b>ASCOM Alpaca</b> tipo <i>Safety Monitor</i>, con estos datos:</p>
+        <div class="cfg-bloque"><pre id="cfg-c-nina">Servidor: 127.0.0.1
+Puerto:   8000
+Dispositivo: 0
+HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-nina">Copiar</button></div>
+        <p>Hay que dar de alta el servidor a mano (no hay detección automática) y <b>conectar el monitor en N.I.N.A.</b> cada vez que se reinicia esta aplicación. Más detalle en <code>GUIA_NINA.md</code>.</p>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-alt" class="modal" hidden role="dialog" aria-modal="true" aria-label="Buscar otra estación cercana">
+  <div class="modal-caja" style="max-width:560px;">
+    <button type="button" class="modal-x" data-cerrar="modal-alt" aria-label="Cerrar" title="Cerrar (Esc)">✕</button>
+    <div class="card">
+      <h2 style="margin:0 0 10px 0; font-size:1.2rem; color:var(--text);">🔎 Buscar otra estación cercana</h2>
+      <div id="alt-contenido" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-ayuda" class="modal" hidden role="dialog" aria-modal="true" aria-label="Ayuda">
+  <div class="modal-caja">
+    <button type="button" class="modal-x" data-cerrar="modal-ayuda" aria-label="Cerrar" title="Cerrar (Esc)">✕</button>
+    <div class="card ayuda">
+      <h2 style="margin:0 0 6px 0; font-size:1.2rem; color:var(--text);">ℹ️ Manual de uso — AVAMET Monitor</h2>
+      <p class="ayuda-intro">Esta aplicación vigila la meteorología de la estación AVAMET elegida y de las de su alrededor, y avisa si el
+        cielo del observatorio puede estropearse. <b>Es una ayuda a la decisión, no un sensor propio:</b> solo ve lo que miden las estaciones
+        de AVAMET y los METAR de los aeropuertos (no mide nubes ni luz).</p>
+      <nav class="ayuda-indice">
+        <a href="#ay-semaforo">🚦 Semáforo</a><a href="#ay-calculo">🧮 Cómo se calcula</a><a href="#ay-panel">📋 Panel de alertas</a>
+        <a href="#ay-nina">🔭 N.I.N.A. y Boltwood</a><a href="#ay-telegram">🤖 Telegram</a><a href="#ay-seguridad">🔐 Apagar y cambiar ubicación</a><a href="#ay-fallos">🛠️ Si algo falla</a>
+      </nav>
+
+      <div class="ayuda-section" id="ay-semaforo">
+        <h3>🚦 El semáforo (esquina superior derecha)</h3>
+        <p>El indicador de arriba a la derecha resume la situación. Cada color significa:</p>
+        <table class="ayuda-tabla">
+          <tr><td><span class="badge-ayuda badge-SEGURO">SEGURO</span><br><small>verde</small></td>
+              <td>Sin lluvia detectada, viento por debajo de los límites y humedad por debajo del 90 %. <b>N.I.N.A. recibe «seguro».</b></td></tr>
+          <tr><td><span class="badge-ayuda badge-VIGILANCIA">VIGILANCIA</span><br><small>naranja</small></td>
+              <td>Hay algo a vigilar, pero <b>todavía se considera seguro</b> (N.I.N.A. sigue recibiendo «seguro»): viento fuerte sin llegar al límite, humedad ≥ 90 %, o el radar predictivo prevé lluvia o nubes bajas en camino. Conviene estar atento.</td></tr>
+          <tr><td><span class="badge-ayuda badge-PELIGRO">PELIGRO</span><br><small>rojo</small></td>
+              <td>Lluvia detectada (en la estación central o en las de alrededor) o viento por encima del límite. <b>NO SEGURO</b>: el techo debe estar cerrado / no debe abrirse.</td></tr>
+          <tr><td><span class="badge-ayuda badge-SIN_DATOS">SIN_DATOS</span><br><small>gris oscuro parpadeante</small></td>
+              <td>No hay datos fiables (sin internet, la web de AVAMET no responde, o el sensor de la estación está congelado). Como no se puede saber si llueve, se considera <b>NO SEGURO</b>. El motivo se ve en el panel de alertas. Si el aviso dice que <b>el sensor no se actualiza</b> (tu red y AVAMET funcionan), pulsa <b>«Buscar otra estación cercana»</b> para cambiar a una que sí envíe datos.</td></tr>
+          <tr><td><span class="badge-ayuda badge-INICIANDO">INICIANDO</span><br><small>azul</small></td>
+              <td>La aplicación está arrancando o acaba de cambiar de ubicación. <b>NO SEGURO</b> hasta que llegue la primera lectura buena.</td></tr>
+        </table>
+        <p class="ayuda-aviso">⚠️ El semáforo refleja la <b>situación meteorológica</b>. Además, N.I.N.A. recibe «no seguro» aunque el semáforo esté verde si el último dato de la estación tiene <b>más de 10 minutos</b> (compruébalo en «Fecha lectura» de la tarjeta de la estación) o si la aplicación se ha quedado sin actualizar.</p>
+      </div>
+
+      <div class="ayuda-section" id="ay-calculo">
+        <h3>🧮 ¿Cómo se calcula?</h3>
+        <p><b>De dónde salen los datos.</b> La estación central se consulta cada minuto; las estaciones en un radio de 25 km, cada 3 minutos. Los aeropuertos (METAR, hasta 120 km) sirven para estimar hacia dónde se mueven las nubes.</p>
+        <table class="ayuda-tabla">
+          <tr><th>Qué se mira</th><th>Cuándo cambia el estado</th></tr>
+          <tr><td>🌧️ <b>Lluvia</b></td><td><b>PELIGRO</b> si el acumulado «Lluvia hoy» de la estación central <i>o de cualquiera del radio de 25 km</i> sube 0,1 mm o más entre dos lecturas. <b>Retención:</b> el PELIGRO se mantiene <b>30 minutos desde el último aumento</b>, aunque la lluvia pare, para que el techo no se abra y se cierre con chubascos intermitentes. La primera lectura tras arrancar solo sirve de referencia: no cuenta como lluvia.</td></tr>
+          <tr><td>💨 <b>Viento</b></td><td><b>VIGILANCIA</b> con viento sostenido ≥ 40 km/h o racha ≥ 45 km/h. <b>PELIGRO</b> con viento sostenido &gt; 45 km/h o racha &gt; 55 km/h, con <b>retención de 15 minutos</b> desde el último viento fuerte (evita que las ráfagas abran y cierren el techo).</td></tr>
+          <tr><td>💧 <b>Humedad</b></td><td><b>VIGILANCIA</b> con humedad ≥ 90 % (riesgo de rocío).</td></tr>
+          <tr><td>📉 <b>Presión, temperatura y humedad en 30 min</b></td><td>Si la presión cae 2 hPa o más, la temperatura baja 3 °C o más, o la humedad sube 15 puntos o más, aparece un <b>aviso</b> (posible frente o tormenta). <b>Estos avisos informan, pero no cambian el color del semáforo.</b> Una presión fuera de 850–1100 hPa se descarta como fallo del sensor (se avisa, y el resto de datos se sigue evaluando).</td></tr>
+          <tr><td>🔮 <b>Radar predictivo</b></td><td>Con el viento de la estación y de los aeropuertos cercanos se estima hacia dónde van las nubes (hace falta viento &gt; 5 km/h). Si una estación a menos de 25 km cuyo <b>contador de lluvia ha subido en los últimos 30 minutos</b> está «a favor del viento» respecto a ti y la lluvia llegaría en menos de 2 horas, o un aeropuerto de hasta 120 km con lluvia/tormenta o nubes bajas está en esa dirección, sale un aviso con el <b>tiempo estimado de llegada</b> («CONFIRMADO EN TIERRA» si las estaciones intermedias ya miden lluvia). Esto solo sube de SEGURO a <b>VIGILANCIA</b>, nunca a PELIGRO.</td></tr>
+          <tr><td>🔌 <b>Datos</b></td><td><b>SIN_DATOS</b> si la lectura falta, está incompleta o no se entiende. Para N.I.N.A., un dato de más de 10 minutos también es «no seguro».</td></tr>
+        </table>
+        <p>Importante: la lluvia se detecta cuando el <b>contador del pluviómetro sube</b>. Una nube sobre el observatorio que aún no ha soltado lluvia en ninguna estación <b>no</b> se detecta. Para eso están el radar predictivo y tu criterio.</p>
+      </div>
+
+      <div class="ayuda-section" id="ay-panel">
+        <h3>📋 Panel de alertas (el botón del semáforo)</h3>
+        <p><b>Pulsa el semáforo</b> (lleva una flechita ▾) y se despliega debajo la lista de <b>alertas activas</b>, con el mismo texto que el aviso emergente. Si no hay ninguna, dice «No hay alertas activas». Se cierra pulsando fuera, con la tecla Esc o volviendo a pulsar el semáforo, y se actualiza solo mientras está abierto.</p>
+        <ul>
+          <li><b>Para qué sirve:</b> el aviso emergente tiene <b>⏰ Posponer</b> (lo oculta unos minutos) y <b>🔕 Silenciar</b> (lo oculta hasta que el estado vuelva a SEGURO). Si alguien lo ha cerrado, <b>el panel sigue mostrando qué está pasando</b>.</li>
+          <li>Posponer y silenciar <b>solo afectan a tu navegador</b>: no cambian lo que recibe N.I.N.A. ni los avisos de Telegram.</li>
+          <li>Mientras el aviso emergente esté visible tapa el semáforo (están en la misma esquina): ciérralo con la ✕ y después pulsa el semáforo.</li>
+          <li>Colores de la barra lateral: rojo = crítico/peligro, ámbar = aviso, violeta = predicción.</li>
+        </ul>
+      </div>
+
+      <div class="ayuda-section" id="ay-nina">
+        <h3>🔭 N.I.N.A. y fichero Boltwood</h3>
+        <p><b>La aplicación no cierra el techo por sí misma.</b> Lo que hace es declarar «seguro / no seguro» por dos vías, y es N.I.N.A. (o el software que controle el techo) quien debe estar configurado para actuar cuando llegue «no seguro»:</p>
+        <ul>
+          <li><b>ASCOM Alpaca (SafetyMonitor):</b> la aplicación se comporta como un monitor de seguridad en <code>http://IP-DEL-EQUIPO:8000</code>. «IsSafe» es falso en PELIGRO, SIN_DATOS, INICIANDO, con datos de más de 10 minutos o si la aplicación se queda sin actualizar. Para que responda, el cliente debe <b>conectarse</b> antes (N.I.N.A. lo hace al pulsar «Conectar»); si no, «IsSafe» devuelve el error ASCOM «no conectado» (1031), nunca un «seguro» falso. Tras reiniciar esta aplicación hay que volver a conectar en N.I.N.A. El indicador <b>N.I.N.A.</b> de arriba se pone verde mientras se le responde a algo que consulta ese estado.</li>
+          <li><b>Fichero Boltwood:</b> en cada ciclo (cada minuto) se reescribe <code>boltwood.dat</code> en la carpeta de datos, en el formato de una línea del Boltwood Cloud Sensor II. Si el tiempo empeora o faltan datos, el fichero marca <b>cerrar techo (C=1) y alerta (A=1)</b>. Al apagar la aplicación (botón ⏻ o cierre normal) también se escribe «no seguro».</li>
+        </ul>
+        <p class="ayuda-aviso">⚠️ <b>Comprueba que el techo reacciona.</b> Desde esta aplicación no se puede verificar cómo está configurado tu N.I.N.A. o tu controlador del techo. Haz una prueba controlada (por ejemplo, desconecta la red del equipo unos minutos para forzar SIN_DATOS) y confirma que el techo se cierra.</p>
+        <p>Nota: AVAMET no mide nubes ni luz, así que esos campos del fichero Boltwood van siempre «desconocido». La decisión se basa solo en lluvia, viento, humedad y datos válidos.</p>
+      </div>
+
+      <div class="ayuda-section" id="ay-telegram">
+        <h3>🤖 Telegram</h3>
+        <p><b>Cómo suscribirte:</b> busca el bot del observatorio en Telegram (te dirán el nombre), envía <code>/start</code> y escribe la <b>contraseña</b> que te dé el responsable. Tras 5 contraseñas incorrectas se bloquea ese chat 15 minutos.</p>
+        <table class="ayuda-tabla">
+          <tr><td><code>/start</code></td><td>Empieza la suscripción (pide la contraseña). Si ya estás suscrito, te lo dice.</td></tr>
+          <tr><td><code>/status</code></td><td>Solo comprueba <b>si estás suscrito</b> y desde cuándo. <b>No muestra el tiempo</b>: para eso, la web o los avisos.</td></tr>
+          <tr><td><code>/stop</code></td><td>Te da de baja: dejas de recibir avisos.</td></tr>
+          <tr><td><code>/pueblo &lt;nombre&gt;</code><br><small>(también <code>/lugar</code>)</small></td><td><b>Solo el administrador</b> (el chat configurado en <code>AVAMET_ADMIN_CHAT_ID</code>); los demás reciben «No tienes permisos». Cambia la <b>estación central de TODO el sistema</b> a la primera que coincida con el nombre. ⚠️ Afecta a lo que ve y recibe todo el mundo, incluido N.I.N.A.: no lo uses desde el móvil «por curiosidad». Mientras llegan datos de la nueva estación, el estado es «no seguro». La elección no se guarda: al reiniciar la aplicación vuelve la estación por defecto.</td></tr>
+        </table>
+        <p><b>Qué avisos llegan:</b> al entrar en <b>PELIGRO</b>; si <b>faltan datos</b> durante unos 3 minutos (SIN_DATOS); y un mensaje de <b>datos recuperados</b> cuando vuelven. Si en ese momento no hay internet, el aviso se guarda y se envía cuando vuelva la conexión, con la hora real del suceso (por eso un corte de internet en el observatorio no te avisará hasta que se restablezca).</p>
+        <p>La puesta en marcha (token del bot y contraseña) es cosa del administrador: variables <code>AVAMET_TELEGRAM_TOKEN</code> y <code>AVAMET_TELEGRAM_CLAVE</code> en el fichero <code>.env</code>. Si faltan, el bot no arranca y lo dice en la consola.</p>
+      </div>
+
+      <div class="ayuda-section" id="ay-seguridad">
+        <h3>🔐 Apagar la aplicación y cambiar la ubicación</h3>
+        <p>El botón <b>⏻</b> (apagar) y el cambio de ubicación exigen un <b>token</b>. La primera vez se te pedirá y el navegador lo recordará.</p>
+        <ul>
+          <li><b>Dónde está:</b> al arrancar por primera vez se genera un token aleatorio y se guarda en <code>api_token.txt</code> en la carpeta de datos (en Linux/Raspberry Pi: <code>data/</code> dentro de la aplicación; en el .exe de Windows: <code>%APPDATA%\AVAMETMonitor</code>).</li>
+          <li><b>Elegir el tuyo:</b> variable de entorno <code>AVAMET_API_TOKEN</code> (o línea en <code>.env</code>), de al menos 16 caracteres.</li>
+          <li><b>Desde otro equipo o script:</b> <code>curl -X POST -H "Authorization: Bearer TU_TOKEN" http://IP:8000/api/shutdown</code></li>
+          <li>Tras 5 intentos fallidos desde la misma IP se bloquea el acceso 5 minutos.</li>
+          <li>Al apagar con el botón, el fichero Boltwood queda en «no seguro» antes de cerrar.</li>
+        </ul>
+        <p><b>Raspberry Pi / red local:</b> la página, los datos y los endpoints de Alpaca son visibles para cualquiera que alcance el puerto 8000. Usa solo una red de confianza y <b>no expongas el puerto a Internet</b>.</p>
+      </div>
+
+      <div class="ayuda-section" id="ay-fallos">
+        <h3>🛠️ Si algo falla</h3>
+        <ul>
+          <li><b>SIN_DATOS:</b> abre el panel de alertas y mira el motivo. Casi siempre es internet o la web de AVAMET, y el propio aviso te dice cuál de las dos. En ⚙️ Configuración → «Estado de la red» ves Internet / AVAMET / Aeropuertos y puedes descargar el log de la última hora. La aplicación reintenta sola; no hace falta reiniciarla.</li>
+          <li><b>«Fallo interno … Reintentando»:</b> un error del programa. Se considera no seguro y se reintenta con esperas crecientes (hasta 5 min). Si se repite, avisa al administrador (log: <code>journalctl -u avamet-monitor</code> en la Raspberry Pi).</li>
+          <li><b>El mapa sin internet:</b> los marcadores funcionan, pero el dibujo del terreno se descarga de internet y puede verse vacío.</li>
+          <li><b>Nubes IR en el mapa:</b> la casilla «🛰️ Nubes IR (satélite)» superpone la imagen Meteosat de 10,8 µm de EUMETSAT (blanco = nube fría, gris oscuro = cielo despejado o nube baja templada). Indica la hora de la imagen, que va unos 25-30 min por detrás. Es solo informativa: no entra en las alarmas. Si no puede saber la hora del último barrido, no la muestra.</li>
+          <li><b>La web parece antigua tras una actualización:</b> la página se recarga sola al detectar una versión nueva; si no, pulsa Ctrl+F5 una vez.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span id="conn" class="ok">● Conectado</span>
+  <span id="ultima">Última actualización: —</span>
+</footer>
+
+<div id="toast-progreso" style="display: none; position: fixed; bottom: 24px; right: 24px; background: var(--panel); border: 1px solid var(--iniciando); border-radius: 10px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 3000; width: 300px;">
+  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+    <div style="width: 20px; height: 20px; border: 3px solid rgba(31, 111, 235, 0.3); border-top-color: var(--iniciando); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+    <b style="color: var(--iniciando);">Primera ejecución</b>
+  </div>
+  <div id="progreso-texto" style="font-size: 0.9rem; color: var(--text); margin-bottom: 10px;">Preparando datos...</div>
+  <div style="width: 100%; background: #0d1117; border-radius: 4px; height: 8px; overflow: hidden;">
+    <div id="progreso-barra" style="height: 100%; background: var(--iniciando); width: 0%; transition: width 0.3s ease;"></div>
+  </div>
+</div>
+
+<script src="/vendor/leaflet/leaflet.js?v=__BUILD__"></script>
+<script>window.L || document.write('<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>');</script>
+<script>
+(function () {
+  if ('serviceWorker' in navigator) {
+    // Cache-busting: cuando el servidor tiene una versión nueva del frontend, el Service Worker nuevo toma el control
+    // y la página se recarga UNA vez sola (sin Ctrl+F5). Si no había SW previo (primera visita) no se recarga.
+    const habiaControlador = !!navigator.serviceWorker.controller;
+    let recargando = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!habiaControlador || recargando) return;
+      recargando = true; location.reload();
+    });
+    navigator.serviceWorker.register('/sw.js').then(reg => reg.update()).catch(console.error);
+  }
+
+  const elToast = document.getElementById('alert-toast'), elToastTitle = document.getElementById('toast-title'), elToastBody = document.getElementById('toast-body');
+  const elToastX = document.getElementById('toast-x'), elSnoozeBtn = document.getElementById('toast-snooze-btn'), elMuteBtn = document.getElementById('toast-mute-btn'), elSnoozeMenu = document.getElementById('toast-snooze-menu');
+  const elBadge = document.getElementById('status-badge'), elCentralTit = document.getElementById('central-titulo'), elCentral = document.getElementById('central-tiles'), elRadioTit = document.getElementById('radio-titulo'), elRadio = document.getElementById('radio-lista');
+  const elTabCount = document.getElementById('tab-count'), elConn = document.getElementById('conn'), elUltima = document.getElementById('ultima');
+  const elSearch = document.getElementById('loc-search'), elDropdown = document.getElementById('loc-dropdown'), elGps = document.getElementById('loc-gps');
+  const elTabCountAero = document.getElementById('tab-count-aero'), elAeroTit = document.getElementById('aero-titulo'), elAeroLista = document.getElementById('aero-lista');
+  const elMovimientoVal = document.getElementById('movimiento-valor'), elMovimientoDetalle = document.getElementById('movimiento-detalle'), elMovFlecha = document.getElementById('mov-flecha');
+  const elNinaDot = document.getElementById('nina-dot');
+  const elTendencias = document.getElementById('tendencias-valores');
+  const elRadarPanel = document.getElementById('radar-panel'), elRadarContenido = document.getElementById('radar-contenido');
+  const elResumenAeros = document.getElementById('resumen-aeropuertos');
+  const elSeeing = document.getElementById('seeing-contenido');
+  const elMetPanel = document.getElementById('meteosat-panel'), elMet = document.getElementById('meteosat-contenido');
+
+  const TOOLTIPS = {
+    'Temperatura': 'Temperatura del aire a la sombra.',
+    'Humedad': 'Humedad relativa. >90% implica riesgo de rocío.',
+    'Viento': 'Viento en superficie.',
+    'Viento máximo': 'Racha máxima registrada.',
+    'Lluvia hoy': 'Precipitación desde las 00:00.',
+    'Lluvia mensual': 'Precipitación en el mes.',
+    'Fecha lectura': 'Hora local de la última lectura publicada por AVAMET. Si es muy antigua el sistema pasa a SIN DATOS.',
+    'Presión': 'Presión al nivel del mar.'
+  };
+
+  const ICONOS = {'Temperatura':'🌡️','Humedad':'💧','Viento':'💨','Viento máximo':'💨','Lluvia hoy':'☔','Lluvia mensual':'🌧️','Presión':'📊','Fecha lectura':'🕒'};
+
+  let mapa = null, capaMarcadores = null, capaAnimacion = null, centroActual = [39.5, -0.5], animacionFrameId = null;
+  let chartHistorial = null;
+  let ultimoEstado = null;
+
+  function initMapa() {
+    if (mapa) return;
+    mapa = L.map('mapa-container', { zoomControl: false }).setView(centroActual, 9);
+    L.control.zoom({ position: 'bottomright' }).addTo(mapa);
+    L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri', maxZoom: 19
+    }).addTo(mapa);
+    capaMarcadores = L.layerGroup().addTo(mapa);
+    capaAnimacion = L.layerGroup().addTo(mapa);
+    iniciarNubesIr();
+  }
+
+  // ---------------------------------------------------------------- Capa «Nubes IR» (satélite, solo mostrar)
+  // Imagen Meteosat IR 10,8 µm del WMS público de EUMETView (sin claves). Las teselas se piden con la hora del último barrido
+  // (parámetro time, que da /api/nubes_ir): sin ella el servidor mezcla teselas antiguas de su caché (comprobado el 3-nov-2026).
+  let capaIr = null, irTiempo = null, irTemporizador = null, irFotogramas = [], irAnim = null, irCapasAnim = [], irIdx = 0;
+  const IR_PREF = 'avamet_nubes_ir';
+  function irPrefs() { try { return JSON.parse(localStorage.getItem(IR_PREF)) || {}; } catch (e) { return {}; } }
+  function irGuardar(p) { try { localStorage.setItem(IR_PREF, JSON.stringify(Object.assign(irPrefs(), p))); } catch (e) {} }
+  function irHoraLocal(t) { const d = new Date(t); return isNaN(d) ? t : d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }); }
+
+  function iniciarNubesIr() {
+    const p = irPrefs(), op0 = Math.min(100, Math.max(10, +p.op || 60));
+    const ctl = L.control({ position: 'topright' });
+    ctl.onAdd = () => {
+      const div = L.DomUtil.create('div', 'ir-control');
+      div.innerHTML = `<label><input type="checkbox" id="ir-chk"${p.on ? ' checked' : ''}> 🛰️ Nubes IR (satélite)</label>` +
+        `<input type="range" id="ir-opacidad" min="10" max="100" value="${op0}" title="Opacidad"${p.on ? '' : ' hidden'}>` +
+        `<div id="ir-anim" hidden><button id="ir-play" title="Ver cómo se han movido las nubes en las últimas horas">▶</button>` +
+        `<input type="range" id="ir-frame" min="0" max="0" value="0" title="Barrido"><span id="ir-frame-hora"></span></div>` +
+        `<div id="ir-estado"${p.on ? '' : ' hidden'}>Imagen de EUMETSAT, solo informativa (no entra en las alarmas).</div>`;
+      L.DomEvent.disableClickPropagation(div);
+      L.DomEvent.disableScrollPropagation(div);
+      return div;
+    };
+    ctl.addTo(mapa);
+    const chk = document.getElementById('ir-chk'), op = document.getElementById('ir-opacidad'), est = document.getElementById('ir-estado');
+    chk.addEventListener('change', () => {
+      irGuardar({ on: chk.checked });
+      op.hidden = est.hidden = !chk.checked;
+      if (chk.checked) activarIr(); else desactivarIr();
+    });
+    op.addEventListener('input', () => { irGuardar({ op: +op.value }); if (capaIr) capaIr.setOpacity(op.value / 100); irCapasAnim.forEach((c, i) => { if (i === irIdx) c.setOpacity(op.value / 100); }); });
+    document.getElementById('ir-play').addEventListener('click', () => { if (irAnim) irPararAnimacion(); else irIniciarAnimacion(); });
+    document.getElementById('ir-frame').addEventListener('input', e => {
+      if (!irAnim && !irCapasAnim.length) irPrepararCapas();
+      irPararTemporizador(); irMostrar(+e.target.value);
+    });
+    if (chk.checked) activarIr();
+  }
+
+  // Animación: una capa de teselas por barrido (las últimas ~2 h, /api/nubes_ir -> fotogramas), todas cargadas a la vez y con
+  // opacidad 0 salvo la que toca, para que el cambio de imagen sea instantáneo. Al pararla se vuelve a la imagen más reciente.
+  function irOpacidad() { return document.getElementById('ir-opacidad').value / 100; }
+  function irPrepararCapas() {
+    irQuitarCapasAnim();
+    const w = capaIr && capaIr.wmsParams;
+    if (!w || irFotogramas.length < 2) return;
+    irCapasAnim = irFotogramas.map(t => L.tileLayer.wms(capaIr._url, { layers: w.layers, styles: '', format: 'image/png', transparent: true,
+      version: '1.3.0', time: t, opacity: 0, zIndex: 2, maxZoom: 19 }).addTo(mapa));
+    capaIr.setOpacity(0);
+  }
+  function irQuitarCapasAnim() { irCapasAnim.forEach(c => mapa.removeLayer(c)); irCapasAnim = []; }
+  function irMostrar(i) {
+    if (!irCapasAnim.length) return;
+    irIdx = Math.max(0, Math.min(irCapasAnim.length - 1, i));
+    irCapasAnim.forEach((c, k) => c.setOpacity(k === irIdx ? irOpacidad() : 0));
+    document.getElementById('ir-frame').value = irIdx;
+    document.getElementById('ir-frame-hora').textContent = irHoraLocal(irFotogramas[irIdx]);
+  }
+  function irPararTemporizador() { if (irAnim) { clearTimeout(irAnim); } irAnim = null; document.getElementById('ir-play').textContent = '▶'; }
+  function irIniciarAnimacion() {
+    irPrepararCapas();
+    if (!irCapasAnim.length) return;
+    document.getElementById('ir-play').textContent = '⏸';
+    let i = 0;
+    const paso = () => {
+      irMostrar(i);
+      const ultimo = i === irCapasAnim.length - 1;
+      i = ultimo ? 0 : i + 1;
+      irAnim = setTimeout(paso, ultimo ? 1800 : 650);              // pausa más larga en la imagen más reciente
+    };
+    paso();
+  }
+  function irPararAnimacion() {
+    irPararTemporizador();
+    irQuitarCapasAnim();
+    if (capaIr) capaIr.setOpacity(irOpacidad());
+    const f = document.getElementById('ir-frame');
+    f.value = f.max; document.getElementById('ir-frame-hora').textContent = irFotogramas.length ? irHoraLocal(irFotogramas[irFotogramas.length - 1]) : '';
+  }
+
+  async function actualizarIr() {
+    const est = document.getElementById('ir-estado'), op = document.getElementById('ir-opacidad'), chk = document.getElementById('ir-chk');
+    let j;
+    try {
+      const r = await fetch('/api/nubes_ir', { cache: 'no-store' });
+      if (!r.ok) throw new Error(r.status === 404 ? 'reinicia la aplicación para cargar esta función' : 'HTTP ' + r.status);
+      j = await r.json();
+    } catch (e) { j = { tiempo: null, error: e.message }; }
+    if (!chk.checked) return;
+    if (!j.tiempo) {
+      irPararAnimacion(); document.getElementById('ir-anim').hidden = true;
+      if (capaIr) { mapa.removeLayer(capaIr); capaIr = null; irTiempo = null; }
+      est.textContent = 'No se pudo saber la hora del último barrido de EUMETSAT' + (j.error ? ' (' + j.error + ')' : '') +
+        ': no se muestra la capa para no enseñar imágenes antiguas.';
+      return;
+    }
+    if (irAnim || irCapasAnim.length) { if (j.tiempo !== irTiempo) irPararAnimacion(); }     // llegó un barrido nuevo: se vuelve al último
+    if (!capaIr) {
+      capaIr = L.tileLayer.wms(j.wms, { layers: j.capa, styles: '', format: 'image/png', transparent: true, version: '1.3.0',
+        time: j.tiempo, opacity: op.value / 100, zIndex: 2, maxZoom: 19, attribution: 'Meteosat IR 10,8 µm &copy; EUMETSAT' }).addTo(mapa);
+    } else if (j.tiempo !== irTiempo) {
+      capaIr.setParams({ time: j.tiempo });
+    }
+    irTiempo = j.tiempo;
+    irFotogramas = Array.isArray(j.fotogramas) && j.fotogramas.length > 1 ? j.fotogramas : [];
+    const barra = document.getElementById('ir-anim'), fr = document.getElementById('ir-frame');
+    barra.hidden = irFotogramas.length < 2;
+    fr.max = Math.max(0, irFotogramas.length - 1);
+    if (!irAnim && !irCapasAnim.length) { fr.value = fr.max; document.getElementById('ir-frame-hora').textContent = irFotogramas.length ? irHoraLocal(irFotogramas[irFotogramas.length - 1]) : ''; }
+    est.textContent = `Imagen de las ${irHoraLocal(j.tiempo)} (último barrido publicado)` +
+      (j.error ? '; la última consulta falló y se mantiene esta' : '') + '. Solo informativa: no entra en las alarmas.';
+  }
+
+  function activarIr() {
+    document.getElementById('ir-estado').textContent = 'Buscando el último barrido en EUMETSAT…';
+    actualizarIr();
+    clearInterval(irTemporizador);
+    irTemporizador = setInterval(actualizarIr, 5 * 60 * 1000);       // EUMETSAT publica un barrido cada 15 min
+  }
+
+  function desactivarIr() {
+    clearInterval(irTemporizador); irTemporizador = null;
+    irPararTemporizador(); irQuitarCapasAnim();
+    document.getElementById('ir-anim').hidden = true;
+    if (capaIr) { mapa.removeLayer(capaIr); capaIr = null; irTiempo = null; }
+  }
+
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.remove('hidden');
+      
+      if (tab.dataset.tab === 'mapa') {
+        initMapa();
+        setTimeout(() => { 
+          if(mapa) mapa.invalidateSize(); 
+          if (ultimoEstado) renderEstado(ultimoEstado);
+        }, 100);
+      }
+      if (tab.dataset.tab === 'historial') {
+        cargarHistorial();
+      }
+    });
+  });
+
+  const SEV = { SEGURO: 0, VIGILANCIA: 1, PELIGRO: 2, SIN_DATOS: 3 };
+  // localStorage puede estar vacío, corrupto o bloqueado: nunca debe romper la página
+  function leerJSONLocal(clave, defecto) { try { const v = JSON.parse(localStorage.getItem(clave)); return (v && typeof v === 'object') ? v : defecto; } catch (e) { return defecto; } }
+  function guardarLocal(clave, valor) { try { localStorage.setItem(clave, JSON.stringify(valor)); } catch (e) { /* modo privado o almacenamiento lleno */ } }
+  let snooze = leerJSONLocal('avamet_snooze', { until: 0, level: '' });
+  let muted = leerJSONLocal('avamet_muted', { level: '' });
+  let lastNivel = null, currentNivel = 'INICIANDO';
+
+  function debeMostrarse(nivel) {
+    const sev = SEV[nivel] ?? -1;
+    if (muted.level && sev <= (SEV[muted.level] ?? -1)) return false;
+    if (snooze.level && Date.now() < snooze.until && sev <= (SEV[snooze.level] ?? -1)) return false;
+    return true;
+  }
+  function setSnooze(nivel, min) { snooze = { until: Date.now() + min * 60000, level: nivel }; guardarLocal('avamet_snooze', snooze); elToast.classList.add('hidden'); elSnoozeMenu.classList.remove('visible'); }
+  function setMute(nivel) { muted = { level: nivel }; guardarLocal('avamet_muted', muted); elToast.classList.add('hidden'); }
+  function resetSnoozeMute() { snooze = { until: 0, level: '' }; muted = { level: '' }; guardarLocal('avamet_snooze', snooze); guardarLocal('avamet_muted', muted); }
+
+  elToastX.addEventListener('click', () => setSnooze(currentNivel, 5));
+  elSnoozeBtn.addEventListener('click', () => elSnoozeMenu.classList.toggle('visible'));
+  elSnoozeMenu.querySelectorAll('button').forEach(b => b.addEventListener('click', () => setSnooze(currentNivel, parseInt(b.dataset.min, 10))));
+  elMuteBtn.addEventListener('click', () => setMute(currentNivel));
+
+  function num(v) { const n = parseFloat(String(v).split(' ')[0].replace(',', '.')); return isNaN(n) ? 0 : n; }
+  function normalizar(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+
+  // --- Panel de alertas del badge (independiente de Posponer/Silenciar del toast) ---
+  const elPanel = document.getElementById('alert-panel');
+  function escHtml(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  // METAR: viento_nudos/viento_dir pueden ser null (viento variable "VRB" o dato ausente): nunca se muestra 0° ni "null".
+  function fmtVientoMetar(m) {
+    if (m.viento_nudos === null || m.viento_nudos === undefined) return 'Sin dato';
+    if (m.viento_nudos === 0) return 'Calma';
+    return (m.viento_dir === null || m.viento_dir === undefined) ? `Variable a ${m.viento_nudos} kt` : `${m.viento_dir}° a ${m.viento_nudos} kt`;
+  }
+  const numOGuion = v => (v === null || v === undefined) ? '—' : v;
+  function renderPanelAlertas() {
+    const d = ultimoEstado || {}, nivel = d.estado || 'INICIANDO', lista = Array.isArray(d.alertas) ? d.alertas : [];
+    let cuerpo;
+    if (lista.length) {
+      cuerpo = lista.map(a => `<div class="ap-item ${escHtml(a.nivel)}">${escHtml(a.mensaje)}</div>`).join('');
+    } else if ((nivel === 'SIN_DATOS' || nivel === 'ERROR') && d.mensaje) {
+      cuerpo = `<div class="ap-item PELIGRO">${escHtml(d.mensaje)}</div>`;      // sin alertas pero NO seguro: se explica el motivo
+    } else {
+      cuerpo = '<div class="ap-empty">No hay alertas activas</div>';
+    }
+    const botonAlt = estacionInactiva(d) ? '<div class="ap-alt-fila"><button type="button" class="ap-alt" id="ap-alt">🔎 Buscar otra estación cercana</button></div>' : '';
+    elPanel.innerHTML = `<div class="ap-head"><span>Alertas — ${escHtml(nivel)}</span><small>${lista.length}</small></div>${cuerpo}${botonAlt}`;
+  }
+  function posicionarPanel() {
+    const r = elBadge.getBoundingClientRect(), ancho = Math.min(340, window.innerWidth - 32);
+    elPanel.style.top = (r.bottom + 8) + 'px';
+    elPanel.style.left = Math.max(16, Math.min(r.right - ancho, window.innerWidth - ancho - 16)) + 'px';
+  }
+  function abrirPanel() { renderPanelAlertas(); elPanel.hidden = false; posicionarPanel(); elBadge.setAttribute('aria-expanded', 'true'); }
+  function cerrarPanel() { elPanel.hidden = true; elBadge.setAttribute('aria-expanded', 'false'); }
+  elPanel.addEventListener('click', e => { if (e.target.closest && e.target.closest('#ap-alt')) { cerrarPanel(); abrirAlternativas(); } });
+  elBadge.addEventListener('click', e => { e.stopPropagation(); if (elPanel.hidden) abrirPanel(); else cerrarPanel(); });
+  elBadge.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); elBadge.click(); } });
+  document.addEventListener('click', e => { if (!elPanel.hidden && !elPanel.contains(e.target)) cerrarPanel(); });   // clic fuera
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !elPanel.hidden) { cerrarPanel(); elBadge.focus(); } });
+  window.addEventListener('resize', () => { if (!elPanel.hidden) posicionarPanel(); });
+
+  // ¿El SIN_DATOS se debe a que el sensor de la estación está parado (y no a la red)? Entonces se ofrece cambiar de estación.
+  function estacionInactiva(d) {
+    const e = d && d.estacion;
+    return !!e && d.estado === 'SIN_DATOS' && (e.estado === 'CONGELADA' || e.estado === 'SIN_FECHA');
+  }
+  function renderToast(nivel, alertas) {
+    document.getElementById('toast-alt').hidden = !estacionInactiva(ultimoEstado);
+    if (nivel === 'SEGURO' && lastNivel && lastNivel !== 'SEGURO') resetSnoozeMute();
+    lastNivel = nivel; currentNivel = nivel;
+    if ((nivel !== 'PELIGRO' && nivel !== 'VIGILANCIA' && nivel !== 'SIN_DATOS') || !debeMostrarse(nivel)) { elToast.classList.add('hidden'); return; }
+    
+    let tipoToast = nivel === 'PELIGRO' ? 'peligro' : (nivel === 'SIN_DATOS' ? 'sindatos' : 'vigilancia');
+    elToast.className = 'toast ' + tipoToast;
+    elToast.classList.remove('hidden');
+    elToastTitle.textContent = nivel === 'SIN_DATOS' ? 'SIN DATOS — NO SEGURO' : (nivel === 'PELIGRO' ? 'PELIGRO' : 'VIGILANCIA');
+    elToastBody.innerHTML = (alertas && alertas.length) ? alertas.map(a => `<div style="padding:4px 0; border-bottom:1px dashed var(--border);">• ${escHtml(a.mensaje)}</div>`).join('') : '<div>Condiciones a vigilar</div>';
+  }
+
+  let TODAS = [], itemsMostrados = [], indiceActivo = -1, cargandoLocalidades = false;
+  async function cargarLocalidades() {
+    if (cargandoLocalidades) return;
+    cargandoLocalidades = true;
+    try {
+      const r = await fetch('/api/localidades');
+      if (r.status === 503) { cargandoLocalidades = false; setTimeout(cargarLocalidades, 2000); return; }
+      const data = await r.json();
+      if (data && data.length > 0) { TODAS = data; cargandoLocalidades = false; }
+      else { cargandoLocalidades = false; setTimeout(cargarLocalidades, 2000); }
+    } catch (e) { cargandoLocalidades = false; setTimeout(cargarLocalidades, 2000); }
+  }
+
+  function filtrar(q) { 
+    const n = normalizar(q); 
+    if (!n || !TODAS || TODAS.length === 0) return [];
+    return TODAS.filter(l => normalizar(l.municipio).includes(n) || normalizar(l.nombre).includes(n)).slice(0, 30); 
+  }
+
+  function mostrarDropdown(lista) {
+    itemsMostrados = lista; indiceActivo = -1;
+    if (!lista || lista.length === 0) { elDropdown.classList.remove('visible'); return; }
+    elDropdown.innerHTML = lista.map((l, i) => `<div class="loc-item" data-i="${i}"><b>${escHtml(l.municipio || l.nombre)}</b> <span style="color:var(--muted);font-size:0.85rem;">${escHtml(l.nombre)}</span></div>`).join('');
+    elDropdown.classList.add('visible');
+    elDropdown.querySelectorAll('.loc-item').forEach(el => el.addEventListener('click', () => seleccionar(itemsMostrados[+el.dataset.i].id)));
+  }
+
+  // --- Autenticación (A5): /api/ubicacion y /api/shutdown exigen un token Bearer ---
+  function leerToken() { try { return localStorage.getItem('avamet_token') || ''; } catch (e) { return ''; } }
+  function guardarToken(t) { try { localStorage.setItem('avamet_token', t); } catch (e) {} }
+  function borrarToken() { try { localStorage.removeItem('avamet_token'); } catch (e) {} }
+  // Devuelve la respuesta, o null si el usuario cancela. Pide el token si falta o es incorrecto (2 intentos).
+  async function fetchAuth(url, opts) {
+    let r = null;
+    for (let intento = 0; intento < 2; intento++) {
+      let t = leerToken();
+      if (!t) {
+        t = prompt('Esta acción requiere el token de API.\nEstá en el fichero api_token.txt del servidor (ver el botón ℹ️ Ayuda).');
+        if (!t) return null;
+        t = t.trim();
+      }
+      const o = Object.assign({}, opts || {});
+      o.headers = Object.assign({}, o.headers || {}, { 'Authorization': 'Bearer ' + t });
+      r = await fetch(url, o);
+      if (r.status === 401) { borrarToken(); continue; }
+      if (r.ok) guardarToken(t);
+      return r;
+    }
+    return r;
+  }
+  function avisoAuth(r) {
+    if (!r) return;
+    if (r.status === 401) alert('Token incorrecto.');
+    else if (r.status === 429) alert('Demasiados intentos fallidos. Espera unos minutos.');
+    else alert('Error ' + r.status);
+  }
+
+  async function cambiarUbicacion(payload) {
+    let hecho = false;
+    try {
+      const r = await fetchAuth('/api/ubicacion', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      if (r && r.ok) { elSearch.value = ''; resetSnoozeMute(); lastNivel = null; hecho = true; }
+      else avisoAuth(r);
+    } catch (e) { alert('Error de red'); }
+    elDropdown.classList.remove('visible');
+    return hecho;
+  }
+
+  // --- «Buscar otra estación cercana»: lista las del radio que SÍ envían datos ahora y permite cambiar con un clic ---
+  function pintarAlternativas() {
+    const cont = document.getElementById('alt-contenido'); if (!cont) return;
+    cont.textContent = '';
+    const p = (txt, clase) => { const e = document.createElement('p'); e.className = clase || 'alt-intro'; e.textContent = txt; cont.appendChild(e); return e; };
+    const d = ultimoEstado || {}, est = d.estacion || {};
+    if (!estacionInactiva(d)) { p('La estación actual ya vuelve a enviar datos recientes. Puedes cerrar esta ventana.'); return; }
+    p(est.estado === 'CONGELADA'
+        ? `${est.nombre || 'La estación'} lleva ${est.edad_min} min sin enviar datos (tu red funciona bien).`
+        : (est.mensaje || 'La estación no tiene una lectura válida.'));
+    const lista = Array.isArray(est.alternativas) ? est.alternativas : [];
+    if (lista.length) {
+      p('Estas estaciones cercanas sí están enviando datos ahora (de la más cercana a la más lejana):');
+      lista.forEach(a => {
+        const fila = document.createElement('div'); fila.className = 'alt-fila';
+        const datos = document.createElement('div'); datos.className = 'alt-datos';
+        const b = document.createElement('b'); b.textContent = a.nombre || a.id; datos.appendChild(b);
+        const s = document.createElement('small');
+        s.textContent = (typeof a.distancia_km === 'number' ? a.distancia_km.toFixed(1) + ' km' : '') + ' · último dato hace ' + a.edad_min + ' min';
+        datos.appendChild(s); fila.appendChild(datos);
+        const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'cfg-boton'; btn.textContent = 'Usar esta estación';
+        btn.addEventListener('click', async () => { btn.disabled = true; if (await cambiarUbicacion({ estacion_id: a.id })) cerrarModal(); else btn.disabled = false; });
+        fila.appendChild(btn); cont.appendChild(fila);
+      });
+    } else {
+      p(`Ninguna estación en ${(d.config && d.config.radio_km) || 'el radio de'} km tiene datos recientes ahora mismo. Puedes buscar otra localidad por su nombre.`);
+    }
+    const buscar = document.createElement('button'); buscar.type = 'button'; buscar.className = 'cfg-boton'; buscar.textContent = '🔍 Buscar otra localidad por nombre';
+    buscar.addEventListener('click', () => { cerrarModal(); elSearch.focus(); elSearch.scrollIntoView({ block: 'center' }); });
+    cont.appendChild(buscar);
+    p('Ojo: la estación que elijas pasa a ser la que decide si es seguro. Escoge una cercana a tu observatorio.', 'alt-aviso');
+  }
+  function abrirAlternativas() { pintarAlternativas(); abrirModal('modal-alt', null); }
+  document.getElementById('toast-alt-btn').addEventListener('click', abrirAlternativas);
+  
+  function seleccionar(id) { cambiarUbicacion({ estacion_id: id }); }
+  
+  async function usarGPS() {
+    if (!navigator.geolocation) return alert('GPS no soportado');
+    elGps.disabled = true;
+    navigator.geolocation.getCurrentPosition(
+      p => { elGps.disabled = false; cambiarUbicacion({ lat: p.coords.latitude, lon: p.coords.longitude }); },
+      e => { elGps.disabled = false; alert('Error GPS'); }, { enableHighAccuracy: true, timeout: 10000 }
+    );
+  }
+
+  elSearch.addEventListener('input', () => {
+    if (TODAS.length === 0 && !cargandoLocalidades) cargarLocalidades();
+    mostrarDropdown(filtrar(elSearch.value));
+  });
+  elSearch.addEventListener('focus', () => { if (TODAS.length === 0 && !cargandoLocalidades) cargarLocalidades(); if (elSearch.value.trim()) mostrarDropdown(filtrar(elSearch.value)); });
+  elSearch.addEventListener('blur', () => setTimeout(() => elDropdown.classList.remove('visible'), 150));
+  elGps.addEventListener('click', usarGPS);
+
+  async function cargarHistorial() {
+    try {
+      const res = await fetch('/api/historial');
+      const data = await res.json();
+      
+      const labels = data.map(d => new Date(d.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));
+      const temps = data.map(d => d.temperatura);
+      const hums = data.map(d => d.humedad);
+      const pres = data.map(d => d.presion);
+
+      if (chartHistorial) chartHistorial.destroy();
+
+      const ctx = document.getElementById('graficaHistorial').getContext('2d');
+      chartHistorial = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: 'Temperatura (°C)', data: temps, borderColor: '#da3633', backgroundColor: 'rgba(218, 54, 51, 0.1)', tension: 0.3, yAxisID: 'y' },
+            { label: 'Humedad (%)', data: hums, borderColor: '#1f6feb', backgroundColor: 'transparent', tension: 0.3, yAxisID: 'y1' },
+            { label: 'Presión (hPa)', data: pres, borderColor: '#d29922', backgroundColor: 'transparent', tension: 0.3, yAxisID: 'y2' }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          color: '#8b949e',
+          plugins: { legend: { labels: { color: '#e6edf3' } } },
+          scales: {
+            x: { grid: { color: '#30363d' }, ticks: { color: '#8b949e', maxTicksLimit: 10 } },
+            y: { type: 'linear', display: true, position: 'left', grid: { color: '#30363d' }, ticks: { color: '#da3633' } },
+            y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false }, ticks: { color: '#1f6feb' }, min: 0, max: 100 },
+            y2: { type: 'linear', display: false, min: 980, max: 1040 }
+          }
+        }
+      });
+    } catch(e) { console.error("Error gráfica:", e); }
+  }
+
+  // «⏳ en caché»: el METAR mostrado es el último que se pudo descargar (aviationweather.gov falló o tardó).
+  function etiquetaCache(m) {
+    if (!m || !m.desactualizado) return '';
+    const min = Math.max(0, Math.round((m.cache_edad_s || 0) / 60));
+    return ` <span title="No se ha podido descargar un METAR nuevo; se muestra el último dato bueno" style="color: var(--vigilancia);">⏳ en caché (hace ${min} min)</span>`;
+  }
+
+  function renderEstado(data) {
+    ultimoEstado = data;
+    if (typeof pintarRed === 'function' && data.red) pintarRed(data.red, data.estacion);
+    if (typeof pintarAlternativas === 'function' && !document.getElementById('modal-alt').hidden) pintarAlternativas();
+    
+    const nivel = data.estado || 'INICIANDO';
+    
+    const toastProgreso = document.getElementById('toast-progreso');
+    if (data.progreso !== undefined && data.progreso !== null) {
+      toastProgreso.style.display = 'block';
+      document.getElementById('progreso-texto').textContent = data.mensaje;
+      document.getElementById('progreso-barra').style.width = data.progreso + '%';
+    } else {
+      toastProgreso.style.display = 'none';
+    }
+
+    elBadge.textContent = nivel; elBadge.className = 'badge-' + nivel;
+    renderToast(nivel, data.alertas || []);
+    if (!elPanel.hidden) renderPanelAlertas();            // si está abierto, se actualiza en vivo
+
+    // Estación de respaldo: la principal no da señal de vida y los datos salen de la cercana más próxima
+    const elResp = document.getElementById('aviso-respaldo');
+    const enRespaldo = !!(data.respaldo && data.respaldo.activo) && !['INICIANDO', 'ERROR', 'SIN_DATOS'].includes(nivel);
+    if (elResp) {
+      elResp.textContent = enRespaldo ? '🔁 ' + (data.respaldo.mensaje || 'Usando una estación de respaldo.') : '';
+      elResp.hidden = !enRespaldo;
+    }
+
+    if (data.nina_conectado) elNinaDot.classList.add('connected');
+    else elNinaDot.classList.remove('connected');
+
+    if (nivel === 'INICIANDO' || nivel === 'ERROR') { elCentral.innerHTML = `<div class="empty">${escHtml(data.mensaje || '…')}</div>`; return; }
+    if (nivel === 'SIN_DATOS') {
+      const msg = document.createElement('div'); msg.className = 'aviso-sin-datos';
+      msg.textContent = '⚠️ SIN DATOS FIABLES — se considera NO SEGURO';
+      const det = document.createElement('small'); det.textContent = data.mensaje || '';
+      msg.appendChild(det); elCentral.replaceChildren(msg);
+      elRadarPanel.style.display = 'none';      // el radar mostraría información vieja
+      return;
+    }
+
+    const c = data.central;
+    if (c) {
+      elCentralTit.textContent = `📍 ${c.municipio || c.nombre}${enRespaldo ? ' — respaldo' : ''}`;
+      document.title = `${c.municipio || c.nombre} — AVAMET`;
+      elCentral.innerHTML = ['Temperatura','Humedad','Viento','Viento máximo','Lluvia hoy','Lluvia mensual','Presión','Fecha lectura']
+        .filter(k => k in (c.datos || {}))
+        .map(k => {
+          const tooltipTxt = TOOLTIPS[k] ? `<span class="tooltip">ℹ️<span class="tooltiptext">${TOOLTIPS[k]}</span></span>` : '';
+          return `<div class="tile"><div class="tile-label">${ICONOS[k] || ''} ${k} ${tooltipTxt}</div><div class="tile-value">${escHtml(c.datos[k])}</div></div>`;
+        }).join('');
+    }
+    
+    if (data.tendencias) {
+      const t = data.tendencias;
+      const colorP = t.delta_presion < -1 ? 'var(--peligro)' : 'inherit';
+      const colorT = t.delta_temperatura < -2 ? 'var(--peligro)' : 'inherit';
+      const colorH = t.delta_humedad > 10 ? 'var(--vigilancia)' : 'inherit';
+      elTendencias.innerHTML = `
+        <span style="color:${colorP}">Presión: ${t.delta_presion > 0 ? '+' : ''}${t.delta_presion} hPa</span>
+        <span style="color:${colorT}">Temp: ${t.delta_temperatura > 0 ? '+' : ''}${t.delta_temperatura} °C</span>
+        <span style="color:${colorH}">Humedad: ${t.delta_humedad > 0 ? '+' : ''}${t.delta_humedad} %</span>
+      `;
+    }
+
+    if (data.movimiento_nubes && data.movimiento_nubes.direccion_destino !== "Desconocida") {
+      const mov = data.movimiento_nubes;
+      elMovFlecha.style.transform = `rotate(${mov.grados_destino}deg)`;
+      let dirOrigen = "—";
+      if (c && c.datos && c.datos["Viento"]) {
+        const partes = c.datos["Viento"].split(" ");
+        if (partes.length > 2) dirOrigen = partes[2];
+      }
+      elMovimientoVal.textContent = `Hacia el ${mov.direccion_destino} a ${mov.velocidad_kmh} km/h`;
+      let colorCat = "var(--seguro)";
+      if (mov.categoria === "Moderado") colorCat = "var(--vigilancia)";
+      if (mov.categoria === "Rápido") colorCat = "var(--peligro)";
+      elMovimientoDetalle.innerHTML = `Viento del <b>${dirOrigen}</b> &nbsp;➔&nbsp; Desplazamiento <span style="color: ${colorCat}; font-weight: bold;">${mov.categoria}</span>`;
+    }
+
+    const tieneRadarCorto = data.radares && data.radares.length > 0;
+    const tieneRadarLargo = data.radares_aeropuertos && data.radares_aeropuertos.length > 0;
+    
+    if (tieneRadarCorto || tieneRadarLargo) {
+      elRadarPanel.style.display = 'block';
+      let htmlRadar = '';
+
+      if (tieneRadarCorto) {
+        const proxima = data.radares.sort((a,b) => a.eta - b.eta)[0];
+        htmlRadar += `
+          <div style="margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--border);">
+            <div style="font-size: 1.1rem; color: var(--peligro);">🔴 Inminente: Lluvia en <b>${escHtml(proxima.nombre)}</b></div>
+            <div style="display: flex; justify-content: space-between; margin-top: 4px; font-size: 0.85rem; color: var(--muted);">
+              <span>Distancia: ${proxima.distancia} km</span>
+              <span>Llegada en: <b style="color: var(--peligro);">${proxima.eta} min</b></span>
+            </div>
+          </div>
+        `;
+      }
+
+      if (tieneRadarLargo) {
+        const aerosOrdenados = [...data.radares_aeropuertos].sort((a,b) => a.eta - b.eta);
+        htmlRadar += aerosOrdenados.map(proximoAero => {
+          const colorAero = proximoAero.confirmado ? 'var(--peligro)' : 'var(--vigilancia)';
+          const textoEstado = proximoAero.confirmado ? '🔥 CONFIRMADO' : '⏳ No confirmado';
+          
+          return `
+            <div style="margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--border);">
+              <div style="font-size: 1rem; color: ${colorAero};">
+                ${proximoAero.confirmado ? '🔴' : '🟠'} ${escHtml(proximoAero.nombre)}: ${escHtml(proximoAero.motivo)} 
+                <span style="font-size: 0.7rem; background: ${colorAero}; color: white; padding: 2px 6px; border-radius: 4px; margin-left: 5px;">${textoEstado}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-top: 4px; font-size: 0.85rem; color: var(--muted);">
+                <span>Distancia: ${proximoAero.distancia} km</span>
+                <span>Llegada en: <b style="color: ${colorAero};">${proximoAero.eta} min</b></span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      elRadarContenido.innerHTML = htmlRadar;
+    } else {
+      elRadarPanel.style.display = 'none';
+    }
+
+    {
+      const mt = data.meteosat || {};
+      if (!mt.activo) { elMetPanel.style.display = 'none'; }
+      else {
+        elMetPanel.style.display = '';
+        const d = mt.datos;
+        if (d) {
+          elMet.innerHTML =
+            `<div><b>${escHtml(d.estado)}</b> — ${escHtml(d.motivo)}</div>` +
+            `<div>T brillo IR 10.8 µm: <b>${d.t108_c} °C</b> · IR 3.9 µm: ${d.t039_c} °C · mínima de la zona: ${d.min_regional_c} °C` +
+            (d.min_radio_c !== undefined && d.min_radio_c !== null ? ` · mínima a menos de ${d.radio_km} km: <b>${d.min_radio_c} °C</b>` : '') + `</div>` +
+            (mt.aviso_imagen ? `<div style="color:var(--vigilancia);margin-top:6px;">⏳ ${escHtml(mt.aviso_imagen)}</div>` : '') +
+            `<div style="color:var(--muted);font-size:0.8rem;margin-top:6px;">Barrido ${escHtml(d.barrido_utc)} UTC (${escHtml(d.satelite)}) · sol a ${d.elevacion_solar}° (${escHtml(d.periodo || (d.noche ? 'noche' : 'día'))}). ` +
+            `Estimación orientativa con umbrales sin calibrar; no entra en el semáforo ni detecta nubes bajas templadas o cirros finos.` +
+            (mt.error ? ` Última actualización fallida: ${escHtml(mt.error)}.` : '') + `</div>`;
+        } else {
+          elMet.innerHTML = `<div class="empty">${mt.error ? 'No disponible: ' + escHtml(mt.error) : 'Consultando EUMETSAT...'}</div>`;
+        }
+        if (!document.getElementById('met-informe-btn')) {
+          elMet.insertAdjacentHTML('beforeend', `<div style="margin-top:8px;"><button type="button" class="cfg-boton" id="met-informe-btn">📊 Informe de comparación con la estación (30 días)</button><div id="met-informe" style="margin-top:6px;font-size:0.88rem;"></div></div>`);
+        }
+        if (mt.traza && mt.traza.length) {
+          elMet.innerHTML += `<details style="margin-top:8px;"><summary>Registro paso a paso (${mt.traza.length} últimas líneas)</summary>` +
+            `<pre style="white-space:pre-wrap;font-size:0.78rem;color:var(--muted);margin:6px 0 0 0;">${escHtml(mt.traza.join('\n'))}</pre></details>`;
+        }
+      }
+    }
+    {
+      const sg = data.seeing || {}, d = sg.datos;
+      if (d) {
+        const f = (x, txt) => x ? `<div>${txt}: <b>${x.media}/8</b> de media (peor ${x.peor}/8)</div>` : '';
+        elSeeing.innerHTML =
+          f(d.seeing, 'Seeing') + f(d.transparencia, 'Transparencia') +
+          (d.nubosidad ? `<div>Nubosidad 7Timer: <b>${d.nubosidad.media}/9</b></div>` : '') +
+          `<div style="color:var(--muted);font-size:0.8rem;margin-top:6px;">Seeing: 1 = menos de 0,5" · 8 = más de 2,5" (menor es mejor). Transparencia: 1 = menos de 0,3 · 8 = más de 1 mag/masa de aire. ` +
+          `Pronóstico externo de 7Timer (emitido hace ${d.emitido_hace_h} h) para la ubicación de la estación; no sale de nuestras estaciones ni entra en el semáforo.` +
+          (sg.error ? ` Última actualización fallida: ${escHtml(sg.error)}.` : '') + `</div>`;
+      } else {
+        elSeeing.innerHTML = `<div class="empty">${sg.error ? 'No disponible: ' + escHtml(sg.error) : 'Consultando 7Timer...'}</div>`;
+      }
+    }
+
+    const aero = data.aeropuertos || [];
+    if (!aero.length) {
+      elResumenAeros.innerHTML = '<div class="empty">No hay aeropuertos en un radio de 120 km.</div>';
+    } else {
+      elResumenAeros.innerHTML = aero.map(a => {
+        const m = a.metar || {};
+        if (m.temperatura === null || m.temperatura === undefined) return `<div class="aero-resumen-item"><b>${escHtml(a.nombre)}</b> - Sin datos METAR disponibles</div>`;
+        
+        const temp = m.temperatura;
+        const rocio = m.punto_rocio;
+        const deltaT = (rocio === null || rocio === undefined) ? null : (temp - rocio).toFixed(1);
+        const colorDelta = deltaT === null ? 'var(--muted)' : deltaT < 2 ? 'var(--peligro)' : (deltaT < 5 ? 'var(--vigilancia)' : 'var(--seguro)');
+        
+        const viento = fmtVientoMetar(m);
+        const vis = m.visibilidad ? `${m.visibilidad} km` : '—';
+        
+        let nubosidad = '☀️ Despejado';
+        if (m.nubosidad) {
+            const nubesBajas = m.nubosidad.baja?.length ? `🔽 Baja: ${escHtml(m.nubosidad.baja.join(', '))}<br>` : '';
+            const nubesMedias = m.nubosidad.media?.length ? `⏺️ Media: ${escHtml(m.nubosidad.media.join(', '))}<br>` : '';
+            const nubesAltas = m.nubosidad.alta?.length ? `🔼 Alta: ${escHtml(m.nubosidad.alta.join(', '))}<br>` : '';
+            if (nubesBajas || nubesMedias || nubesAltas) nubosidad = nubesBajas + nubesMedias + nubesAltas;
+        }
+
+        return `
+          <div class="aero-resumen-item">
+            <div class="aero-resumen-header">
+              <span>✈️ ${escHtml(a.nombre)}</span>
+              <span style="color: var(--muted); font-size: 0.85rem;">${m.desactualizado ? etiquetaCache(m) + ' · ' : ''}${a.distancia_km} km</span>
+            </div>
+            <div class="aero-resumen-grid">
+              <div>
+                <span>Temperatura / Rocío:</span>
+                <b>${temp}°C / ${rocio}°C</b>
+                <span style="color: ${colorDelta}; font-size: 0.75rem;">(Δ T: ${deltaT}°C)</span>
+              </div>
+              <div>
+                <span>Viento (Superficie):</span>
+                <b>💨 ${viento}</b>
+              </div>
+              <div>
+                <span>Visibilidad:</span>
+                <b>👁️ ${vis}</b>
+              </div>
+              <div style="grid-column: 1 / -1; margin-top: 6px; border-top: 1px dashed var(--border); padding-top: 6px;">
+                <span>Nubosidad:</span>
+                <div style="font-size: 0.85rem; margin-top: 2px;">${nubosidad}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const radio = data.radio || [];
+    elTabCount.textContent = radio.length;
+    elRadioTit.textContent = `🛰️ Estaciones en ${data.config?.radio_km ?? '?'} km (${radio.length})`;
+    elRadio.innerHTML = radio.map(est => {
+      const d = est.datos || {}, lluvia = num(d['Lluvia hoy']);
+      return `<div class="radio-item"><div class="radio-head"><span class="radio-name">${escHtml(est.nombre)}</span><span style="color:var(--muted)">${est.distancia_km} km</span></div>
+      <div class="radio-data"><span>🌡️ ${escHtml(d['Temperatura'] || '—')}</span><span>💧 ${escHtml(d['Humedad'] || '—')}</span><span>💨 ${escHtml(d['Viento'] || '—')}</span>
+      <span class="${lluvia > 0 ? 'peligro' : ''}">☔ ${escHtml(d['Lluvia hoy'] || '—')}</span></div></div>`;
+    }).join('') || '<div class="empty">No hay estaciones.</div>';
+
+    elTabCountAero.textContent = aero.length;
+    elAeroTit.textContent = `✈️ METAR de Aeropuertos Cercanos (${aero.length})`;
+    if (!aero.length) {
+      elAeroLista.innerHTML = '<div class="empty">No hay aeropuertos en un radio de 120 km.</div>';
+    } else {
+      elAeroLista.innerHTML = aero.map(a => {
+        const m = a.metar || {};
+        if (m.temperatura === null || m.temperatura === undefined) return `<div class="radio-item"><b>${escHtml(a.nombre)}</b> (${a.distancia_km} km) <br><span style="color:var(--muted)">Sin datos METAR</span></div>`;
+        const vis = m.visibilidad ? `${m.visibilidad} km` : '—';
+        const viento = fmtVientoMetar(m);
+        const lluvia = m.fenomenos !== 'Ninguno' ? `<span style="color:var(--peligro);font-weight:bold;">${escHtml(m.fenomenos)}</span>` : 'Ninguno';
+        let nubosidadHtml = '';
+        if (m.nubosidad) {
+            nubosidadHtml = `<div style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--border);">
+                <span style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase;">Nubosidad:</span>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; font-size: 0.9rem;">
+                    ${m.nubosidad.baja?.length ? `<span>🔽 Baja: ${escHtml(m.nubosidad.baja.join(', '))}</span>` : ''}
+                    ${m.nubosidad.media?.length ? `<span>⏺️ Media: ${escHtml(m.nubosidad.media.join(', '))}</span>` : ''}
+                    ${m.nubosidad.alta?.length ? `<span>🔼 Alta: ${escHtml(m.nubosidad.alta.join(', '))}</span>` : ''}
+                    ${!m.nubosidad.baja?.length && !m.nubosidad.media?.length && !m.nubosidad.alta?.length ? '<span>☀️ Despejado</span>' : ''}
+                </div></div>`;
+        }
+        return `<div class="radio-item"><div class="radio-head"><span class="radio-name">${escHtml(a.nombre)} (${escHtml(a.icao)})</span><span class="radio-dist">${a.distancia_km} km</span></div>
+          <div class="radio-data" style="margin-top: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+            <span>🌡️ ${m.temperatura} °C (Rocío: ${numOGuion(m.punto_rocio)} °C)</span><span>💨 ${viento}</span>
+            <span>👁️ Visibilidad: ${vis}</span><span>🌧️ Tiempo: ${lluvia}</span>
+            <span style="grid-column: 1 / -1; font-size: 0.8em; color: var(--muted); margin-top: 4px;">Act: ${escHtml(m.actualizado || '—')}${m.desactualizado ? ' · ' + etiquetaCache(m) : ''}</span>
+            ${nubosidadHtml}</div></div>`;
+      }).join('');
+    }
+    
+    if (data.timestamp) elUltima.textContent = 'Última actualización: ' + new Date(data.timestamp).toLocaleTimeString();
+
+    const mapaVisible = !document.getElementById('tab-mapa').classList.contains('hidden');
+    if (mapa && c && c.lat && c.lon && mapaVisible) {
+      if (centroActual[0] !== c.lat || centroActual[1] !== c.lon) {
+        centroActual = [c.lat, c.lon]; mapa.setView(centroActual, 10);
+      }
+      
+      capaMarcadores.clearLayers();
+      capaAnimacion.clearLayers();
+      if (animacionFrameId) { cancelAnimationFrame(animacionFrameId); animacionFrameId = null; }
+
+      L.circleMarker([c.lat, c.lon], { radius: 8, color: '#fff', weight: 2, fillColor: '#da3633', fillOpacity: 1 })
+       .bindPopup(`<b>${escHtml(c.municipio || c.nombre)}</b><br>Estación Central<br><br><b>Temp:</b> ${escHtml(c.datos['Temperatura'])}<br><b>Humedad:</b> ${escHtml(c.datos['Humedad'])}<br><b>Lluvia:</b> ${escHtml(c.datos['Lluvia hoy'])}`)
+       .addTo(capaMarcadores);
+
+      radio.forEach(est => {
+        if (est.lat && est.lon) {
+          const d = est.datos || {};
+          const radarInfo = (data.radares || []).find(r => r.nombre === est.nombre);
+          
+          let opcionesMarcador = { radius: 5, color: '#fff', weight: 1, fillColor: '#1f6feb', fillOpacity: 0.8 };
+          
+          if (radarInfo) {
+            opcionesMarcador = { radius: 8, color: '#fff', weight: 2, fillColor: '#da3633', fillOpacity: 1, className: 'marcador-lluvia' };
+            L.polyline([[est.lat, est.lon], [c.lat, c.lon]], {
+              color: '#da3633', weight: 3, dashArray: '10, 10', opacity: 0.7
+            }).addTo(capaMarcadores);
+          }
+
+          L.circleMarker([est.lat, est.lon], opcionesMarcador)
+           .bindPopup(`<b>${escHtml(est.nombre)}</b> (${est.distancia_km} km)<br><br><b>Temp:</b> ${escHtml(d['Temperatura'] || '—')}<br><b>Lluvia:</b> ${escHtml(d['Lluvia hoy'] || '—')}${radarInfo ? '<br><b style="color:#da3633;">¡Viniendo hacia ti!</b>' : ''}`)
+           .addTo(capaMarcadores);
+        }
+      });
+
+      aero.forEach(a => {
+        if (a.lat && a.lon) {
+          const m = a.metar || {};
+          const radarAeroInfo = (data.radares_aeropuertos || []).find(r => r.nombre === a.nombre);
+          
+          let iconoAero = '✈️';
+          if (radarAeroInfo) {
+            iconoAero = radarAeroInfo.confirmado ? '⛈️' : '🌧️'; 
+            
+            L.polyline([[a.lat, a.lon], [c.lat, c.lon]], {
+              color: radarAeroInfo.confirmado ? '#da3633' : '#d29922', 
+              weight: 2, dashArray: '6, 6', opacity: 0.8
+            }).addTo(capaMarcadores);
+
+            if (radarAeroInfo.estaciones_camino && radarAeroInfo.estaciones_camino.length > 0) {
+              radarAeroInfo.estaciones_camino.forEach(estCamino => {
+                const tieneLluvia = estCamino.lluvia > 0;
+                const colorEstacion = tieneLluvia ? '#da3633' : '#d29922'; 
+                const clasePulso = tieneLluvia ? 'marcador-lluvia' : '';
+                
+                L.circleMarker([estCamino.lat, estCamino.lon], { 
+                  radius: 5, color: '#fff', weight: 2, 
+                  fillColor: colorEstacion, fillOpacity: 1,
+                  className: clasePulso
+                }).bindPopup(`<b>${escHtml(estCamino.nombre)}</b><br>Estación de control<br><b>Lluvia hoy:</b> ${estCamino.lluvia_hoy === null || estCamino.lluvia_hoy === undefined ? 'sin dato' : estCamino.lluvia_hoy + ' mm'}${estCamino.lluvia > 0 ? ' (subiendo)' : ' (sin aumento en 30 min)'}`).addTo(capaMarcadores);
+              });
+            }
+          }
+
+          L.marker([a.lat, a.lon], { icon: L.divIcon({ className: 'custom-icon-aero', html: iconoAero, iconSize: [24, 24] }) })
+           .bindPopup(`<b>${escHtml(a.nombre)}</b> (${escHtml(a.icao)})<br><br><b>Temp:</b> ${numOGuion(m.temperatura)} °C<br><b>Viento:</b> ${fmtVientoMetar(m)}<br><b>Nubosidad:</b> ${m.nubosidad && m.nubosidad.baja.length ? 'Bajas' : 'Altas'}${radarAeroInfo ? `<br><b style="color:var(--peligro);">¡${radarAeroInfo.motivo} acercándose! (${radarAeroInfo.confirmado ? 'Confirmado en tierra' : 'No confirmado'})</b>` : ''}`)
+           .addTo(capaMarcadores);
+        }
+      });
+
+      if (data.movimiento_nubes && data.movimiento_nubes.direccion_destino !== "Desconocida" && data.movimiento_nubes.velocidad_kmh > 0) {
+        const mov = data.movimiento_nubes, distanciaSimulada = 0.6, rad = mov.grados_destino * Math.PI / 180;
+        const latDestino = c.lat + (distanciaSimulada * Math.cos(rad)), lonDestino = c.lon + (distanciaSimulada * Math.sin(rad) / Math.cos(c.lat * Math.PI / 180));
+        const latOrigen = c.lat - (distanciaSimulada * Math.cos(rad)), lonOrigen = c.lon - (distanciaSimulada * Math.sin(rad) / Math.cos(c.lat * Math.PI / 180));
+        const puntosRuta = [[latOrigen, lonOrigen], [c.lat, c.lon], [latDestino, lonDestino]];
+        const nubes = [], numNubes = 8;
+        
+        for (let i = 0; i < numNubes; i++) {
+          const marcadorNube = L.marker([latOrigen, lonOrigen], { icon: L.divIcon({ className: 'nube-animada', html: '☁️', iconSize: [30, 30], iconAnchor: [15, 15] }) }).addTo(capaAnimacion);
+          nubes.push({ marker: marcadorNube, progress: (i / numNubes) - 1 }); 
+        }
+
+        let lastTime = performance.now(), velocidadBase = mov.velocidad_kmh * 0.005;
+        function animarNubes(time) {
+          const delta = (time - lastTime) / 1000; lastTime = time;
+          nubes.forEach(n => {
+            n.progress += delta * velocidadBase;
+            if (n.progress > 1) n.progress -= 1;
+            if (n.progress < 0) return;
+            let lat, lon;
+            if (n.progress < 0.5) {
+              const p = n.progress * 2;
+              lat = puntosRuta[0][0] + (puntosRuta[1][0] - puntosRuta[0][0]) * p; lon = puntosRuta[0][1] + (puntosRuta[1][1] - puntosRuta[0][1]) * p;
+            } else {
+              const p = (n.progress - 0.5) * 2;
+              lat = puntosRuta[1][0] + (puntosRuta[2][0] - puntosRuta[1][0]) * p; lon = puntosRuta[1][1] + (puntosRuta[2][1] - puntosRuta[1][1]) * p;
+            }
+            n.marker.setLatLng([lat, lon]);
+          });
+          animacionFrameId = requestAnimationFrame(animarNubes);
+        }
+        animacionFrameId = requestAnimationFrame(animarNubes);
+      }
+    }
+  }
+
+  // --- Conexión en tiempo real (SSE) con vigilancia ---
+  // El servidor manda el estado cada ~60 s y un latido ("ping") cada 15 s. Si pasan 60 s sin NINGÚN evento (microcorte de
+  // WiFi, suspensión del equipo, conexión a medias), o llega un mensaje vacío, se reconecta el EventSource EN SILENCIO:
+  // la página no se recarga, así que el zoom del mapa y lo que tengas abierto se conservan.
+  const SSE_SIN_EVENTOS_MS = 60000;
+  let evt = null, ultimoEvento = Date.now(), ultimaReconexion = 0, temporizadorReintento = null;
+
+  function mensajeVacio(obj) {
+    return !obj || typeof obj !== 'object' || Array.isArray(obj) || Object.keys(obj).length === 0 || !obj.estado;
+  }
+  function marcarVivo() { ultimoEvento = Date.now(); elConn.textContent = '● Conectado'; elConn.className = 'ok'; }
+
+  // Último METAR bueno de cada aeropuerto, por si el servidor manda uno vacío (respaldo del que ya tiene el servidor).
+  const CACHE_METAR_MS = 3 * 3600 * 1000;
+  const ultimoMetar = {};            // icao -> { m, ts }
+  let ultimaListaAeros = { central: null, lista: [] };
+  function completarAeropuertos(data) {
+    if (!data || typeof data !== 'object') return data;
+    const ahora = Date.now(), centralId = data.central && data.central.id;
+    if ((!Array.isArray(data.aeropuertos) || !data.aeropuertos.length) && centralId && centralId === ultimaListaAeros.central && ultimaListaAeros.lista.length) {
+      data.aeropuertos = JSON.parse(JSON.stringify(ultimaListaAeros.lista));            // lista perdida: se reutiliza la anterior
+    }
+    if (Array.isArray(data.aeropuertos)) {
+      data.aeropuertos.forEach(a => {
+        const m = a.metar;
+        if (m && typeof m === 'object' && Object.keys(m).length) {
+          if (!m.desactualizado) ultimoMetar[a.icao] = { m: JSON.parse(JSON.stringify(m)), ts: ahora };
+        } else {
+          const g = ultimoMetar[a.icao];
+          if (g && ahora - g.ts <= CACHE_METAR_MS) a.metar = Object.assign({}, g.m, { desactualizado: true, cache_edad_s: Math.round((ahora - g.ts) / 1000) });
+        }
+      });
+      if (centralId && data.aeropuertos.length) ultimaListaAeros = { central: centralId, lista: JSON.parse(JSON.stringify(data.aeropuertos)) };
+    }
+    return data;
+  }
+
+  function conectar(motivo) {
+    if (temporizadorReintento) { clearTimeout(temporizadorReintento); temporizadorReintento = null; }
+    if (evt) { try { evt.close(); } catch (e) {} evt = null; }
+    if (motivo) console.info('AVAMET: reconectando el flujo en tiempo real (' + motivo + ')');
+    ultimaReconexion = Date.now(); ultimoEvento = Date.now();
+    const nuevo = new EventSource('/stream');
+    evt = nuevo;
+    nuevo.onmessage = (e) => {
+      if (evt !== nuevo) return;
+      let obj = null;
+      try { obj = JSON.parse(e.data); } catch (err) { console.error('Mensaje del servidor ilegible:', err); }
+      if (mensajeVacio(obj)) { reconectar('mensaje vacío'); return; }
+      marcarVivo();
+      try { renderEstado(completarAeropuertos(obj)); } catch (err) { console.error('Error al pintar el estado recibido:', err); }
+    };
+    nuevo.addEventListener('ping', () => { if (evt === nuevo) marcarVivo(); });
+    nuevo.onerror = () => {
+      if (evt !== nuevo) return;
+      elConn.textContent = '● Desconectado'; elConn.className = 'fail';
+      // Si el navegador desiste (readyState CLOSED, p. ej. error HTTP), no reintentaría solo: se reintenta aquí.
+      if (nuevo.readyState === 2 && !temporizadorReintento) temporizadorReintento = setTimeout(() => conectar('el navegador cerró la conexión'), 5000);
+    };
+  }
+  // Reconexión silenciosa con un mínimo de 5 s entre intentos (evita bucles si el servidor está caído).
+  function reconectar(motivo) {
+    const espera = 5000 - (Date.now() - ultimaReconexion);
+    if (espera > 0) {                                   // demasiado pronto: se difiere en vez de descartarse
+      if (!temporizadorReintento) temporizadorReintento = setTimeout(() => conectar(motivo + ', diferido'), espera);
+      return;
+    }
+    elConn.textContent = '● Reconectando…'; elConn.className = 'fail';
+    conectar(motivo);
+  }
+  setInterval(() => { if (Date.now() - ultimoEvento > SSE_SIN_EVENTOS_MS) reconectar('60 s sin eventos'); }, 10000);
+  // Al volver a la pestaña (o recuperar la red) no se espera al siguiente aviso del vigilante.
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - ultimoEvento > SSE_SIN_EVENTOS_MS) reconectar('pestaña de nuevo visible'); });
+  window.addEventListener('online', () => reconectar('red recuperada'));
+
+  document.getElementById('btn-shutdown').addEventListener('click', async () => {
+    if (!confirm("¿Seguro que quieres apagar AVAMET Monitor?")) return;
+    const btn = document.getElementById('btn-shutdown');
+    const txtOrig = btn.innerHTML;
+    btn.innerHTML = "Apagando..."; btn.disabled = true;
+    try {
+      const rs = await fetchAuth('/api/shutdown', { method: 'POST' });
+      if (!rs || !rs.ok) { btn.innerHTML = txtOrig; btn.disabled = false; avisoAuth(rs); return; }
+      document.body.innerHTML = `<div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:#0d1117;color:#8b949e;font-family:sans-serif;text-align:center;">
+        <h1 style="color:#da3633;font-size:3rem;margin-bottom:10px;">⏻</h1><h2 style="color:#e6edf3;">Aplicación apagada</h2>
+        <p>El servidor se ha cerrado de forma segura.</p><p>Ya puedes cerrar esta pestaña.</p></div>`;
+    } catch (error) { alert("Error al apagar."); }
+  });
+
+  // --- Pestaña «Configuración»: solo en modo escritorio y desde este mismo equipo (/api/modo) ---
+  function copiarTexto(texto) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(texto);
+    return new Promise((ok, ko) => {                       // respaldo para contextos no seguros
+      try {
+        const ta = document.createElement('textarea'); ta.value = texto; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        const bien = document.execCommand('copy'); document.body.removeChild(ta);
+        bien ? ok() : ko(new Error('copy'));
+      } catch (e) { ko(e); }
+    });
+  }
+  function marcarCopiado(btn, textoOriginal) {
+    btn.classList.add('ok'); btn.textContent = '✔ Copiado';
+    setTimeout(() => { btn.classList.remove('ok'); btn.textContent = textoOriginal; }, 1500);
+  }
+  function enlazarCopiar(btn, obtener) {
+    const original = btn.textContent;
+    btn.addEventListener('click', () => {
+      const t = obtener();
+      if (!t) return;
+      copiarTexto(t).then(() => marcarCopiado(btn, original)).catch(() => { btn.textContent = 'Selecciona y Ctrl+C'; setTimeout(() => { btn.textContent = original; }, 2500); });
+    });
+  }
+  document.querySelectorAll('.cfg-copiar').forEach(b => enlazarCopiar(b, () => { const e = document.getElementById(b.dataset.copia); return e ? e.textContent : ''; }));
+  let CFG = null;
+  enlazarCopiar(document.getElementById('cfg-copiar-ruta'), () => CFG && CFG.carpeta_datos);
+  enlazarCopiar(document.getElementById('cfg-copiar-token'), () => CFG && CFG.ruta_token_api);
+  function pintarEstadoConfig(m) {
+    const filas = [
+      [m.env_existe, 'Archivo .env encontrado', 'No hay archivo .env (paso 1)'],
+      [m.telegram_token, 'Token de Telegram definido', 'Falta el token de Telegram (paso 2)'],
+      [m.admin_id, 'Admin ID definido', 'Falta el Admin ID (paso 3)'],
+      [m.telegram_clave, 'Contraseña de Telegram válida (≥ 8)', 'Falta la contraseña o es muy corta (paso 4)'],
+      [m.token_api_existe, 'api_token.txt creado', 'Aún no existe api_token.txt (paso 5)'],
+    ];
+    const cont = document.getElementById('cfg-estado'); cont.textContent = '';
+    filas.forEach(([ok, si, no]) => { const d = document.createElement('div'); d.className = ok ? 'si' : 'no'; d.textContent = (ok ? '✅ ' : '❌ ') + (ok ? si : no); cont.appendChild(d); });
+  }
+  // --- Formulario de Configuración (token / Admin ID / contraseña de Telegram) ---
+  const cfgEl = id => document.getElementById(id);
+  function cfgMensaje(tipo, texto) {
+    const r = cfgEl('cfg-resultado'); r.hidden = false; r.className = 'cfg-resultado ' + (tipo || '');
+    r.textContent = texto;
+  }
+  // --- Estado de la red (viene en cada actualización del servidor como data.red) ---
+  function pintarRed(red, estacion) {
+    const fila = cfgEl('red-fila'), mot = cfgEl('red-motivos'), hora = cfgEl('red-hora');
+    if (!fila) return;
+    fila.textContent = ''; mot.textContent = '';
+    red = red || {};
+    // true = funciona; false = falla; null/undefined = aún sin comprobar (❓)
+    const piezas = [['Internet', red.internet, '❌'], ['AVAMET', red.avamet, '⚠️'], ['Aeropuertos', red.aeropuertos, '⚠️']];
+    piezas.forEach(([nombre, v, simboloMal]) => {
+      const c = document.createElement('span');
+      const sim = v === true ? '✅' : (v === false ? simboloMal : '❓');
+      c.className = 'red-chip ' + (v === true ? 'ok' : (v === false ? (simboloMal === '❌' ? 'mal' : 'aviso') : ''));
+      c.textContent = nombre + ': ' + sim;
+      if (v == null) c.title = 'Aún no comprobado';
+      fila.appendChild(c);
+    });
+    // Cuarto indicador: la ESTACIÓN elegida (distinto de la red). ✅ datos recientes · ⚠️ sensor congelado · ❌ sin lectura válida · ❓ no se sabe
+    const est = estacion || {};
+    const cE = document.createElement('span');
+    const mapaE = { ACTIVA: ['✅', 'ok'], CONGELADA: ['⚠️', 'aviso'], SIN_FECHA: ['❌', 'mal'], SIN_LECTURA: ['❌', 'mal'] };
+    const [simE, claseE] = mapaE[est.estado] || ['❓', ''];
+    cE.className = 'red-chip estacion ' + claseE; cE.textContent = 'Estación: ' + simE;
+    cE.title = (est.nombre ? est.nombre + ' — ' : '') + (est.estado === 'ACTIVA' ? 'datos recientes (hace ' + est.edad_min + ' min)' : (est.mensaje || 'aún sin datos'));
+    fila.appendChild(cE);
+    const m = red.motivos || {};
+    ['internet', 'avamet', 'aeropuertos'].forEach(k => {
+      if (m[k]) { const d = document.createElement('div'); d.textContent = m[k]; mot.appendChild(d); }
+    });
+    if (est.estado && est.estado !== 'ACTIVA' && est.estado !== 'DESCONOCIDA' && est.mensaje) {
+      const d = document.createElement('div'); d.textContent = (est.estado === 'CONGELADA' ? '⚠️ ' : '❌ ') + est.mensaje; mot.appendChild(d);
+    }
+    hora.textContent = red.actualizado ? 'Última actualización: ' + red.actualizado.replace('T', ' ') : '';
+  }
+  function redMensaje(tipo, texto) {
+    const r = cfgEl('red-resultado'); r.hidden = false; r.className = 'cfg-resultado ' + (tipo || ''); r.textContent = texto;
+  }
+  async function comprobarRedAhora() {
+    const b = cfgEl('red-comprobar'); b.disabled = true; const t0 = b.textContent; b.textContent = '⏳ Comprobando…';
+    try {
+      const r = await fetch('/api/red/comprobar', { method: 'POST', headers: { 'X-AVAMET-Config': '1' }, cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      pintarRed(await r.json(), ultimoEstado && ultimoEstado.estacion);
+      redMensaje('', 'Comprobación terminada.');
+    } catch (e) { redMensaje('error', 'No se pudo comprobar la red (' + e.message + ').'); }
+    finally { b.disabled = false; b.textContent = t0; }
+  }
+  async function descargarLogDiagnostico() {
+    const b = cfgEl('red-descargar'); b.disabled = true;
+    try {
+      const r = await fetch('/api/diagnostico/log', { cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const blob = await r.blob();
+      const d = new Date(), p = n => String(n).padStart(2, '0');
+      const nombre = `diagnostico_${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}.log`;
+      const url = URL.createObjectURL(blob), a = document.createElement('a');
+      a.href = url; a.download = nombre; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+      redMensaje('', 'Log descargado: ' + nombre);
+    } catch (e) { redMensaje('error', 'No se pudo descargar el log (' + e.message + ').'); }
+    finally { b.disabled = false; }
+  }
+  cfgEl('red-comprobar').addEventListener('click', comprobarRedAhora);
+  cfgEl('red-descargar').addEventListener('click', descargarLogDiagnostico);
+
+  async function cargarFormularioConfig() {
+    try {
+      const r = await fetch('/api/configuracion', { cache: 'no-store' });
+      if (!r.ok) return;
+      const c = await r.json();
+      const det = cfgEl('cfg-detectada'); det.hidden = false;
+      if (c.token_configurado || c.clave_configurada || c.admin_id) {
+        det.className = 'cfg-detectada' + (c.telegram && c.telegram.activo ? '' : ' aviso');
+        det.textContent = '✅ Configuración detectada' + (c.token_mascara ? ' · token ' + c.token_mascara : '') +
+          (c.telegram && !c.telegram.activo ? ' · ⚠️ Telegram aún desactivado: ' + c.telegram.motivo : ' · Telegram activo') +
+          '. Deja vacío lo que no quieras cambiar.';
+      } else {
+        det.className = 'cfg-detectada aviso'; det.textContent = 'ℹ️ Aún no hay configuración guardada: rellena los campos que necesites.';
+      }
+      if (c.admin_id && !cfgEl('cfg-admin').value) cfgEl('cfg-admin').value = c.admin_id;
+      cfgEl('cfg-token').placeholder = c.token_configurado ? c.token_mascara + '  (ya configurado)' : '123456789:AAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+      cfgEl('cfg-clave').placeholder = c.clave_configurada ? '•••••••• (ya configurada)' : 'Mínimo 8 caracteres';
+      const eu = c.eumetsat || {}, ee = cfgEl('cfg-eumetsat-estado');
+      cfgEl('cfg-eum-key').placeholder = eu.clave_configurada ? eu.clave_mascara + '  (ya configurada)' : 'Consumer Key';
+      cfgEl('cfg-eum-secret').placeholder = eu.secreto_configurado ? '•••••••• (ya configurado)' : 'Consumer Secret';
+      ee.hidden = false;
+      if (eu.activo && eu.paquetes) { ee.className = 'cfg-detectada'; ee.textContent = '✅ Satélite activo: las claves están guardadas y los paquetes instalados.'; }
+      else if (eu.activo) { ee.className = 'cfg-detectada aviso'; ee.textContent = '⚠️ Claves guardadas, pero faltan los paquetes: ejecuta  python -m pip install -r requirements-satelite.txt  y reinicia.'; }
+      else { ee.className = 'cfg-detectada aviso'; ee.textContent = 'ℹ️ Satélite desactivado (faltan la clave y el secreto).'; }
+    } catch (e) { /* servidor antiguo: el formulario sigue disponible sin pre-relleno */ }
+  }
+  cfgEl('cfg-mostrar').addEventListener('change', e => {
+    cfgEl('cfg-token').type = cfgEl('cfg-clave').type = cfgEl('cfg-eum-key').type = cfgEl('cfg-eum-secret').type = e.target.checked ? 'text' : 'password';
+  });
+  cfgEl('cfg-form').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const datos = { token: cfgEl('cfg-token').value.trim(), clave: cfgEl('cfg-clave').value.trim(), admin_id: cfgEl('cfg-admin').value.trim(),
+      eumetsat_key: cfgEl('cfg-eum-key').value.trim(), eumetsat_secret: cfgEl('cfg-eum-secret').value.trim() };
+    ['cfg-token', 'cfg-clave', 'cfg-admin', 'cfg-eum-key', 'cfg-eum-secret'].forEach(i => cfgEl(i).classList.remove('invalido'));
+    if (!datos.token && !datos.clave && !datos.admin_id && !datos.eumetsat_key && !datos.eumetsat_secret) { cfgMensaje('error', 'No has escrito ningún valor nuevo.'); return; }
+    if (datos.token && !/^\d{5,}:[A-Za-z0-9_-]{20,}$/.test(datos.token)) { cfgEl('cfg-token').classList.add('invalido'); cfgMensaje('error', 'El token no tiene el formato correcto (123456789:AAxxxx…). Cópialo completo desde @BotFather.'); return; }
+    if (datos.admin_id && !/^-?\d{1,20}$/.test(datos.admin_id)) { cfgEl('cfg-admin').classList.add('invalido'); cfgMensaje('error', 'El Admin ID debe ser un número.'); return; }
+    for (const [campo, id] of [['eumetsat_key', 'cfg-eum-key'], ['eumetsat_secret', 'cfg-eum-secret']]) {
+      if (datos[campo] && !/^[A-Za-z0-9_-]{10,100}$/.test(datos[campo])) { cfgEl(id).classList.add('invalido'); cfgMensaje('error', 'La clave o el secreto de EUMETSAT no tienen un formato válido: cópialos completos de api.eumetsat.int/api-key.'); return; }
+    }
+    if (datos.clave && datos.clave.length < 8) { cfgEl('cfg-clave').classList.add('invalido'); cfgMensaje('error', 'La contraseña debe tener al menos 8 caracteres.'); return; }
+    const btn = cfgEl('cfg-guardar'); btn.disabled = true; btn.textContent = '⏳ Guardando…';
+    try {
+      const r = await fetch('/api/configuracion', { method: 'POST', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json', 'X-AVAMET-Config': '1' }, body: JSON.stringify(datos) });
+      let j = {}; try { j = await r.json(); } catch (e) {}
+      if (!r.ok) { cfgMensaje('error', '❌ ' + (j.detail || ('Error ' + r.status))); return; }
+      const tg = j.telegram || {};
+      let msg = '✅ Guardado' + (j.bot_reiniciado ? '. Servicios reiniciados: el bot de Telegram ya usa la nueva configuración.' : ' y aplicado.');
+      let tipo = '';
+      if (!tg.activo) { msg += ' ⚠️ Telegram sigue desactivado: ' + tg.motivo + '.'; tipo = 'aviso'; }
+      if (j.avisos && j.avisos.length) { msg += ' ⚠️ ' + j.avisos.join(' '); tipo = 'aviso'; }
+      cfgMensaje(tipo, msg);
+      cfgEl('cfg-token').value = ''; cfgEl('cfg-clave').value = ''; cfgEl('cfg-eum-key').value = ''; cfgEl('cfg-eum-secret').value = '';
+      cargarFormularioConfig(); iniciarConfig();
+    } catch (e) { cfgMensaje('error', '❌ No se pudo contactar con la aplicación.'); }
+    finally { btn.disabled = false; btn.textContent = '💾 Guardar Configuración'; }
+  });
+
+  document.addEventListener('click', async ev => {
+    if (!ev.target || ev.target.id !== 'met-informe-btn') return;
+    const out = document.getElementById('met-informe'); out.textContent = 'Calculando…';
+    try {
+      const r = await fetch('/api/meteosat/informe?dias=30', { cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      if (j.mensaje && !j.dias) { out.textContent = j.mensaje; return; }
+      out.innerHTML = `<div>${j.registros} registros en ${j.dias} días · episodios de lluvia: <b>${j.episodios_lluvia}</b> · avisados antes por el satélite: <b>${j.episodios_avisados}</b> · ` +
+        `avisos totales: ${j.avisos_totales} · falsas alarmas: <b>${j.falsas_alarmas}</b> · antelación media: ${j.antelacion_media_min === null ? 'n/d' : j.antelacion_media_min + ' min'}</div>` +
+        (j.mensaje ? `<div style="color:var(--vigilancia);">${escHtml(j.mensaje)}</div>` : '') +
+        `<div style="color:var(--muted);">Modo sombra: no cambia el semáforo. Aviso = CUBIERTO / POSIBLE NUBOSIDAD o mínima a menos de ${j.definiciones.radio_km} km &lt; ${j.definiciones.umbral_min_regional_c} °C; ventana ${j.definiciones.ventana_min} min; lluvia ≥ ${j.definiciones.lluvia_min_mm} mm entre registros.` +
+        (j.registros_sin_radio ? ` ${j.registros_sin_radio} registros anteriores al cambio no tienen la mínima del radio y solo cuentan por estado.` : '') + `</div>`;
+    } catch (e) { out.textContent = 'No se pudo calcular el informe (' + e.message + ').'; }
+  });
+
+  async function iniciarConfig() {
+    try {
+      const r = await fetch('/api/modo', { cache: 'no-store' });
+      if (!r.ok) return;
+      const m = await r.json();
+      if (!m || !m.configuracion) return;              // headless u otro equipo: la pestaña sigue oculta
+      CFG = m;
+      document.getElementById('cfg-ruta').textContent = m.carpeta_datos;
+      pintarEstadoConfig(m);
+      document.getElementById('btn-config').hidden = false;
+    } catch (e) { /* sin /api/modo (servidor antiguo): la pestaña sigue oculta */ }
+  }
+  iniciarConfig();
+
+  // --- Ventanas modales de cabecera: Configuración (solo escritorio) y Ayuda ---
+  let modalAbierto = null, modalOrigen = null;
+  function abrirModal(id, origen) {
+    cerrarModal();
+    const m = document.getElementById(id); if (!m) return;
+    m.hidden = false; modalAbierto = m; modalOrigen = origen || null;
+    document.body.classList.add('modal-abierto');
+    if (origen) origen.classList.add('activo');
+    m.scrollTop = 0;
+    const x = m.querySelector('.modal-x'); if (x) x.focus();
+    if (id === 'modal-config') { iniciarConfig(); cargarFormularioConfig(); if (ultimoEstado && ultimoEstado.red) pintarRed(ultimoEstado.red, ultimoEstado.estacion); }
+  }
+  function cerrarModal() {
+    if (!modalAbierto) return;
+    modalAbierto.hidden = true; document.body.classList.remove('modal-abierto');
+    if (modalOrigen) { modalOrigen.classList.remove('activo'); modalOrigen.focus(); }
+    modalAbierto = null; modalOrigen = null;
+  }
+  document.getElementById('btn-config').addEventListener('click', e => abrirModal('modal-config', e.currentTarget));
+  document.getElementById('btn-ayuda').addEventListener('click', e => abrirModal('modal-ayuda', e.currentTarget));
+  document.querySelectorAll('.modal-x').forEach(b => b.addEventListener('click', cerrarModal));
+  document.querySelectorAll('.modal').forEach(m => m.addEventListener('mousedown', e => { if (e.target === m) cerrarModal(); }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalAbierto) cerrarModal(); });
+  // Los enlaces del índice de la Ayuda (#ay-...) desplazan DENTRO de la ventana modal sin tocar la URL
+  document.querySelectorAll('.ayuda-indice a').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault(); const d = document.getElementById(a.getAttribute('href').slice(1)); if (d) d.scrollIntoView({ block: 'start' });
+  }));
+
+
+  cargarLocalidades();
+  conectar();
+})();
+</script>
+</body>
+</html>

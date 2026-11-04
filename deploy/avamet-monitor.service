@@ -1,0 +1,58 @@
+# ============================================================================
+# AVAMET Monitor - servicio systemd para Raspberry Pi OS (Bookworm)
+#
+# INSTALACIÓN (detalle completo en INSTALACION_RPI.md):
+#   1. Edita las rutas de abajo si no instalaste en /opt/avamet-monitor
+#      (WorkingDirectory, ExecStart) y el usuario (User/Group).
+#   2. sudo cp deploy/avamet-monitor.service /etc/systemd/system/
+#   3. sudo systemctl daemon-reload
+#   4. sudo systemctl enable --now avamet-monitor      (arranca ahora y en cada reinicio)
+#
+# USO:
+#   sudo systemctl status avamet-monitor               estado
+#   sudo systemctl restart avamet-monitor              reiniciar (tras cambiar .env)
+#   sudo systemctl stop avamet-monitor                 parar
+#   journalctl -u avamet-monitor -f                    log en directo (Ctrl+C para salir)
+#   journalctl -u avamet-monitor --since "1 hour ago"  última hora
+#
+# SECRETOS: token de Telegram, contraseña, etc. van en /opt/avamet-monitor/.env
+# (chmod 600), NUNCA en este fichero (los .service son legibles por cualquier usuario).
+# ============================================================================
+
+[Unit]
+Description=AVAMET Monitor (estacion meteorologica para observatorio)
+# El monitor necesita red (AVAMET, METAR, Telegram). Si la red tarda, igualmente reintenta solo.
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=avamet
+Group=avamet
+WorkingDirectory=/opt/avamet-monitor
+# Python del entorno virtual; run.py --headless: sin navegador y escuchando en 0.0.0.0:8000
+ExecStart=/opt/avamet-monitor/venv/bin/python run.py --headless
+Environment=AVAMET_HEADLESS=1
+# Salida de print() al journal sin retraso
+Environment=PYTHONUNBUFFERED=1
+# Carpeta de datos (historial.db, api_token.txt, boltwood.dat, ...). Descomenta para cambiarla:
+#Environment=AVAMET_DATA_DIR=/opt/avamet-monitor/data
+
+# Reiniciar si se cae por un error. Con "on-failure" NO se reinicia si sale con código 0, que es lo que
+# hace el botón "Apagar" de la web (/api/shutdown): lo apagas a propósito y se queda apagado.
+Restart=on-failure
+RestartSec=10
+# Para pararse al hacer "systemctl stop": espera hasta 20 s a que cierre limpio antes de matarlo
+TimeoutStopSec=20
+
+# --- Endurecimiento (opcional) ---
+NoNewPrivileges=true
+PrivateTmp=true
+# /usr, /boot y /etc de solo lectura para este servicio
+ProtectSystem=full
+# /home, /root y /run/user inaccesibles: por eso la app va en /opt, NO dentro de /home.
+# Si la instalas en /home/..., borra esta línea.
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3 @@
+eumdac
+netCDF4
+numpy

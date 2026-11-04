@@ -1,0 +1,15 @@
+{
+  "name": "AVAMET Monitor",
+  "short_name": "AVAMET",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3222/3222791.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

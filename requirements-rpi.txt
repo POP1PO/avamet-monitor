@@ -1,0 +1,10 @@
+# Alternativa para Raspberry Pi si "pip install -r requirements.txt" falla con uvicorn[standard]
+# (uvloop/httptools/watchfiles pueden no tener paquete precompilado para tu arquitectura).
+# uvicorn sin [standard] usa implementaciones en Python puro: más lento, pero sobra para esta app.
+# tzdata no hace falta: Raspberry Pi OS trae la base de zonas horarias del sistema.
+fastapi>=0.110
+uvicorn>=0.27
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
+python-dotenv>=1.0

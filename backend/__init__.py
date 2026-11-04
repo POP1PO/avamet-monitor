@@ -1,0 +1,1 @@
+# Archivo vacío — solo para que Python reconozca la carpeta como paquete.
