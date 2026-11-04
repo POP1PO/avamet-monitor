@@ -427,6 +427,7 @@
             <li>Crea una cuenta gratuita en <b>https://eoportal.eumetsat.int/</b> y confirma tu correo.</li>
             <li>Inicia sesión y abre <b>https://api.eumetsat.int/api-key/</b>: allí aparecen tu <b>Consumer Key</b> y tu <b>Consumer Secret</b>.</li>
             <li>Cópialos y pégalos aquí. Cada usuario debe crear los suyos.</li>
+            <li><b>Condiciones de uso:</b> este módulo descarga datos de EUMETSAT con tu cuenta y bajo tu responsabilidad. Los datos de menos de 1 hora de antigüedad pueden requerir licencia o tasas, y el uso «operacional o comercial» puede estar restringido: revisa la <i>Data Policy</i> de EUMETSAT antes de activarlo.</li>
             <li>Instala además los paquetes: <code>python -m pip install -r requirements-satelite.txt</code> (no vienen dentro del .exe).</li>
           </ol>
           <p class="cfg-nota">🔒 Se guardan en el <code>.env</code> de tu carpeta de datos, como el token de Telegram. No los compartas ni los pegues en chats; si se filtran, genera un par nuevo en esa misma página. Estos pasos proceden de guías de terceros: si EUMETSAT cambió su web, sigue sus instrucciones.</p>
@@ -678,7 +679,7 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
         `<input type="range" id="ir-opacidad" min="10" max="100" value="${op0}" title="Opacidad"${p.on ? '' : ' hidden'}>` +
         `<div id="ir-anim" hidden><button id="ir-play" title="Ver cómo se han movido las nubes en las últimas horas">▶</button>` +
         `<input type="range" id="ir-frame" min="0" max="0" value="0" title="Barrido"><span id="ir-frame-hora"></span></div>` +
-        `<div id="ir-estado"${p.on ? '' : ' hidden'}>Imagen de EUMETSAT, solo informativa (no entra en las alarmas).</div>`;
+        `<div id="ir-estado"${p.on ? '' : ' hidden'}>Imagen de EUMETSAT, solo informativa (no entra en las alarmas). © EUMETSAT Meteosat data ${new Date().getFullYear()}.</div>`;
       L.DomEvent.disableClickPropagation(div);
       L.DomEvent.disableScrollPropagation(div);
       return div;
@@ -759,7 +760,7 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
     if (irAnim || irCapasAnim.length) { if (j.tiempo !== irTiempo) irPararAnimacion(); }     // llegó un barrido nuevo: se vuelve al último
     if (!capaIr) {
       capaIr = L.tileLayer.wms(j.wms, { layers: j.capa, styles: '', format: 'image/png', transparent: true, version: '1.3.0',
-        time: j.tiempo, opacity: op.value / 100, zIndex: 2, maxZoom: 19, attribution: 'Meteosat IR 10,8 µm &copy; EUMETSAT' }).addTo(mapa);
+        time: j.tiempo, opacity: op.value / 100, zIndex: 2, maxZoom: 19, attribution: 'Meteosat IR 10,8 µm &copy; EUMETSAT Meteosat data ' + new Date().getFullYear() }).addTo(mapa);
     } else if (j.tiempo !== irTiempo) {
       capaIr.setParams({ time: j.tiempo });
     }
