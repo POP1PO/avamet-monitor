@@ -1,6 +1,6 @@
 # AVAMET Monitor — Manual técnico
 
-Versión del documento: Lote 10 (1 de noviembre de 2026). Describe cómo funciona el sistema **por dentro**, tal como está
+Versión del documento: 1 de noviembre de 2026. Describe cómo funciona el sistema **por dentro**, tal como está
 escrito el código en este momento.
 
 > **Cómo leer este manual.** Cada afirmación sobre el comportamiento del programa sale del código (se indica el
@@ -289,7 +289,7 @@ superficie); el código no lo corrige ni lo valida. *No puedo confirmar que sea 
 1. Se construye una lista de puntos `{distancia, velocidad km/h, dirección origen en grados}`:
    * la **central** (distancia fija 0,1 km), si `Viento` es del tipo `NN km/h DIR` y `DIR` se reconoce (`ONO` → 292,5°);
    * cada **aeropuerto** con velocidad **y** dirección no nulas (nudos × 1,852 = km/h).
-2. Cada punto es un vector y **todos pesan igual** (media simple; desde el Lote 9b — antes pesaban `1/distancia²`). Con `rad = radians(dir)`:
+2. Cada punto es un vector y **todos pesan igual** (media simple). Con `rad = radians(dir)`:
    `u = −vel·sin(rad)`, `v = −vel·cos(rad)` (el signo menos pasa de «de dónde viene» a «hacia dónde va»).
 3. Se promedian: `u̅ = Σu/n`, `v̅ = Σv/n` (n = número de puntos válidos).
 4. `velocidad = √(u̅² + v̅²)`; `dir_origen = atan2(−u̅, −v̅)` normalizada a 0–360°; `dir_destino = dir_origen + 180°`.
@@ -308,7 +308,7 @@ desde 270°; LEVC a 60 km con 5 kt desde 250°.
 Resultado: `u̅ = 12,769`, `v̅ = −0,475`, velocidad **12,8 km/h**, dirección de origen 272,1°, destino 92° ⇒ **E**,
 categoría *Moderado*.
 
-> **Historia de este punto (Lote 9b).** Hasta el Lote 9 el peso era `1/distancia²`: con la central a 0,1 km pesaba
+> **Nota.** Antes el peso era `1/distancia²`: con la central a 0,1 km pesaba
 > unas 48 000 veces más que un aeropuerto a 22 km, y una central **en calma** arrastraba la velocidad media a casi 0
 > (< 5 km/h ⇒ el radar quedaba apagado) aunque un aeropuerto lejano tuviera tormenta y viento hacia nosotros. Se
 > descartó `1/distancia` porque seguía siendo ~800 a 1 (central a 0,1 km frente a un aeropuerto a 80 km). Con la media
@@ -361,7 +361,7 @@ Detalles de cálculo:
   AVAMET sobre la recta aeropuerto→central; se queda con las que caen entre el 10 % y el 90 % del trayecto
   (`0,1 < t < 0,9`) y a menos de **15 km** de la recta, separadas al menos 8 km entre sí (máximo 6), y lee su lluvia.
   Para estimar tiempos usa como mínimo 10 km/h de velocidad.
-* **Cuenta solo la lluvia que SUBE.** Desde el Lote 8 una estación solo cuenta si su `Lluvia hoy` **subió ≥ 0,1 mm en
+* **Cuenta solo la lluvia que SUBE.** Una estación solo cuenta si su `Lluvia hoy` **subió ≥ 0,1 mm en
   los últimos 30 min** (`alertas.registrar_lluvia_estacion` / `lluvia_reciente`); antes bastaba con tener algo
   acumulado «hoy». La primera lectura de una estación solo fija la línea base. **El seguimiento no se guarda en disco**:
   tras reiniciar, una estación no cuenta hasta que vuelva a subir.
@@ -426,7 +426,7 @@ GET http://IP-DEL-EQUIPO:8000/api/v1/safetymonitor/0/issafe?ClientID=1&ClientTra
 * Cada consulta a `issafe` **respondida** anota la hora (`_NINA_ULTIMO_PING`); si la última fue hace menos de 15 s, la interfaz muestra
   el indicador **N.I.N.A.** en verde (significa «alguien está consultando», no necesariamente N.I.N.A.).
 
-**Conexión ASCOM (desde el Lote 9b).** La documentación ASCOM de `IsSafe` indica que la propiedad lanza
+**Conexión ASCOM.** La documentación ASCOM de `IsSafe` indica que la propiedad lanza
 `NotConnectedException` «si el dispositivo no está conectado» ([ASCOM, `ISafetyMonitor.IsSafe`](#8-fuentes)). Ahora:
 
 * Al arrancar, el dispositivo está **desconectado**. `GET connected` devuelve `false`.
@@ -768,7 +768,7 @@ Puntos clave:
 | Demora del aviso SIN_DATOS | 180 s | `AVAMET_TELEGRAM_DEMORA_SIN_DATOS_S` |
 | Puerto / host | 8000 / 127.0.0.1 (0.0.0.0 en headless) | `AVAMET_PORT`, `AVAMET_HOST` |
 
-## Apéndice — Distribución como .exe y ventana «Configuración» (Lote 10)
+## Apéndice — Distribución como .exe y ventana «Configuración»
 
 * **Compilación y contenido del ZIP:** ver `DISTRIBUCION_WINDOWS.md`. El `.spec` aborta si falta `frontend/vendor/` o `coordenadas.json`.
 * **Pestaña «⚙️ Configuración»:** la interfaz pregunta a `GET /api/modo`. Solo si la app **no** está en modo headless **y** la
@@ -803,12 +803,6 @@ Puntos clave:
 * **Watchdog del navegador:** si pasan 60 s sin ningún evento (ni datos ni latido), o llega un mensaje vacío, se cierra y se vuelve a
   abrir el `EventSource` sin recargar la página (el mapa conserva zoom y posición). Mínimo 5 s entre reconexiones; también reconecta al
   volver a la pestaña o al recuperar la red. Además el navegador guarda el último METAR bueno por aeropuerto (3 h) por si llega uno vacío.
-
-### Comprobación previa: lectura real de `hiddenimports`
-`comprobar_antes_de_compilar.py` ya no busca texto en el `.spec`: lo **ejecuta** con sustitutos inertes de PyInstaller (`Analysis`, `PYZ`, `EXE`,
-`collect_all`...) y comprueba la lista real de `hiddenimports`. Acepta lista escrita a mano, `os.listdir`, `glob.glob` o bucles. Si el `.spec` no
-se puede ejecutar, avisa del motivo y recurre al análisis de texto. Los ficheros de `backend/` cuyo nombre no es un módulo válido
-(p. ej. `config (1).py`) se avisan para que los borres.
 
 ### Diagnóstico de red y `diagnostico.log` (`backend/diagnostico.py`)
 * **Log de la última hora.** Cada fallo se anota en `diagnostico.log` (carpeta de datos) como `fecha | componente | tipo | detalle`. Componentes: `AVAMET`,
@@ -848,7 +842,7 @@ se puede ejecutar, avisa del motivo y recurre al análisis de texto. Los fichero
 
 
 ### Estación de respaldo (`backend/respaldo.py`) — añadido el 3-nov-2026
-* **Por qué.** La noche del 2 al 3 de noviembre el sensor de Castelló (calle Río Júcar) estuvo ~12 min sin publicar (≈04:39–04:49) y la app pasó a SIN DATOS ⇒ NO SEGURO, aunque había
+* **Por qué.** Si el sensor de la estación principal deja de publicar unos minutos, la app pasaba a SIN DATOS ⇒ NO SEGURO, aunque había
   estaciones vecinas con datos. Regla decidida: **si la principal deja de dar señal de vida se usa la cercana más próxima que sí la dé, y se vuelve a la principal cuando publica de nuevo.**
 * **Cuándo se cambia.** En cuanto la lectura de la principal deja de ser `ACTIVA` (`alertas.estado_estacion`: `CONGELADA`, `SIN_FECHA` o `SIN_LECTURA`). Se buscan hasta 3 candidatas de
   `ESTACIONES_CERCA` dentro de `AVAMET_RESPALDO_MAX_KM` (10 km por defecto; 0 = desactivado), de la más cercana a la más lejana, se **leen en ese momento** y se usa la primera con lectura

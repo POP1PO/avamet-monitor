@@ -31,7 +31,7 @@ Esta guía explica cómo hacer que **N.I.N.A.** (o un programa que lea el ficher
 
 ## 2. Cómo funciona la conexión (importante)
 
-Desde el Lote 9b el dispositivo cumple la regla de ASCOM de que `IsSafe` falla si el dispositivo **no está conectado**:
+El dispositivo cumple la regla de ASCOM de que `IsSafe` falla si el dispositivo **no está conectado**:
 
 * Al arrancar la aplicación el dispositivo está **desconectado**.
 * El cliente (N.I.N.A.) lo conecta con `PUT .../connected` y `Connected=True`; N.I.N.A. lo hace al pulsar «Conectar».

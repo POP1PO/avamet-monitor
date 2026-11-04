@@ -1,5 +1,5 @@
-"""Lote 8: /pueblo solo para el administrador, seguimiento de lluvia del radar y badge con dato caducado.
-Ejecutar: pytest -v   o   python tests/test_lote8.py"""
+"""/pueblo solo para el administrador, seguimiento de lluvia del radar y badge con dato caducado.
+Ejecutar: pytest -v   o   python tests/test_pueblo_lluvia_badge.py"""
 import asyncio
 import json
 import os

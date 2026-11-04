@@ -1,6 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
 # Compilar (en Windows o en Linux, desde la carpeta del proyecto, con el entorno virtual activado):
-#     python comprobar_antes_de_compilar.py        (checklist previo: debe terminar en "TODO LISTO PARA COMPILAR")
 #     python scripts/descargar_vendor.py           (una vez: baja Leaflet y Chart.js a frontend/vendor/)
 #     python -m PyInstaller --clean AVAMET_Monitor.spec     (genera dist\AVAMET_Monitor.exe)
 import os

@@ -61,7 +61,6 @@ jobs:
           New-Item -ItemType Directory -Force -Path paquete | Out-Null
           Copy-Item dist/AVAMET_Monitor.exe paquete/
           Copy-Item .env.example paquete/
-          Copy-Item arrancar.bat paquete/
           Compress-Archive -Path paquete/* -DestinationPath "${{ matrix.salida }}"
       - name: Empaquetar (Linux)
         if: matrix.sistema == 'linux'

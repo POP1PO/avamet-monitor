@@ -1,5 +1,5 @@
-"""Lote 10: /api/modo (pestaña Configuración solo en escritorio y desde este equipo) y contenido del .spec.
-Se ejecuta con:  python tests/test_lote10.py
+"""/api/modo (pestaña Configuración solo en escritorio y desde este equipo) y contenido del .spec.
+Se ejecuta con:  python tests/test_modo_configuracion.py
 """
 import asyncio, os, re, sys, tempfile, types
 from pathlib import Path

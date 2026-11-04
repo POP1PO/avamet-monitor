@@ -1,5 +1,5 @@
 """A3: la BD no debe guardar ceros. Ejecutar: pytest -v   o   python tests/test_database.py
-Desde el Lote 9 `import backend.database` ya NO toca ninguna BD (M5); el test usa una BD temporal."""
+Ahora `import backend.database` ya NO toca ninguna BD (M5); el test usa una BD temporal."""
 import sqlite3
 import sys
 import tempfile

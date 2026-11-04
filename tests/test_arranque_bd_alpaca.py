@@ -1,4 +1,4 @@
-"""Lote 9: M5 (BD), M8/M9 (arranque, log, instancia), B1 (Alpaca), B3, B4. pytest -v  o  python tests/test_lote9.py"""
+"""Base de datos, arranque, log, instancia única y Alpaca. pytest -v  o  python tests/test_arranque_bd_alpaca.py"""
 import asyncio
 import http.server
 import json

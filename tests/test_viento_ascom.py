@@ -1,4 +1,4 @@
-"""Mini-lote 9b: media simple del viento (radar) y ASCOM NotConnected. pytest -v  o  python tests/test_lote9b.py"""
+"""media simple del viento (radar) y ASCOM NotConnected. pytest -v  o  python tests/test_viento_ascom.py"""
 import asyncio
 import sys
 import types
