@@ -80,6 +80,19 @@ jobs:
             sleep 2
           done
           echo "No arrancó en 80 s:"; cat "$RUNNER_TEMP/arranque.log"; exit 1
+      - name: "Comprobar que arranca (Windows: se lanza el .exe sin navegador y se pide la página)"
+        if: matrix.sistema == 'windows'
+        shell: pwsh
+        run: |
+          $env:AVAMET_DATA_DIR = Join-Path $env:RUNNER_TEMP "datos"
+          $p = Start-Process -FilePath "$PWD\paquete\AVAMET_Monitor.exe" -ArgumentList "--headless","--port","8765" -PassThru
+          $ok = $false
+          for ($i = 0; $i -lt 40; $i++) {
+            try { Invoke-WebRequest -Uri "http://127.0.0.1:8765/" -UseBasicParsing -TimeoutSec 5 | Out-Null; $ok = $true; break } catch { Start-Sleep -Seconds 2 }
+          }
+          Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue
+          if (-not $ok) { Write-Host "No arrancó en 80 s"; exit 1 }
+          Write-Host "La aplicación responde"
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.salida }}
