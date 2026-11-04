@@ -112,6 +112,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           ls -l descargas
+          # Copia permanente de cada versión (v<nº>): conserva su contador de descargas (la release «ultima» se recrea cada vez y el suyo vuelve a 0).
+          for intento in 1 2 3 4 5; do
+            gh release view "v$GITHUB_RUN_NUMBER" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 && break
+            gh release create "v$GITHUB_RUN_NUMBER" descargas/* --repo "$GITHUB_REPOSITORY" --title "Versión nº $GITHUB_RUN_NUMBER" --target "$GITHUB_SHA" --latest=false \
+              --notes "Copia archivada de la versión nº $GITHUB_RUN_NUMBER (commit $GITHUB_SHA)." && break
+            sleep 20
+          done
           gh release delete ultima --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
           gh release create ultima descargas/* --repo "$GITHUB_REPOSITORY" --title "Última versión (nº $GITHUB_RUN_NUMBER)" --target "$GITHUB_SHA" \
             --notes "Compilado automáticamente por GitHub Actions (commit $GITHUB_SHA). Windows: .zip con AVAMET_Monitor.exe. Linux x86_64: .tar.gz con el binario. Probado en el CI: pruebas del código y, en Linux, arranque del binario."
