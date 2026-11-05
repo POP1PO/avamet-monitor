@@ -1,3 +1,4 @@
+import re
 import time
 from datetime import datetime
 
@@ -235,3 +236,21 @@ def evaluar_seguridad(estado: dict, datos: dict | None = None, ahora: float | No
     if estado.get("estado") == "PELIGRO":
         return False, "NIVEL"
     return True, "OK"
+
+
+_RE_LLUVIA_METAR = re.compile(r"Lluvia|Llovizna|Chubascos|Tormenta|Granizo|Nieve|Cinarra|Hielo")
+RADIO_AVISO_AEROPUERTO_KM = 60.0
+
+
+def avisos_lluvia_aeropuertos(aeropuertos: list, metars: dict, radio_km: float = RADIO_AVISO_AEROPUERTO_KM) -> list[str]:
+    """Mensajes de los aeropuertos a <= radio_km cuyo METAR (el que se usa para calcular) informa lluvia, chubascos, tormenta...
+    No dependen de hacia dónde se muevan las nubes. Si hay alguno, el nivel no debe quedarse en SEGURO (VIGILANCIA, sin alarma):
+    el pluviómetro tarda en registrar el inicio de la lluvia y el aeropuerto avisa antes."""
+    msgs = []
+    for a in aeropuertos or []:
+        m = (metars or {}).get(a.get("icao")) or {}
+        fen = m.get("fenomenos")
+        dist = a.get("distancia_km")
+        if isinstance(fen, str) and isinstance(dist, (int, float)) and dist <= radio_km and _RE_LLUVIA_METAR.search(fen):
+            msgs.append(f"{fen} en el aeropuerto {a.get('nombre') or a.get('icao')} a {dist:.0f} km")
+    return msgs

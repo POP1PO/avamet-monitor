@@ -645,6 +645,11 @@ async def _bucle_principal() -> None:
             
             if alertas_predictivas and nivel == "SEGURO":
                 nivel = "VIGILANCIA"
+            msgs_aero = alertas.avisos_lluvia_aeropuertos(aero_snap, metars_calculo)
+            for ma in msgs_aero:
+                lista_alertas.append({"nivel": "AVISO", "mensaje": ma})
+            if msgs_aero and nivel == "SEGURO":
+                nivel = "VIGILANCIA"
             if aviso_metar:
                 lista_alertas.append({"nivel": "AVISO", "mensaje": aviso_metar})
             for apt in alertas_tendencia: lista_alertas.append({"nivel": "AVISO", "mensaje": apt})
