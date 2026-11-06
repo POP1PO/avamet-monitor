@@ -55,3 +55,7 @@ binario arranca y responde, y publica ambos en Releases. Para compilar a mano: `
 - **Capa «Nubes IR»** (sin claves): muestra imágenes del visor público EUMETView de EUMETSAT. Solo se muestran, con la atribución «© EUMETSAT Meteosat data» y el año; no se guardan ni se redistribuyen datos numéricos.
 - **Satélite en modo sombra** (opcional, desactivado por defecto): descarga datos Meteosat con la cuenta y las claves de cada usuario. Los datos recientes (menos de 1 hora) pueden requerir licencia o tasas y el uso operacional o comercial puede estar restringido. Antes de activarlo, lee la [Data Policy de EUMETSAT](https://www-cdn.eumetsat.int/files/2026-01/45173%20-%20Data_Policy.pdf) y la página de [registro y licencias](https://user.eumetsat.int/resources/user-guides/data-registration-and-licensing). Este proyecto no puede darte una licencia ni decidir si tu uso está permitido.
 - Estaciones: AVAMET; METAR: aviationweather.gov; cada fuente con sus propias condiciones.
+
+---
+
+Creado por Roberto Ferrando.
