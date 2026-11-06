@@ -589,6 +589,7 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
 <footer>
   <span id="conn" class="ok">● Conectado</span>
   <span id="ultima">Última actualización: —</span>
+  <span id="aviso-version" hidden></span>
   <span style="margin-left:auto;opacity:.7">AVAMET Monitor · Roberto Ferrando</span>
 </footer>
 
@@ -632,6 +633,26 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
   const elResumenAeros = document.getElementById('resumen-aeropuertos');
   const elSeeing = document.getElementById('seeing-contenido');
   const elMetPanel = document.getElementById('meteosat-panel'), elMet = document.getElementById('meteosat-contenido');
+
+  // Aviso de versión nueva (solo avisa: no descarga ni instala nada). Una consulta al abrir y otra cada 6 h; el servidor la cachea.
+  async function comprobarVersion() {
+    try {
+      const r = await fetch('/api/actualizacion', { cache: 'no-store' });
+      if (!r.ok) return;
+      const v = await r.json();
+      const el = document.getElementById('aviso-version');
+      if (!v.disponible) { el.hidden = true; return; }
+      el.textContent = '';
+      const a = document.createElement('a');
+      a.href = v.descarga || v.url; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = `⬆ Hay una versión nueva (nº ${v.ultima}; tienes la nº ${v.actual}). Descargar`;
+      a.style.color = 'var(--iniciando, #f5a623)';
+      el.appendChild(a);
+      el.hidden = false;
+    } catch (e) { /* sin red o sin permiso: sin aviso */ }
+  }
+  comprobarVersion();
+  setInterval(comprobarVersion, 6 * 3600 * 1000);
 
   const TOOLTIPS = {
     'Temperatura': 'Temperatura del aire a la sombra.',

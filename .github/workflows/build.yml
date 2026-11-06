@@ -52,6 +52,9 @@ jobs:
           python-version: "3.12"
       - name: Instalar dependencias (con las del satélite Meteosat) y PyInstaller
         run: python -m pip install -r requirements.txt -r requirements-satelite.txt pyinstaller
+      - name: "Guardar el número de versión dentro de la app (para el aviso de versión nueva)"
+        shell: bash
+        run: printf 'BUILD = %s\nCOMMIT = "%s"\n' "$GITHUB_RUN_NUMBER" "$GITHUB_SHA" > backend/build_info.py
       - name: Compilar
         run: python -m PyInstaller --clean AVAMET_Monitor.spec
       - name: Empaquetar (Windows)

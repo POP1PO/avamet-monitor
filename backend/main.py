@@ -37,6 +37,7 @@ from . import estaticos
 from . import entorno
 from . import diagnostico
 from . import respaldo
+from . import actualizacion
 
 VERSION = "1.0.0"
 
@@ -815,6 +816,12 @@ async def api_diagnostico_log(req: Request):
     texto = await asyncio.to_thread(diagnostico.texto_descarga, VERSION)
     return Response(texto, media_type="text/plain; charset=utf-8",
                     headers={**_SIN_CACHE, "Content-Disposition": 'attachment; filename="diagnostico.log"'})
+
+@app.get("/api/actualizacion")
+async def api_actualizacion(req: Request):
+    """¿Hay una versión nueva en GitHub? Solo avisa (no descarga ni instala nada). Solo desde este equipo."""
+    _exigir_configuracion_local(req, escritura=False)
+    return await asyncio.to_thread(actualizacion.consultar)
 
 @app.post("/api/red/comprobar")
 async def api_red_comprobar(req: Request):

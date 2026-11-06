@@ -22,3 +22,4 @@ copia_seguridad_*/
 build/
 dist/
 *.bak
+backend/build_info.py

@@ -28,6 +28,8 @@ El binario de Linux se compila en Ubuntu 22.04 (glibc 2.35): debería funcionar 
 distribución**. Raspberry Pi / ARM: no hay binario; usa la instalación desde código (`INSTALACION_RPI.md`).
 Windows puede mostrar el aviso de SmartScreen porque el `.exe` no está firmado digitalmente.
 
+**Aviso de versión nueva.** La app no se actualiza sola (no descarga ni instala nada): cada 6 h consulta la API pública de GitHub y, si hay una versión más reciente que la tuya, muestra en el pie «⬆ Hay una versión nueva…» con el enlace de descarga. Tú descargas y sustituyes el `.exe`. Solo funciona en las versiones de Releases (llevan su número de compilación); desde el código fuente no avisa. Para desactivarlo: `AVAMET_COMPROBAR_ACTUALIZACIONES=0` en el `.env`. La petición solo lleva la dirección de GitHub, sin datos tuyos.
+
 ## Desde el código
     python -m pip install -r requirements.txt            # y, opcional, requirements-satelite.txt
     python run.py                                        # escritorio: abre el navegador
