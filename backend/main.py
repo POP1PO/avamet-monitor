@@ -733,6 +733,7 @@ async def lifespan(app: FastAPI):
         asyncio.create_task(_guardian(), name="guardian"),
         asyncio.create_task(telegram.bucle_suscripciones(), name="telegram"),
     ]
+    asyncio.get_running_loop().run_in_executor(None, actualizacion.consultar)   # comprueba si hay versión nueva al arrancar (en segundo plano; nunca lanza)
     for t in tareas: t.add_done_callback(_tarea_murio)
     _TAREAS_FONDO[:] = tareas              # accesibles para reiniciar el bot de Telegram al guardar la configuración
     yield

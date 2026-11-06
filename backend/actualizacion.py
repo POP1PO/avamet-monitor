@@ -5,7 +5,7 @@ La release «ultima» de GitHub lleva ese mismo número en su título («Última
 pública de GitHub (sin claves), lo compara con su BUILD y, si es mayor, avisa con el enlace de descarga.
 
 - Desde el código fuente (sin build_info.py) no hay número de versión y la comprobación queda desactivada.
-- Se puede desactivar con AVAMET_COMPROBAR_ACTUALIZACIONES=0. Solo se hace una petición cada 6 h (y 30 min tras un fallo).
+- Se puede desactivar con AVAMET_COMPROBAR_ACTUALIZACIONES=0. Se consulta una vez cada vez que arranca la app (si falla, se reintenta como mucho cada 30 min mientras se abra la página).
 - Ninguna función lanza excepciones hacia fuera: un fallo de red nunca debe afectar a la vigilancia.
 """
 import os
@@ -27,7 +27,7 @@ except Exception:
 REPO = os.getenv("AVAMET_REPO", "POP1PO/avamet-monitor")
 URL_API = f"https://api.github.com/repos/{REPO}/releases/tags/ultima"
 URL_RELEASES = f"https://github.com/{REPO}/releases/tag/ultima"
-CACHE_OK_S = 6 * 3600
+CACHE_OK_S = float('inf')   # una consulta por arranque: el resultado vale hasta que se cierre la app
 CACHE_FALLO_S = 30 * 60
 _UA = {"User-Agent": "AVAMET-Monitor-updatecheck", "Accept": "application/vnd.github+json"}
 

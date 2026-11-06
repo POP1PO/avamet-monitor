@@ -634,7 +634,7 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
   const elSeeing = document.getElementById('seeing-contenido');
   const elMetPanel = document.getElementById('meteosat-panel'), elMet = document.getElementById('meteosat-contenido');
 
-  // Aviso de versión nueva (solo avisa: no descarga ni instala nada). Una consulta al abrir y otra cada 6 h; el servidor la cachea.
+  // Aviso de versión nueva (solo avisa: no descarga ni instala nada). El servidor la hace al arrancar la app y guarda el resultado; aquí solo se lee al abrir la página.
   async function comprobarVersion() {
     try {
       const r = await fetch('/api/actualizacion', { cache: 'no-store' });
@@ -652,7 +652,6 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
     } catch (e) { /* sin red o sin permiso: sin aviso */ }
   }
   comprobarVersion();
-  setInterval(comprobarVersion, 6 * 3600 * 1000);
 
   const TOOLTIPS = {
     'Temperatura': 'Temperatura del aire a la sombra.',
