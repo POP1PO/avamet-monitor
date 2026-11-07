@@ -99,6 +99,8 @@
   .ir-control label { cursor: pointer; display: flex; gap: 6px; align-items: center; }
   .ir-control input[type=range] { width: 100%; margin: 6px 0 2px; }
   .ir-control [hidden] { display: none; }
+  /* El satélite tiene píxeles de ~4-5 km: al acercar el zoom se ven como bloques. Se suaviza la capa según el zoom (--ir-blur, lo fija irSuavizar). */
+  .capa-ir { filter: blur(var(--ir-blur, 0px)); }
   #ir-anim { display: flex; gap: 6px; align-items: center; margin: 4px 0; }
   #ir-anim button { background: var(--border); color: var(--text); border: 0; border-radius: 6px; padding: 2px 9px; cursor: pointer; }
   #ir-anim input[type=range] { flex: 1; margin: 0; min-width: 0; }
@@ -724,12 +726,18 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
   // Animación: una capa de teselas por barrido (las últimas ~2 h, /api/nubes_ir -> fotogramas), todas cargadas a la vez y con
   // opacidad 0 salvo la que toca, para que el cambio de imagen sea instantáneo. Al pararla se vuelve a la imagen más reciente.
   function irOpacidad() { return document.getElementById('ir-opacidad').value / 100; }
+  // Un píxel de Meteosat sobre España mide ~4,5 km: a zoom z ocupa ~0,037*2^z píxeles de pantalla; se difumina la mitad de eso (tope 14 px).
+  function irSuavizar() {
+    const z = mapa.getZoom(), px = 0.037 * Math.pow(2, z);
+    document.documentElement.style.setProperty('--ir-blur', Math.max(0, Math.min(14, px * 0.5 - 1)).toFixed(1) + 'px');
+  }
+  let irZoomOn = false;
   function irPrepararCapas() {
     irQuitarCapasAnim();
     const w = capaIr && capaIr.wmsParams;
     if (!w || irFotogramas.length < 2) return;
     irCapasAnim = irFotogramas.map(t => L.tileLayer.wms(capaIr._url, { layers: w.layers, styles: '', format: 'image/png', transparent: true,
-      version: '1.3.0', time: t, opacity: 0, zIndex: 2, maxZoom: 19 }).addTo(mapa));
+      version: '1.3.0', time: t, opacity: 0, zIndex: 2, maxZoom: 19, className: 'capa-ir' }).addTo(mapa));
     capaIr.setOpacity(0);
   }
   function irQuitarCapasAnim() { irCapasAnim.forEach(c => mapa.removeLayer(c)); irCapasAnim = []; }
@@ -780,8 +788,10 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
     }
     if (irAnim || irCapasAnim.length) { if (j.tiempo !== irTiempo) irPararAnimacion(); }     // llegó un barrido nuevo: se vuelve al último
     if (!capaIr) {
+      if (!irZoomOn) { mapa.on('zoomend', irSuavizar); irZoomOn = true; }
+      irSuavizar();
       capaIr = L.tileLayer.wms(j.wms, { layers: j.capa, styles: '', format: 'image/png', transparent: true, version: '1.3.0',
-        time: j.tiempo, opacity: op.value / 100, zIndex: 2, maxZoom: 19, attribution: 'Meteosat IR 10,8 µm &copy; EUMETSAT Meteosat data ' + new Date().getFullYear() }).addTo(mapa);
+        time: j.tiempo, opacity: op.value / 100, zIndex: 2, maxZoom: 19, className: 'capa-ir', attribution: 'Meteosat IR 10,8 µm &copy; EUMETSAT Meteosat data ' + new Date().getFullYear() }).addTo(mapa);
     } else if (j.tiempo !== irTiempo) {
       capaIr.setParams({ time: j.tiempo });
     }
