@@ -15,12 +15,13 @@ import shutil
 import threading
 from pathlib import Path
 
-CLAVES = ("AVAMET_TELEGRAM_TOKEN", "AVAMET_TELEGRAM_CLAVE", "AVAMET_ADMIN_CHAT_ID", "EUMETSAT_CONSUMER_KEY", "EUMETSAT_CONSUMER_SECRET")
+CLAVES = ("AVAMET_TELEGRAM_TOKEN", "AVAMET_TELEGRAM_CLAVE", "AVAMET_ADMIN_CHAT_ID", "EUMETSAT_CONSUMER_KEY", "EUMETSAT_CONSUMER_SECRET", "AEMET_API_KEY")
 
 _RE_TOKEN = re.compile(r"^\d{5,}:[A-Za-z0-9_-]{20,}$")          # igual que backend/telegram.py
 _RE_CLAVE = re.compile(r"^[A-Za-z0-9_.@!%^&*+=/~?,;:\-]{8,128}$")
 _RE_ADMIN = re.compile(r"^-?\d{1,20}$")
 _RE_EUMETSAT = re.compile(r"^[A-Za-z0-9_-]{10,100}$")            # clave y secreto de api.eumetsat.int: alfanuméricos
+_RE_AEMET = re.compile(r"^[A-Za-z0-9_.-]{20,2000}$")                # clave de AEMET OpenData (texto tipo JWT: letras, números, . _ -)
 _RE_LINEA = re.compile(r"^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=")
 
 _CERROJO = threading.Lock()
@@ -57,6 +58,11 @@ def validar_campos(datos: dict) -> dict:
             if not _RE_EUMETSAT.match(v):
                 raise ValueError(f"{nombre} de EUMETSAT no tiene un formato válido (10-100 letras, números, _ o -). Cópialo completo de https://api.eumetsat.int/api-key/")
             res[env] = v
+    v = str(datos.get("aemet_key") or "").strip()
+    if v:
+        if not _RE_AEMET.match(v):
+            raise ValueError("La clave de AEMET no tiene un formato válido (letras, números, punto, _ o -, sin espacios). Cópiala completa del correo de AEMET.")
+        res["AEMET_API_KEY"] = v
     if not res:
         raise ValueError("No has indicado ningún valor nuevo.")
     return res

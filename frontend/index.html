@@ -319,6 +319,14 @@
         </div>
       </div>
 
+      <!-- PANEL: ESTACIONES OFICIALES AEMET (opcional, informativo) -->
+      <div id="aemet-panel" style="display:none; margin-top: 15px; padding: 12px; background: var(--panel-2); border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem;">
+        <span style="color: var(--muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;">
+          🏛️ Estaciones oficiales de AEMET cercanas (informativo)
+        </span>
+        <div id="aemet-contenido" style="margin-top: 10px;"></div>
+      </div>
+
       <!-- PANEL: SATÉLITE METEOSAT (opcional, orientativo) -->
       <div id="meteosat-panel" style="display:none; margin-top: 15px; padding: 12px; background: var(--panel-2); border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem;">
         <span style="color: var(--muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: bold;">
@@ -419,6 +427,19 @@
         <label for="cfg-clave">🔑 Contraseña para suscribirse <code>AVAMET_TELEGRAM_CLAVE</code></label>
         <input id="cfg-clave" name="clave" type="password" spellcheck="false" autocapitalize="off" placeholder="Mínimo 8 caracteres">
         <p class="cfg-nota">La inventas tú y se la das a tus amigos: cada uno busca tu bot, envía <code>/start</code> y la escribe. Permitido: letras, números y <code>. _ - @ ! % ^ &amp; * + = / ~ ? , ; :</code> (sin espacios, comillas, <code>#</code> ni <code>$</code>).</p>
+
+        <h3 style="margin-top:26px;">AEMET (opcional)</h3>
+        <p class="cfg-nota">Añade al Resumen la última observación de las estaciones oficiales de AEMET cercanas. <b>Es opcional</b>: sin clave el panel no aparece. Es solo informativo y no entra en las alarmas.</p>
+        <div class="cfg-detectada aviso" id="cfg-aemet-estado" hidden></div>
+        <label for="cfg-aemet-key">🏛️ Clave de AEMET OpenData <code>AEMET_API_KEY</code></label>
+        <input id="cfg-aemet-key" name="aemet_key" type="password" spellcheck="false" autocapitalize="off" placeholder="Clave de AEMET">
+        <details><summary>¿Cómo consigo la clave?</summary>
+          <ol>
+            <li>Entra en <b>https://opendata.aemet.es/centrodedescargas/altaUsuario</b> y escribe tu correo.</li>
+            <li>AEMET te envía un correo con la clave (revisa Spam). Cópiala y pégala aquí.</li>
+          </ol>
+          <p class="cfg-nota">🔒 Cada persona debe pedir su propia clave; la tuya caduca a los 3 meses y hay que renovarla. No la compartas ni la pegues en chats. Datos © AEMET, usados conforme a su <i>nota legal</i> (https://www.aemet.es/es/nota_legal); esta aplicación no está respaldada por AEMET.</p>
+        </details>
 
         <h3 style="margin-top:26px;">Satélite Meteosat (opcional)</h3>
         <p class="cfg-nota">Añade al Resumen una estimación orientativa de nubes vistas por satélite. <b>Es opcional</b>: sin estas claves el panel no aparece y el resto del programa funciona igual. No entra en el semáforo de seguridad.</p>
@@ -638,6 +659,26 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
   const elResumenAeros = document.getElementById('resumen-aeropuertos');
   const elSeeing = document.getElementById('seeing-contenido');
   const elMetPanel = document.getElementById('meteosat-panel'), elMet = document.getElementById('meteosat-contenido');
+  const elAemetPanel = document.getElementById('aemet-panel'), elAemet = document.getElementById('aemet-contenido');
+  let aemetUltimo = 0, aemetPos = '';
+  async function actualizarAemet(lat, lon) {
+    const pos = lat + ',' + lon;
+    if (Date.now() - aemetUltimo < 5 * 60 * 1000 && pos === aemetPos) return;      // AEMET publica datos horarios
+    aemetUltimo = Date.now(); aemetPos = pos;
+    try {
+      const j = await (await fetch('/api/aemet/cercanas?lat=' + encodeURIComponent(lat) + '&lon=' + encodeURIComponent(lon))).json();
+      if (!j.activo) { elAemetPanel.style.display = 'none'; return; }
+      elAemetPanel.style.display = '';
+      const num = (v, u, d) => (v === null || v === undefined) ? '—' : (d === undefined ? v : Number(v).toFixed(d)) + u;
+      if (j.error) { elAemet.innerHTML = `<div class="empty">No disponible: ${escHtml(j.error)}</div>`; }
+      else if (!j.estaciones.length) { elAemet.innerHTML = `<div class="empty">No hay estaciones de AEMET con datos a menos de ${j.radio_km} km.</div>`; }
+      else {
+        elAemet.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:0.9rem;"><tr style="color:var(--muted);text-align:left;"><th>Estación</th><th>km</th><th>Lluvia (mm)</th><th>T (°C)</th><th>HR (%)</th><th>Viento (km/h)</th><th>Hora UTC</th></tr>' +
+          j.estaciones.map(e => `<tr><td>${escHtml(e.nombre)}</td><td>${e.distancia_km}</td><td><b>${num(e.lluvia_mm, '')}</b></td><td>${num(e.temp_c, '')}</td><td>${num(e.humedad, '')}</td><td>${num(e.viento_kmh, '')}</td><td>${escHtml(e.fint_utc.replace('T', ' ').slice(0, 16))}</td></tr>`).join('') + '</table>';
+      }
+      elAemet.insertAdjacentHTML('beforeend', '<div style="color:var(--muted);font-size:0.8rem;margin-top:6px;">© AEMET · Fuente: AEMET (Agencia Estatal de Meteorología). Datos informativos; no entran en las alarmas. Esta aplicación no está respaldada por AEMET.</div>');
+    } catch (e) { /* sin red o servidor antiguo: el panel simplemente no se actualiza */ }
+  }
 
   // Aviso de versión nueva (solo avisa: no descarga ni instala nada). El servidor la hace al arrancar la app y guarda el resultado; aquí solo se lee al abrir la página.
   async function comprobarVersion() {
@@ -1218,6 +1259,7 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
       elRadarPanel.style.display = 'none';
     }
 
+    if (data.central && data.central.lat !== undefined) actualizarAemet(data.central.lat, data.central.lon);
     {
       const mt = data.meteosat || {};
       if (!mt.activo) { elMetPanel.style.display = 'none'; }
@@ -1677,6 +1719,10 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
       if (c.admin_id && !cfgEl('cfg-admin').value) cfgEl('cfg-admin').value = c.admin_id;
       cfgEl('cfg-token').placeholder = c.token_configurado ? c.token_mascara + '  (ya configurado)' : '123456789:AAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
       cfgEl('cfg-clave').placeholder = c.clave_configurada ? '•••••••• (ya configurada)' : 'Mínimo 8 caracteres';
+      const ae = c.aemet || {}, aee = cfgEl('cfg-aemet-estado');
+      cfgEl('cfg-aemet-key').placeholder = ae.clave_configurada ? '•••••••• (ya configurada)' : 'Clave de AEMET';
+      aee.hidden = false; aee.className = 'cfg-detectada' + (ae.clave_configurada ? '' : ' aviso');
+      aee.textContent = ae.clave_configurada ? '✅ AEMET activo: la clave está guardada.' : 'ℹ️ AEMET desactivado (falta la clave).';
       const eu = c.eumetsat || {}, ee = cfgEl('cfg-eumetsat-estado');
       cfgEl('cfg-eum-key').placeholder = eu.clave_configurada ? eu.clave_mascara + '  (ya configurada)' : 'Consumer Key';
       cfgEl('cfg-eum-secret').placeholder = eu.secreto_configurado ? '•••••••• (ya configurado)' : 'Consumer Secret';
@@ -1687,16 +1733,17 @@ HTTP:     http</pre><button type="button" class="cfg-copiar" data-copia="cfg-c-n
     } catch (e) { /* servidor antiguo: el formulario sigue disponible sin pre-relleno */ }
   }
   cfgEl('cfg-mostrar').addEventListener('change', e => {
-    cfgEl('cfg-token').type = cfgEl('cfg-clave').type = cfgEl('cfg-eum-key').type = cfgEl('cfg-eum-secret').type = e.target.checked ? 'text' : 'password';
+    cfgEl('cfg-token').type = cfgEl('cfg-clave').type = cfgEl('cfg-eum-key').type = cfgEl('cfg-eum-secret').type = cfgEl('cfg-aemet-key').type = e.target.checked ? 'text' : 'password';
   });
   cfgEl('cfg-form').addEventListener('submit', async ev => {
     ev.preventDefault();
     const datos = { token: cfgEl('cfg-token').value.trim(), clave: cfgEl('cfg-clave').value.trim(), admin_id: cfgEl('cfg-admin').value.trim(),
-      eumetsat_key: cfgEl('cfg-eum-key').value.trim(), eumetsat_secret: cfgEl('cfg-eum-secret').value.trim() };
-    ['cfg-token', 'cfg-clave', 'cfg-admin', 'cfg-eum-key', 'cfg-eum-secret'].forEach(i => cfgEl(i).classList.remove('invalido'));
-    if (!datos.token && !datos.clave && !datos.admin_id && !datos.eumetsat_key && !datos.eumetsat_secret) { cfgMensaje('error', 'No has escrito ningún valor nuevo.'); return; }
+      eumetsat_key: cfgEl('cfg-eum-key').value.trim(), eumetsat_secret: cfgEl('cfg-eum-secret').value.trim(), aemet_key: cfgEl('cfg-aemet-key').value.trim() };
+    ['cfg-token', 'cfg-clave', 'cfg-admin', 'cfg-eum-key', 'cfg-eum-secret', 'cfg-aemet-key'].forEach(i => cfgEl(i).classList.remove('invalido'));
+    if (!datos.token && !datos.clave && !datos.admin_id && !datos.eumetsat_key && !datos.eumetsat_secret && !datos.aemet_key) { cfgMensaje('error', 'No has escrito ningún valor nuevo.'); return; }
     if (datos.token && !/^\d{5,}:[A-Za-z0-9_-]{20,}$/.test(datos.token)) { cfgEl('cfg-token').classList.add('invalido'); cfgMensaje('error', 'El token no tiene el formato correcto (123456789:AAxxxx…). Cópialo completo desde @BotFather.'); return; }
     if (datos.admin_id && !/^-?\d{1,20}$/.test(datos.admin_id)) { cfgEl('cfg-admin').classList.add('invalido'); cfgMensaje('error', 'El Admin ID debe ser un número.'); return; }
+    if (datos.aemet_key && !/^[A-Za-z0-9_.-]{20,2000}$/.test(datos.aemet_key)) { cfgEl('cfg-aemet-key').classList.add('invalido'); cfgMensaje('error', 'La clave de AEMET no tiene un formato válido: cópiala completa del correo de AEMET.'); return; }
     for (const [campo, id] of [['eumetsat_key', 'cfg-eum-key'], ['eumetsat_secret', 'cfg-eum-secret']]) {
       if (datos[campo] && !/^[A-Za-z0-9_-]{10,100}$/.test(datos[campo])) { cfgEl(id).classList.add('invalido'); cfgMensaje('error', 'La clave o el secreto de EUMETSAT no tienen un formato válido: cópialos completos de api.eumetsat.int/api-key.'); return; }
     }

@@ -24,6 +24,7 @@ from . import telegram
 from . import aeropuertos
 from . import seeing
 from . import meteosat
+from . import aemet
 from . import satelite_informe
 from . import nubes_ir
 from . import database
@@ -892,6 +893,7 @@ async def api_configuracion_leer(req: Request):
                      "secreto_configurado": bool(os.getenv("EUMETSAT_CONSUMER_SECRET", "").strip()),
                      "clave_mascara": entorno.enmascarar_clave(os.getenv("EUMETSAT_CONSUMER_KEY", "").strip()),
                      "activo": meteosat.configurado(), "paquetes": meteosat.paquetes_instalados()},
+        "aemet": {"clave_configurada": aemet.configurado()},      # la clave nunca se devuelve, ni enmascarada
     }
 
 async def _reiniciar_telegram() -> None:
@@ -924,6 +926,8 @@ async def api_configuracion_guardar(req: Request, payload: dict = Body(...)):
         os.environ[k] = v                      # admin y contraseña se leen en cada uso; el token, al reiniciar el bot
     if cambio_bot:
         await _reiniciar_telegram()
+    if "AEMET_API_KEY" in cambios:
+        aemet.limpiar_cache()
     if any(k.startswith("EUMETSAT_") for k in cambios):
         meteosat.limpiar_cache()                 # la próxima vuelta del bucle consulta con las claves nuevas
     avisos = []
@@ -937,6 +941,23 @@ async def api_configuracion_guardar(req: Request, payload: dict = Body(...)):
             "eumetsat": {"activo": meteosat.configurado(), "paquetes": meteosat.paquetes_instalados()}}
 
 _ULTIMO_TS_METEOSAT = None
+
+
+@app.get("/api/aemet/cercanas")
+async def api_aemet_cercanas(lat: float, lon: float, radio_km: float = 60.0):
+    """Última observación de las estaciones oficiales de AEMET cercanas (opcional: requiere AEMET_API_KEY). Solo informativo."""
+    if not aemet.configurado():
+        return {"activo": False}
+    if not (-90 <= lat <= 90 and -180 <= lon <= 180):
+        raise HTTPException(400, "Coordenadas no válidas.")
+    radio_km = max(5.0, min(float(radio_km), 150.0))
+    try:
+        est = await asyncio.to_thread(aemet.cercanas, lat, lon, radio_km)
+    except aemet.ErrorAemet as e:
+        return {"activo": True, "error": str(e), "estaciones": []}
+    except Exception as e:
+        return {"activo": True, "error": f"Error inesperado ({type(e).__name__}).", "estaciones": []}
+    return {"activo": True, "estaciones": est, "radio_km": radio_km}
 
 
 @app.get("/api/meteosat/informe")
